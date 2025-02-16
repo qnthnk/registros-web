@@ -7,11 +7,40 @@ const getState = ({ getStore, getActions, setStore }) => {
             reportes_disponibles: [],
             reportes_no_disponibles: [],
             userName: "",
-            user: { username: "", dni: "", admin: "", email: "", url_image: "" },
+            token: "",
+            user: { admin: "",  curp: "", email: "", id: "", username: "", terminal: "" },
             trigger: false,
+            access_token_transaction: "",
             dataEstadisticas: {}
         },
         actions: {
+            firstCheck: async (curp) => {
+                let payload = {
+                    curp,
+                    user_id:getStore.user.id
+                }
+                try {
+                    let response = await fetch('http://localhost:5000/pre_transaction_check',{
+                        method:"POST",
+                        body: JSON.stringify(payload),
+                        headers:{
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                    if(!response.ok){
+                        throw new Error("Algo salió mal")
+                    }
+                    let data = await response.json()
+                    localStorage.setItem('access_token_transaction',data.access_token);
+                    let store = getStore()
+                    setStore({...store, access_token_transaction:data.access_token})
+                    return true
+
+                } catch (error) {
+                    console.error(error)
+                    return false
+                }
+            },
             getAfiliacion: async (payload) => {
                 const token = localStorage.getItem('token');
                 const actions = getActions(); // Para acceder al logout directamente
@@ -246,11 +275,11 @@ const getState = ({ getStore, getActions, setStore }) => {
                 console.log("hola")
                 return
             },
-            login: async (info) => {
+            login: async (payload) => {
                 try {
-                    let response = await fetch("https://e3digital.onrender.com/login", {
+                    let response = await fetch("https://localhost:5000/login", {
                         method: 'POST',
-                        body: JSON.stringify(info),
+                        body: JSON.stringify(payload),
                         headers: {
                             'Content-Type': 'application/json'
                         }
@@ -267,11 +296,12 @@ const getState = ({ getStore, getActions, setStore }) => {
                     localStorage.setItem('token', data.access_token);
 
                     // Guardar otros datos
-                    localStorage.setItem('name', data.name);
                     localStorage.setItem('admin', JSON.stringify(data.admin));
-                    localStorage.setItem('dni', data.dni);
-                    localStorage.setItem('url_image', data.url_image);
+                    localStorage.setItem('user_curp', data.curp);
                     localStorage.setItem('email', data.email);
+                    localStorage.setItem('user_id', data.id);
+                    localStorage.setItem('name', data.name);
+                    localStorage.setItem('terminal_id', data.terminal_id)
 
                     // Guardar en el estado global
                     setStore({
@@ -279,11 +309,12 @@ const getState = ({ getStore, getActions, setStore }) => {
                         userName: data.name,
                         token: data.access_token,
                         user: {
-                            username: data.name,
-                            dni: data.dni,
                             admin: data.admin,
+                            curp: data.curp,
                             email: data.email,
-                            url_image: data.url_image
+                            id: data.id,
+                            username: data.name,
+                            terminal: data.terminal
                         }
                     });
 

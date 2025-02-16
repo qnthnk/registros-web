@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar.jsx';
 import './Home.css';
 import Login from '../components/Login.jsx';
+import Capture from '../components/Capture.jsx';
 
 const Home = () => {
     const token = localStorage.getItem('token');
@@ -15,13 +16,7 @@ const Home = () => {
 
             {token ? (
                 <>
-                    <div className='home-wrapper position-absolute top-50 start-50 translate-middle'>
-                        <div className='home-content d-flex flex-column bg-dark-subtle'>
-                           <button className="btn btn-dark new-button" onClick={()=>navigate("./estadistica")}>Estadística</button>
-                           <button className="btn btn-dark new-button" onClick={()=>navigate("./main")}>Cartografia</button>
-                           <button className="btn btn-dark new-button" onClick={()=>navigate("./utilidades")}>Herramientas</button>
-                        </div>
-                    </div>
+                <Capture />
                 </>
             ) : (
                 <Login />

@@ -1,0 +1,45 @@
+.capture-container {
+    text-align: center;
+    padding: 1rem;
+  }
+  
+  /* Contenedor para la imagen y el texto debajo */
+  .nfc-container {
+    width: 100%;
+    max-width: 600px; /* Limite para pantallas grandes */
+    margin: 0 auto;
+  }
+  
+  /* La imagen se adapta al contenedor */
+  .nfc-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  /* Texto debajo del gif */
+  .nfc-text {
+    margin-top: 1rem;
+    color: #fff;
+    font-size: 1.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    padding: 0 10px;
+    /* Evitamos que el texto se quiebre en varias líneas */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  /* Estado del texto */
+  .status-text {
+    color: whitesmoke;
+    margin-top: 1rem;
+  }
+  
+  /* Para pantallas chicas, el contenedor ocupa todo el ancho */
+  @media (max-width: 600px) {
+    .nfc-container {
+      max-width: 100%;
+    }
+  }
+  
