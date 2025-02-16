@@ -1,45 +1,104 @@
+/* Contenedor principal */
 .capture-container {
     text-align: center;
     padding: 1rem;
+    color: whitesmoke;
   }
   
-  /* Contenedor para la imagen y el texto debajo */
+  /* Contenedor para la imagen y el mensaje inicial */
   .nfc-container {
     width: 100%;
-    max-width: 600px; /* Limite para pantallas grandes */
+    max-width: 600px;
     margin: 0 auto;
   }
   
-  /* La imagen se adapta al contenedor */
   .nfc-container img {
     width: 100%;
     height: auto;
     display: block;
   }
   
-  /* Texto debajo del gif */
   .nfc-text {
     margin-top: 1rem;
     color: #fff;
     font-size: 1.5rem;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
     padding: 0 10px;
-    /* Evitamos que el texto se quiebre en varias líneas */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
   
-  /* Estado del texto */
+  /* Texto de estado */
   .status-text {
     color: whitesmoke;
     margin-top: 1rem;
   }
   
-  /* Para pantallas chicas, el contenedor ocupa todo el ancho */
+  /* Estilo para elementos que deben quedar en blanco */
+  .to-white {
+    color: whitesmoke;
+  }
+  
+  /* Contenedor del formulario */
+  .form-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    background-color: #333; /* Fondo oscuro */
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .form-container h2 {
+    margin-bottom: 1rem;
+    color: whitesmoke;
+  }
+  
+  /* Grupos de formulario */
+  .form-group {
+    margin-bottom: 1rem;
+    text-align: left;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+  }
+  
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #555;
+    border-radius: 4px;
+    background-color: #222;
+    color: whitesmoke;
+  }
+  
+  /* Botón de envío */
+  .submit-btn {
+    background-color: #4CAF50;
+    color: whitesmoke;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  .submit-btn:hover {
+    background-color: #45a049;
+  }
+  
+  /* Responsive para pantallas chicas */
   @media (max-width: 600px) {
-    .nfc-container {
+    .nfc-container,
+    .form-container {
       max-width: 100%;
+      margin: 1rem;
+      padding: 1rem;
     }
   }
   

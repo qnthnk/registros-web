@@ -12,7 +12,7 @@ const Capture = () => {
 
   // Estado para el payload de la transacción
   const [transactionPayload, setTransactionPayload] = useState({
-    fuel_type_id: "", // Valor: "1", "2" o "3"
+    fuel_type_id: "", // "Nafta", "Diesel" o "Gas"
     pay_amount: "",
     quantity_liters: ""
   });
@@ -34,10 +34,9 @@ const Capture = () => {
         }
       }
     };
-  
+
     checkCurp();
   }, [curp, actions]);
-  
 
   // Actualizar los valores del formulario en el estado
   const handleInputChange = (e) => {
@@ -50,27 +49,25 @@ const Capture = () => {
 
   // Handler para guardar la transacción (arma el payload final y lo envía al action)
   const handleSaveTransaction = async (e) => {
-
     e.preventDefault();
     const finalPayload = {
-        terminal_id:store.user.terminal,
-        sales_person_id: store.user.id,
-        curp,
-        ...transactionPayload
+      terminal_id: store.user.terminal,
+      sales_person_id: store.user.id,
+      curp,
+      ...transactionPayload
     };
     console.log("Enviando transacción:", finalPayload);
     try {
-        let result = await actions.saveTransaction(finalPayload);
-        if(result){
-            alert("todo salió bien. Transaccion guardada")
-            setFormView(false)
-        }else{
-            alert("Algo salió mal...Intente nuevamente.")
-        }
+      let result = await actions.saveTransaction(finalPayload);
+      if (result) {
+        alert("Todo salió bien. Transacción guardada");
+        setFormView(false);
+      } else {
+        alert("Algo salió mal... Intente nuevamente.");
+      }
     } catch (error) {
-        console.error(error)
+      console.error(error);
     }
-
   };
 
   return (
@@ -80,7 +77,7 @@ const Capture = () => {
           <h2>Formulario de Transacción</h2>
           <form onSubmit={handleSaveTransaction}>
             <div className="form-group">
-              <label htmlFor="fuel_type_id">Tipo de Combustible</label>
+              <label htmlFor="fuel_type_id" className="to-white">Tipo de Combustible</label>
               <select 
                 name="fuel_type_id" 
                 id="fuel_type_id" 
@@ -95,7 +92,7 @@ const Capture = () => {
               </select>
             </div>
             <div className="form-group">
-              <label htmlFor="pay_amount">Monto de Pago</label>
+              <label htmlFor="pay_amount" className="to-white">Monto de Pago</label>
               <input 
                 type="number" 
                 name="pay_amount" 
@@ -107,7 +104,7 @@ const Capture = () => {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="quantity_liters">Cantidad de Litros</label>
+              <label htmlFor="quantity_liters" className="to-white">Cantidad de Litros</label>
               <input 
                 type="number" 
                 name="quantity_liters" 
@@ -118,7 +115,7 @@ const Capture = () => {
                 required 
               />
             </div>
-            <button type="submit">Guardar Transacción</button>
+            <button type="submit" className="submit-btn">Guardar Transacción</button>
           </form>
         </div>
       ) : (
