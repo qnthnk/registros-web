@@ -1,7 +1,7 @@
 /* global NDEFReader */
 import { useEffect } from "react";
 
-const useNFCReader = (setCardId) => {
+const useNFCReader = (setCurp) => {
   useEffect(() => {
     if (typeof window !== "undefined" && "NDEFReader" in window) {
       const ndef = new NDEFReader();
@@ -22,7 +22,7 @@ const useNFCReader = (setCardId) => {
               console.warn(
                 "⚠️ Tarjeta NTAG215 sin datos NDEF detectada."
               );
-              setCardId(`📡 NTAG215 vacía (SN: ${serialNumber})`);
+              setCurp(`📡 NTAG215 vacía (SN: ${serialNumber})`);
               return;
             }
 
@@ -48,7 +48,7 @@ const useNFCReader = (setCardId) => {
               }
 
               console.log("✅ Tarjeta detectada:", cardData);
-              setCardId(`📡 Tarjeta: ${cardData} (SN: ${serialNumber})`);
+              setCurp(cardData);
             }
           };
         })
