@@ -46,7 +46,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             firstCheck: async (curp) => {
                 let payload = {
                     curp,
-                    user_id:getStore.user.id
+                    user_id:getStore().user.id
                 }
                 try {
                     let response = await fetch('https://petroclub-back.onrender.com/pre_transaction_check',{
