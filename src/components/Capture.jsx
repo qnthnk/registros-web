@@ -61,7 +61,14 @@ const Capture = () => {
       let result = await actions.saveTransaction(finalPayload);
       if (result) {
         alert("Todo salió bien. Transacción guardada");
+        // Reseteamos el estado para volver a la vista inicial
         setFormView(false);
+        setCurp("");
+        setTransactionPayload({
+          fuel_type_id: "",
+          pay_amount: "",
+          quantity_liters: ""
+        });
       } else {
         alert("Algo salió mal... Intente nuevamente.");
       }
