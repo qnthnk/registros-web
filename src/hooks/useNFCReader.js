@@ -56,7 +56,7 @@ const useNFCReader = (setCurp) => {
     } else {
       console.log("⚠️ Tu navegador no soporta NFC.");
     }
-  }, [setCardId]);
+  }, [setCurp]);
 };
 
 export default useNFCReader;
