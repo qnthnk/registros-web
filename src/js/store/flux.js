@@ -48,6 +48,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                     curp,
                     user_id:getStore().user.id
                 }
+                console.log("Este es el payload de first check: ",payload)
                 try {
                     let response = await fetch('https://petroclub-back.onrender.com/pre_transaction_check',{
                         method:"POST",
@@ -59,6 +60,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                     if(!response.ok){
                         throw new Error("Algo salió mal")
                     }
+                    console.log("Si leo esto es porque saltamos el error")
                     let data = await response.json()
                     localStorage.setItem('access_token_transaction',data.access_token);
                     let store = getStore()
