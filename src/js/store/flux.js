@@ -14,13 +14,42 @@ const getState = ({ getStore, getActions, setStore }) => {
             dataEstadisticas: {}
         },
         actions: {
+            saveTransaction: async(finalPayload) => {
+                const token = localStorage.getItem('access_token_transaction');
+                if (!token) {
+                    console.error("El token de transactions es undefined. Asegurate de que esté guardado correctamente.");
+                    return;
+                }
+                try {
+                    let response = await fetch('https://petroclub-back.onrender.com/generate_transaction',{
+                        method:"POST",
+                        body: JSON.stringify(finalPayload),
+                        headers:{
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer ' + token
+                        }
+                    })
+                    if(!response.ok){
+                        throw new Error("Algo salió mal")
+                    }
+                    let data = await response.json()
+                    if(data.message){
+                        return true
+                    }else{
+                        return false
+                    }
+                } catch (error) {
+                    console.error(error)
+                    return false
+                }
+            },
             firstCheck: async (curp) => {
                 let payload = {
                     curp,
                     user_id:getStore.user.id
                 }
                 try {
-                    let response = await fetch('http://localhost:5000/pre_transaction_check',{
+                    let response = await fetch('https://petroclub-back.onrender.com/pre_transaction_check',{
                         method:"POST",
                         body: JSON.stringify(payload),
                         headers:{
@@ -277,7 +306,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
             login: async (payload) => {
                 try {
-                    let response = await fetch("https://localhost:5000/login", {
+                    let response = await fetch("https://petroclub-back.onrender.com/login", {
                         method: 'POST',
                         body: JSON.stringify(payload),
                         headers: {
