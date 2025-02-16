@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Context } from '../js/store/appContext';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './Navbar.css';
-import logo2 from '../img/logo2_individual.png'
+import logo3 from '../img/logo3_individual.png'
 
 const Navbar = () => {
     const { actions } = useContext(Context);
@@ -32,8 +32,8 @@ const Navbar = () => {
         <nav className="container-fluid navbar navbar-expand-lg bg-body-danger">
             <div className="container-fluid">
                 <div className='logo_and_title'>
-                    <img className="logo" src={logo2} alt="logo apoyo a la gestión" onClick={handleShowRegister} />
-                    <h4 className='title_navbar'>uanthink</h4>
+                    <img className="logo" src={logo3} alt="logo petroclub" onClick={handleShowRegister} />
+                    <h4 className='title_navbar'>PetroClub</h4>
                 </div>
 
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
