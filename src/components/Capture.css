@@ -12,30 +12,27 @@
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Esto centra los elementos horizontalmente */
+  align-items: center; /* Centra horizontalmente */
   justify-content: center;
 }
-
 
 .nfc-container img {
   width: 100%;
   height: auto;
   display: block;
-  margin: 0 auto; /* Centrado */
+  margin: 0 auto;
 }
 
+/* Título debajo del gif */
 .nfc-text {
   margin-top: 1rem;
   color: #fff;
   font-size: 1.5rem;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-  padding: 0 10px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
   text-align: center;
+  width: 100%;
+  padding: 0; /* Se eliminó el padding extra */
 }
-
 
 /* Texto de estado */
 .status-text {
