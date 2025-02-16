@@ -7,8 +7,10 @@ import useNFCReader from "../hooks/useNFCReader.js";
 const Capture = () => {
   const [curp, setCurp] = useState("");
   const [formView, setFormView] = useState(false);
-  const [scanningEnabled, setScanningEnabled] = useState(true);
   const { store, actions } = useContext(Context);
+
+  // Desactivamos la lectura NFC si ya se mostró el formulario
+  const scanningEnabled = !formView;
 
   // Iniciamos la lectura NFC solo si scanningEnabled es true
   useNFCReader(setCurp, scanningEnabled);
@@ -22,7 +24,8 @@ const Capture = () => {
 
   useEffect(() => {
     const checkCurp = async () => {
-      if (curp !== "") {
+      // Solo chequeamos si hay curp y aún no mostramos el formulario
+      if (curp !== "" && !formView) {
         console.log("Curp detectado en useEffect:", curp);
         try {
           let permitido = await actions.firstCheck(curp);
@@ -39,7 +42,7 @@ const Capture = () => {
     };
 
     checkCurp();
-  }, [curp, actions]);
+  }, [curp, actions, formView]);
 
   // Actualizar los valores del formulario en el estado
   const handleInputChange = (e) => {
@@ -50,7 +53,7 @@ const Capture = () => {
     });
   };
 
-  // Handler para guardar la transacción (arma el payload final y lo envía al action)
+  // Handler para guardar la transacción y resetear el estado
   const handleSaveTransaction = async (e) => {
     e.preventDefault();
     const finalPayload = {
@@ -64,9 +67,7 @@ const Capture = () => {
       let result = await actions.saveTransaction(finalPayload);
       if (result) {
         alert("Todo salió bien. Transacción guardada");
-        // Deshabilitamos el lector para que no detecte de nuevo la misma tarjeta
-        setScanningEnabled(false);
-        // Reseteamos el estado para volver a la vista inicial
+        // Reseteamos para volver al estado inicial
         setFormView(false);
         setCurp("");
         setTransactionPayload({
@@ -74,10 +75,6 @@ const Capture = () => {
           pay_amount: "",
           quantity_liters: ""
         });
-        // Reactivamos el lector después de un breve lapso (ej. 1 segundo)
-        setTimeout(() => {
-          setScanningEnabled(true);
-        }, 1000);
       } else {
         alert("Algo salió mal... Intente nuevamente.");
       }
