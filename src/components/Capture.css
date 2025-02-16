@@ -106,3 +106,27 @@
     padding: 1rem;
   }
 }
+
+/* Grupo de botones para el formulario */
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+/* Estilo para el botón de cancelar */
+.cancel-btn {
+  background-color: #d9534f; /* Rojo Bootstrap */
+  color: whitesmoke;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.cancel-btn:hover {
+  background-color: #c9302c;
+}

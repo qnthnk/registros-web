@@ -11,7 +11,6 @@ const Capture = () => {
 
   // Desactivamos la lectura NFC si ya se mostró el formulario
   const scanningEnabled = !formView;
-
   // Iniciamos la lectura NFC solo si scanningEnabled es true
   useNFCReader(setCurp, scanningEnabled);
 
@@ -67,20 +66,24 @@ const Capture = () => {
       let result = await actions.saveTransaction(finalPayload);
       if (result) {
         alert("Todo salió bien. Transacción guardada");
-        // Reseteamos para volver al estado inicial
-        setFormView(false);
-        setCurp("");
-        setTransactionPayload({
-          fuel_type_id: "",
-          pay_amount: "",
-          quantity_liters: ""
-        });
+        resetForm();
       } else {
         alert("Algo salió mal... Intente nuevamente.");
       }
     } catch (error) {
       console.error(error);
     }
+  };
+
+  // Handler para cancelar la transacción y volver a la vista inicial
+  const resetForm = () => {
+    setFormView(false);
+    setCurp("");
+    setTransactionPayload({
+      fuel_type_id: "",
+      pay_amount: "",
+      quantity_liters: ""
+    });
   };
 
   return (
@@ -128,7 +131,10 @@ const Capture = () => {
                 required 
               />
             </div>
-            <button type="submit" className="submit-btn">Guardar Transacción</button>
+            <div className="button-group">
+              <button type="submit" className="submit-btn">Guardar Transacción</button>
+              <button type="button" className="cancel-btn" onClick={resetForm}>Cancelar</button>
+            </div>
           </form>
         </div>
       ) : (
