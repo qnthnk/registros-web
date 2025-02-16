@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Context } from '../js/store/appContext.js';
 import './Login.css';
-import { FaUser, FaLock } from 'react-icons/fa';
+import { FaUser, FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import gifLoading from '../img/Loading_2.gif';
 
@@ -11,6 +11,7 @@ const Login = () => {
   const [pass, setPass] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const { store, actions } = useContext(Context);
 
@@ -50,12 +51,9 @@ const Login = () => {
   const handleRememberMeChange = (e) => {
     const isChecked = e.target.checked;
     setRememberMe(isChecked);
-
-    // Si se desactiva el checkbox, borrar el email del localStorage
     if (!isChecked) {
       localStorage.removeItem('inputEmail');
     } else {
-      // Si se activa, guardar el email actual
       localStorage.setItem('inputEmail', email);
     }
   };
@@ -66,13 +64,16 @@ const Login = () => {
   };
 
   useEffect(() => {
-    // Leer el email del localStorage cuando carga la página
     const savedEmail = localStorage.getItem('inputEmail');
     if (savedEmail) {
       setEmail(savedEmail);
-      setRememberMe(true);  // Marcar el checkbox si hay un email guardado
+      setRememberMe(true);
     }
   }, []);
+
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   return (
     <div className='wrapper d-flex justify-content-center'>
@@ -97,7 +98,7 @@ const Login = () => {
         </div>
         <div className='input-box'>
           <input
-            type='password'
+            type={showPassword ? 'text' : 'password'}
             placeholder='Contraseña'
             id='password'
             value={pass}
@@ -105,29 +106,38 @@ const Login = () => {
             onChange={(e) => handlerSetPass(e.target.value)}
             required
           />
-          <FaLock className='icon' />
+          <span className="icon password-toggle" onClick={toggleShowPassword}>
+            {showPassword ? <FaEyeSlash /> : <FaEye />}
+          </span>
         </div>
         {store.wrongPass && (
-          <p style={{ color: 'white', fontSize: '18px' }}>Credencial/es incorrecta/s</p>
+          <p style={{ color: 'white', fontSize: '18px' }}>
+            Credencial/es incorrecta/s
+          </p>
         )}
         <div className='remember-forgot'>
           <label>
-            <input type='checkbox'
+            <input
+              type='checkbox'
               name='rememberMe'
               checked={rememberMe}
-              onChange={handleRememberMeChange} />
+              onChange={handleRememberMeChange}
+            />
             Recordame en este dispositivo
           </label>
-          {/* <p>Olvidaste tu contraseña?</p> */}
         </div>
-        <button type='submit'>{isLoading ? (
-          <img
-            src={gifLoading}
-            alt='gift de carga'
-            style={{ width: '30vh', height: '5vh' }}
-          />
-        ) : (<h5>Login</h5>)}</button>
-
+        <button type='submit'>
+          {isLoading ? (
+            <img
+              src={gifLoading}
+              alt='gif de carga'
+              style={{ width: '30vh', height: '5vh' }}
+            />
+          ) : (
+            <h5>Login</h5>
+          )}
+        </button>
+        {/* Opcional: enlace para registrarse */}
         {/* <div className='register-link'>
           <p>No tienes cuenta? <span onClick={() => navigate('/loginregister')} style={{ color: 'blue', textDecoration: 'underline', cursor: 'pointer' }}>Registrate acá</span></p>
         </div> */}

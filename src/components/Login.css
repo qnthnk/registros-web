@@ -1,105 +1,123 @@
-
-
+/* Contenedor principal */
 .wrapper {
     width: 100%;
     margin-top: 3vh;
-    max-width: 500px; /* Ajusta el tamaño máximo según sea necesario */
-    background-color: transparent;
-    border: 2px solid black(255, 255, 255, .2);
+    max-width: 500px;
+    background-color: rgba(255, 255, 255, 0.1); /* Fondo semitransparente para resaltar sobre el #404040 */
+    border: 2px solid rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(20px);
     color: #fff;
     border-radius: 10px;
-    padding: 5px 40px;
-    box-sizing: border-box; /* Asegura que el padding no afecte el tamaño total */
-    /* Removed top positioning */
-}
-
-.wrapper h1 {
+    padding: 20px 40px;
+    box-sizing: border-box;
+  }
+  
+  /* Título del login */
+  .wrapper h1 {
     font-size: 32px;
     text-align: center;
-    color: #333;
-}
-
-.wrapper .input-box {
+    color: #fff; /* Texto blanco para buen contraste */
+  }
+  
+  /* Caja de inputs */
+  .wrapper .input-box {
     position: relative;
     width: 100%;
     height: 50px;
     margin: 30px 0;
-}
-
-.input-box input {
+  }
+  
+  /* Inputs */
+  .input-box input {
     width: 100%;
     height: 100%;
     background: transparent;
-    border: 2px solid black(255, 255, 255, .2);
+    border: 2px solid rgba(255, 255, 255, 0.2);
     outline: none;
     border-radius: 40px;
     font-size: 16px;
-    color: #020000;
+    color: #fff;
     padding: 20px 45px 20px 20px;
-}
-
-.input-box input::placeholder {
-    color: black;
-}
-
-.input-box .icon {
+  }
+  
+  /* Placeholder */
+  .input-box input::placeholder {
+    color: #ccc;
+  }
+  
+  /* Iconos dentro de la caja */
+  .input-box .icon {
     position: absolute;
     right: 20px;
     top: 50%;
     transform: translateY(-50%);
     font-size: 16px;
-    color: black;
-}
-
-.wrapper .remember-forgot {
+    color: #fff;
+  }
+  
+  /* Icono para toggle de contraseña */
+  .password-toggle {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  /* Recordarme y enlace de olvidé contraseña */
+  .wrapper .remember-forgot {
     display: flex;
     justify-content: space-between;
     font-size: 14.5px;
     margin: -15px 0 15px;
-    color: #333;
-}
-
-.remember-forgot label input {
+    color: #fff;
+  }
+  
+  .remember-forgot label input {
     accent-color: #fff;
     margin-right: 4px;
-}
-
-.remember-forgot a {
+  }
+  
+  .remember-forgot a {
     color: #fff;
     text-decoration: none;
-}
-
-.remember-forgot a:hover {
+  }
+  
+  .remember-forgot a:hover {
     text-decoration: underline;
-}
-
-.wrapper button {
+  }
+  
+  /* Botón de envío */
+  .wrapper button {
     width: 100%;
     height: 45px;
     background: #fff;
     border: none;
     outline: none;
     border-radius: 40px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     cursor: pointer;
     font-size: 16px;
     color: #333;
     font-weight: 700;
-}
-
-.wrapper .register-link {
+  }
+  
+  /* Enlace para registrarse (opcional) */
+  .wrapper .register-link {
     font-size: 15.5px;
     text-align: center;
     margin: 20px 0 15px;
-}
-
-.register-link p a {
+  }
+  
+  .register-link p a {
     color: #fff;
     text-decoration: none;
     font-weight: 600;
-}
-
-.register-link p a:hover {
+  }
+  
+  .register-link p a:hover {
     text-decoration: underline;
-}
+  }
+  
