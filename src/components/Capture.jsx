@@ -7,8 +7,11 @@ import useNFCReader from "../hooks/useNFCReader.js";
 const Capture = () => {
   const [curp, setCurp] = useState("");
   const [formView, setFormView] = useState(false);
+  const [scanningEnabled, setScanningEnabled] = useState(true);
   const { store, actions } = useContext(Context);
-  useNFCReader(setCurp); // Iniciamos la lectura NFC
+
+  // Iniciamos la lectura NFC solo si scanningEnabled es true
+  useNFCReader(setCurp, scanningEnabled);
 
   // Estado para el payload de la transacción
   const [transactionPayload, setTransactionPayload] = useState({
@@ -30,7 +33,7 @@ const Capture = () => {
             alert("Algo salió mal... intente nuevamente");
           }
         } catch (error) {
-          console.error("Error en handlerDetected:", error);
+          console.error("Error en checkCurp:", error);
         }
       }
     };
@@ -61,6 +64,8 @@ const Capture = () => {
       let result = await actions.saveTransaction(finalPayload);
       if (result) {
         alert("Todo salió bien. Transacción guardada");
+        // Deshabilitamos el lector para que no detecte de nuevo la misma tarjeta
+        setScanningEnabled(false);
         // Reseteamos el estado para volver a la vista inicial
         setFormView(false);
         setCurp("");
@@ -69,6 +74,10 @@ const Capture = () => {
           pay_amount: "",
           quantity_liters: ""
         });
+        // Reactivamos el lector después de un breve lapso (ej. 1 segundo)
+        setTimeout(() => {
+          setScanningEnabled(true);
+        }, 1000);
       } else {
         alert("Algo salió mal... Intente nuevamente.");
       }
