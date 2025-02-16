@@ -346,7 +346,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                             email: data.email,
                             id: data.id,
                             username: data.name,
-                            terminal: data.terminal
+                            terminal: data.terminal_id
                         }
                     });
 
