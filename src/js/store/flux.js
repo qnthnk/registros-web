@@ -48,13 +48,14 @@ const getState = ({ getStore, getActions, setStore }) => {
                     curp,
                     user_id:getStore().user.id
                 }
-                console.log("Este es el payload de first check: ",payload)
+                const apiKey = process.env.REACT_APP_API_KEY
                 try {
                     let response = await fetch('https://petroclub-back.onrender.com/pre_transaction_check',{
                         method:"POST",
                         body: JSON.stringify(payload),
                         headers:{
-                            'Content-Type': 'application/json'
+                            'Content-Type': 'application/json',
+                            'Authorization': apiKey
                         }
                     })
                     if(!response.ok){
