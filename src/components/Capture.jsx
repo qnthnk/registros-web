@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Context } from '../js/store/appContext.js';
-import scan from '../img/aproach_nfc.gif';
+import scan from '../img/aproach_nfc2.gif';
 import './Capture.css';
 import useNFCReader from "../hooks/useNFCReader.js";
 
