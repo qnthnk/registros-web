@@ -47,7 +47,7 @@ const useNFCReader = (setCurp) => {
                 cardData = `⚠️ Error al leer datos (SN: ${serialNumber})`;
               }
 
-              console.log("✅ Tarjeta detectada:", cardData);
+              console.log("✅ Curp detectado:", cardData);
               setCurp(cardData);
             }
           };

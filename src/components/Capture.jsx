@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useCallback } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Context } from '../js/store/appContext.js';
 import scan from '../img/aproach_nfc.gif';
 import './Capture.css';
@@ -17,24 +17,27 @@ const Capture = () => {
     quantity_liters: ""
   });
 
-  const handlerDetected = useCallback(async () => {
-    try {
-      let permitido = await actions.firstCheck(curp);
-      if (permitido) {
-        setFormView(true);
-      } else {
-        alert("Algo salió mal... intente nuevamente");
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }, [actions, curp]);
-
   useEffect(() => {
-    if (curp !== "") {
-      handlerDetected();
-    }
-  }, [curp, handlerDetected]);
+    const checkCurp = async () => {
+      if (curp !== "") {
+        console.log("Curp detectado en useEffect:", curp);
+        try {
+          let permitido = await actions.firstCheck(curp);
+          console.log("Resultado de firstCheck:", permitido);
+          if (permitido) {
+            setFormView(true);
+          } else {
+            alert("Algo salió mal... intente nuevamente");
+          }
+        } catch (error) {
+          console.error("Error en handlerDetected:", error);
+        }
+      }
+    };
+  
+    checkCurp();
+  }, [curp, actions]);
+  
 
   // Actualizar los valores del formulario en el estado
   const handleInputChange = (e) => {
