@@ -14,63 +14,70 @@ const getState = ({ getStore, getActions, setStore }) => {
             dataEstadisticas: {}
         },
         actions: {
-            saveTransaction: async(finalPayload) => {
+            saveTransaction: async (finalPayload) => {
+                // Recuperamos el token de transactions desde localStorage
                 const token = localStorage.getItem('access_token_transaction');
                 if (!token) {
                     console.error("El token de transactions es undefined. Asegurate de que esté guardado correctamente.");
                     return;
                 }
                 try {
-                    let response = await fetch('https://petroclub-back.onrender.com/generate_transaction',{
-                        method:"POST",
+                    let response = await fetch('https://petroclub-back.onrender.com/generate_transaction', {
+                        method: "POST",
                         body: JSON.stringify(finalPayload),
-                        headers:{
+                        headers: {
                             'Content-Type': 'application/json',
                             'Authorization': 'Bearer ' + token
                         }
-                    })
-                    if(!response.ok){
-                        throw new Error("Algo salió mal")
+                    });
+                    if (!response.ok) {
+                        throw new Error("Algo salió mal");
                     }
-                    let data = await response.json()
-                    if(data.message){
-                        return true
-                    }else{
-                        return false
+                    let data = await response.json();
+                    if (data.message) {
+                        return true;
+                    } else {
+                        return false;
                     }
                 } catch (error) {
-                    console.error(error)
-                    return false
+                    console.error(error);
+                    return false;
                 }
             },
             firstCheck: async (curp) => {
+                // Recuperamos el store actual
+                const store = getStore();
+                // Si el store no tiene user.id, usamos el que guardamos en localStorage
+                const user_id = (store.user && store.user.id) 
+                    ? store.user.id 
+                    : localStorage.getItem('user_id');
+            
                 let payload = {
                     curp,
-                    user_id:getStore().user.id
-                }
-                const apiKey = process.env.REACT_APP_API_KEY
+                    user_id
+                };
+                const apiKey = process.env.REACT_APP_API_KEY;
                 try {
-                    let response = await fetch('https://petroclub-back.onrender.com/pre_transaction_check',{
-                        method:"POST",
+                    let response = await fetch('https://petroclub-back.onrender.com/pre_transaction_check', {
+                        method: "POST",
                         body: JSON.stringify(payload),
-                        headers:{
+                        headers: {
                             'Content-Type': 'application/json',
                             'Authorization': apiKey
                         }
-                    })
-                    if(!response.ok){
-                        throw new Error("Algo salió mal")
+                    });
+                    if (!response.ok) {
+                        throw new Error("Algo salió mal");
                     }
-                    console.log("Si leo esto es porque saltamos el error")
-                    let data = await response.json()
-                    localStorage.setItem('access_token_transaction',data.access_token);
-                    let store = getStore()
-                    setStore({...store, access_token_transaction:data.access_token})
-                    return true
-
+                    console.log("Si leo esto es porque saltamos el error");
+                    let data = await response.json();
+                    localStorage.setItem('access_token_transaction', data.access_token);
+                    // Actualizamos el store, usando el store recuperado (que ya tiene o no la info)
+                    setStore({ ...store, access_token_transaction: data.access_token });
+                    return true;
                 } catch (error) {
-                    console.error(error)
-                    return false
+                    console.error(error);
+                    return false;
                 }
             },
             getAfiliacion: async (payload) => {
