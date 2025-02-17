@@ -39,6 +39,8 @@ const CreateCustomer = () => {
   const [loadingSelfPhoto, setLoadingSelfPhoto] = useState(false);
   const [loadingCardFront, setLoadingCardFront] = useState(false);
   const [loadingCardBack, setLoadingCardBack] = useState(false);
+  // Estado para decidir si limpiar campos al terminar de crear/actualizar
+  const [clearAfterSubmit, setClearAfterSubmit] = useState(false);
   const { actions } = useContext(Context);
 
   useEffect(() => {
@@ -93,7 +95,9 @@ const CreateCustomer = () => {
       let result = await actions.createCustomer(customerData);
       if (result) {
         alert(`Cliente ${result} con éxito.`);
-        resetFields();
+        if (clearAfterSubmit) {
+          resetFields();
+        }
       } else {
         alert("O el token se venció o el server anda sacando chispas...");
       }
@@ -108,9 +112,13 @@ const CreateCustomer = () => {
     }
   };
 
+  const handleToggleClear = () => {
+    setClearAfterSubmit(prev => !prev);
+  };
+
   return (
     <div className="create-customer-container">
-      <h1>Crear Socio</h1>
+      <h1>Crear/Actualizar</h1>
       <div className="carnet-preview">
         <CardFront data={customerData} />
         <CardBack data={customerData} />
@@ -131,6 +139,9 @@ const CreateCustomer = () => {
         <div className="form-group">
           <label>CURP:</label>
           <input type="text" name="curp" value={customerData.curp} onChange={handleChange} required />
+          <small className="curp-info">
+            Nota: Si el CURP ya existe, se actualizarán los datos.
+          </small>
         </div>
         <div className="form-group">
           <label>Entidad Nacimiento:</label>
@@ -215,6 +226,16 @@ const CreateCustomer = () => {
           {customerData.url_image_card_back && (
             <img src={customerData.url_image_card_back} alt="Credencial Atrás" className="preview-image" />
           )}
+        </div>
+        <div className="toggle-group">
+          <label htmlFor="clearToggle">Borrar campos al terminar de crear/actualizar:</label>
+          <input 
+            type="checkbox" 
+            id="clearToggle" 
+            checked={clearAfterSubmit}
+            onChange={handleToggleClear} 
+          />
+          <span>{clearAfterSubmit ? "Activado" : "Desactivado"}</span>
         </div>
         <div className="button-group">
           <button type="submit" className="submit-btn">Crear Socio</button>
