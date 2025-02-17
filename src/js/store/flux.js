@@ -17,12 +17,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             checkCustomerExists: async (curp) => {
                 const token = localStorage.getItem('token');
                 const actions = getActions(); // Para acceder al logout directamente
-            
-                if (!token) {
-                    console.error("El token es undefined. Asegurate de que esté guardado correctamente.");
-                    actions.logout(); // Llamamos al logout si no hay token
-                    return;
-                }
+                console.log("Este tendria que ser el token guardado por login: ",token)
 
                 try{
                     const response = await fetch(`https://petroclub-back.onrender.com/get_customer/${curp}`, {
@@ -413,7 +408,6 @@ const getState = ({ getStore, getActions, setStore }) => {
                     localStorage.setItem('user_id', data.id);
                     localStorage.setItem('name', data.name);
                     localStorage.setItem('terminal_id', data.terminal_id)
-                    localStorage.setItem('token',data.access_token)
 
                     // Guardar en el estado global
                     setStore({
