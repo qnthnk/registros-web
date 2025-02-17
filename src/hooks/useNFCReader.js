@@ -1,10 +1,13 @@
 /* global NDEFReader */
 import { useEffect } from "react";
 
-const useNFCReader = (setCurp, scanningEnabled = true) => {
+const useNFCReader = (setCurp, scanningEnabled = true, setCanRead) => {
   useEffect(() => {
     if (!scanningEnabled) return;
+
     if (typeof window !== "undefined" && "NDEFReader" in window) {
+      setCanRead(true); // ✅ NFC soportado
+
       const ndef = new NDEFReader();
 
       ndef
@@ -48,8 +51,9 @@ const useNFCReader = (setCurp, scanningEnabled = true) => {
         .catch((error) => console.error("Error al escanear NFC:", error));
     } else {
       console.log("⚠️ Tu navegador no soporta NFC.");
+      setCanRead(false); // ❌ NFC no soportado
     }
-  }, [setCurp, scanningEnabled]);
+  }, [setCurp, scanningEnabled, setCanRead]);
 };
 
 export default useNFCReader;
