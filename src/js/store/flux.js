@@ -15,25 +15,8 @@ const getState = ({ getStore, getActions, setStore }) => {
         },
         actions: {
             checkCustomerExists: async (curp) => {
-                const token = localStorage.getItem('token');
-                const actions = getActions(); // Para acceder al logout directamente
-                console.log("Este tendria que ser el token guardado por login: ",token)
-
                 try{
-                    const response = await fetch(`https://petroclub-back.onrender.com/get_customer/${curp}`, {
-                        method: 'GET',
-                        headers: {
-                            'Authorization': 'Bearer ' + token
-                            }
-                    })
-
-                    // Si el token es inválido, se recibe un código 401
-                    if (response.status === 401) {
-                        console.error('401,token expirado');
-                        actions.logout(); // Logout automático
-                        return false
-                    }
-
+                    const response = await fetch(`https://petroclub-back.onrender.com/get_customer/${curp}`)
                     const data = await response.json();
                     if(data.exist){
                         return true
