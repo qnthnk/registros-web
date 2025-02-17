@@ -92,10 +92,10 @@ const CreateCustomer = () => {
     try {
       let result = await actions.createCustomer(customerData);
       if (result) {
-        alert("Cliente guardado");
+        alert(`Cliente ${result} con éxito.`);
         resetFields();
       } else {
-        alert("Algo salió mal...");
+        alert("O el token se venció o el server anda sacando chispas...");
       }
     } catch (error) {
       console.error(error);
