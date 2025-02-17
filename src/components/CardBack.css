@@ -1,0 +1,21 @@
+.card-back {
+    width: 400px;
+    height: 220px;
+    border: 2px solid #333;
+    border-radius: 8px;
+    padding: 10px;
+    margin: 10px;
+    background-color: #e6e6e6;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.card-back-info {
+    font-size: 12px;
+    color: #333;
+}
+
+.card-back-info p {
+    margin: 3px 0;
+}

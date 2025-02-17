@@ -330,7 +330,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                         throw new Error("La pifiaste con las credenciales. ", " Aca la data:", data);
                     }
 
-
+                    console.log("Data entrante con login: ", data)
                     // Guardar token en localStorage
                     localStorage.setItem('token', data.access_token);
 
@@ -341,6 +341,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                     localStorage.setItem('user_id', data.id);
                     localStorage.setItem('name', data.name);
                     localStorage.setItem('terminal_id', data.terminal_id)
+                    localStorage.setItem('token',data.access_token)
 
                     // Guardar en el estado global
                     setStore({
