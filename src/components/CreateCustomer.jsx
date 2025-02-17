@@ -79,10 +79,19 @@ const CreateCustomer = ({ actions }) => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Submitting customer data:", customerData);
-    // Ejemplo: actions.createCustomer(customerData);
+    try {
+        let result = actions.createCustomer(customerData);
+        if(result){
+            alert("Cliente guardado")
+        }else{
+            alert("algo salió mal...")
+        }
+    } catch (error) {
+        console.error(error)
+    }
   };
 
   return (

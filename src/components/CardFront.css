@@ -1,5 +1,5 @@
 .card-front {
-    width: 400px; /* Ancho aumentado */
+    width: 400px;
     height: 260px;
     border: 2px solid #333;
     border-radius: 8px;
@@ -8,36 +8,37 @@
     display: flex;
     flex-direction: column;
     font-family: sans-serif;
-  }
-  
-  /* La parte superior ocupa el 60% de la tarjeta */
-  .card-top {
+    box-sizing: border-box;
+    margin: 10px;
+}
+
+/* La parte superior ocupa el 60% de la tarjeta */
+.card-top {
     display: flex;
     height: 60%;
     padding: 10px;
     box-sizing: border-box;
-  }
-  
-  /* Contenedor de la foto: tamaño fijo, con margen a la derecha */
-  .card-photo {
+}
+
+/* Contenedor de la foto: tamaño fijo, con margen a la derecha */
+.card-photo {
     width: 120px;
     height: 100%;
     background-color: #ccc;
     border-radius: 4px;
     overflow: hidden;
     margin-right: 10px;
-  }
-  
-  /* La imagen se recorta para llenar el contenedor, tipo pasaporte */
-  .card-photo img {
+}
+
+.card-photo img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
-  }
-  
-  /* Placeholder centrado si no hay imagen */
-  .placeholder {
+}
+
+/* Placeholder centrado si no hay imagen */
+.placeholder {
     width: 100%;
     height: 100%;
     display: flex;
@@ -45,31 +46,31 @@
     justify-content: center;
     color: #666;
     font-size: 14px;
-  }
-  
-  /* Contenedor para la información básica a la derecha de la foto */
-  .card-basic {
+}
+
+/* Contenedor para la información básica a la derecha de la foto */
+.card-basic {
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-  }
-  
-  .card-basic p {
+}
+
+.card-basic p {
     margin: 2px 0;
     font-size: 12px;
     color: #333;
-  }
-  
-  /* Nombre en la credencial: más oscuro y resaltado */
-  .card-basic .card-name {
-    color: #000; /* Más oscuro */
+}
+
+/* Nombre en la credencial: más oscuro y resaltado */
+.card-basic .card-name {
+    color: #000;
     font-size: 14px;
     font-weight: bold;
-  }
-  
-  /* La parte inferior ocupa el 40% de la tarjeta */
-  .card-bottom {
+}
+
+/* La parte inferior ocupa el 40% de la tarjeta */
+.card-bottom {
     height: 40%;
     padding: 5px 10px;
     box-sizing: border-box;
@@ -78,10 +79,17 @@
     display: flex;
     flex-wrap: wrap;
     gap: 4px;
-  }
-  
-  .card-bottom p {
+}
+
+.card-bottom p {
     margin: 2px 0;
-    width: 48%; /* Se muestran en dos columnas aproximadamente */
-  }
-  
+    width: 48%;
+}
+
+/* Responsive: en móviles, redujimos el ancho del card */
+@media (max-width: 600px) {
+    .card-front {
+        width: 100%; /* O 90% para dejar un pequeño margen */
+        margin: 5px auto;
+    }
+}

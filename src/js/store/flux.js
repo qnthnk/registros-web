@@ -14,6 +14,39 @@ const getState = ({ getStore, getActions, setStore }) => {
             dataEstadisticas: {}
         },
         actions: {
+            createCustomer: async (customerData) => {
+                const token = localStorage.getItem('token');
+                const actions = getActions(); // Para acceder al logout directamente
+            
+                if (!token) {
+                    console.error("El token es undefined. Asegurate de que esté guardado correctamente.");
+                    actions.logout(); // Llamamos al logout si no hay token
+                    return;
+                }
+
+                try{
+                    const response = await fetch('https://petroclub-back.onrender.com/create_customer', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer ' + token
+                            },
+                        body: JSON.stringify(payload)
+                    })
+                    const data = await response.json();
+                    // console.log("esta es la data entrante: ",data)
+
+                    // Si el token es inválido, se recibe un código 401
+                    if (response.status === 401) {
+                        console.error("El token expiró o no es válido. Cerrando sesión...");
+                        actions.logout(); // Logout automático
+                        return;
+                    }
+                } catch (error) {
+                    console.error(error)
+                    return false
+                }
+            },
             saveTransaction: async (finalPayload) => {
                 // Recuperamos el token de transactions desde localStorage
                 const token = localStorage.getItem('access_token_transaction');

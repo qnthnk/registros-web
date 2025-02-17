@@ -9,6 +9,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    box-sizing: border-box;
 }
 
 .card-back-info {
@@ -18,4 +19,12 @@
 
 .card-back-info p {
     margin: 3px 0;
+}
+
+/* Responsive: en móviles, ajustar el ancho */
+@media (max-width: 600px) {
+    .card-back {
+        width: 100%; /* O 90% */
+        margin: 5px auto;
+    }
 }
