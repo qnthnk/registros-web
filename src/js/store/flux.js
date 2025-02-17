@@ -31,10 +31,8 @@ const getState = ({ getStore, getActions, setStore }) => {
                             'Content-Type': 'application/json',
                             'Authorization': 'Bearer ' + token
                             },
-                        body: JSON.stringify(payload)
+                        body: JSON.stringify(customerData)
                     })
-                    const data = await response.json();
-                    // console.log("esta es la data entrante: ",data)
 
                     // Si el token es inválido, se recibe un código 401
                     if (response.status === 401) {
@@ -42,6 +40,11 @@ const getState = ({ getStore, getActions, setStore }) => {
                         actions.logout(); // Logout automático
                         return;
                     }
+
+                    const data = await response.json();
+                    console.log("esta es la data respuesta de crear customer: ",data)
+                    return true
+
                 } catch (error) {
                     console.error(error)
                     return false
