@@ -13,7 +13,6 @@ const CardBack = ({ data }) => {
         <p>Instagram: {data.instagram}</p>
         <p>Facebook: {data.facebook}</p>
         <p>Teléfono: {data.tel_num}</p>
-        <p>Admin: {data.admin ? "Sí" : "No"}</p>
       </div>
     </div>
   );

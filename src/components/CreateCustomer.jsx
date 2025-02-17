@@ -39,7 +39,7 @@ const CreateCustomer = () => {
   const [loadingSelfPhoto, setLoadingSelfPhoto] = useState(false);
   const [loadingCardFront, setLoadingCardFront] = useState(false);
   const [loadingCardBack, setLoadingCardBack] = useState(false);
-  const { actions } = useContext(Context)
+  const { actions } = useContext(Context);
 
   useEffect(() => {
     localStorage.setItem('customerData', JSON.stringify(customerData));
@@ -54,7 +54,7 @@ const CreateCustomer = () => {
   };
 
   const uploadImage = async (e, imageField, setLoading) => {
-    console.log("entro en uploadImage")
+    console.log("entro en uploadImage");
     const files = e.target.files;
     if (!files || files.length === 0) return;
     const data = new FormData();
@@ -69,7 +69,7 @@ const CreateCustomer = () => {
         body: data
       });
       const file = await response.json();
-      console.log("url de la imagen: ",file.secure_url)
+      console.log("url de la imagen: ", file.secure_url);
       setCustomerData(prev => ({
         ...prev,
         [imageField]: file.secure_url
@@ -81,24 +81,36 @@ const CreateCustomer = () => {
     }
   };
 
+  const resetFields = () => {
+    setCustomerData(initialCustomerData);
+    localStorage.removeItem('customerData');
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Submitting customer data:", customerData);
     try {
-        let result = actions.createCustomer(customerData);
-        if(result){
-            alert("Cliente guardado")
-        }else{
-            alert("algo salió mal...")
-        }
+      let result = await actions.createCustomer(customerData);
+      if (result) {
+        alert("Cliente guardado");
+        resetFields();
+      } else {
+        alert("Algo salió mal...");
+      }
     } catch (error) {
-        console.error(error)
+      console.error(error);
+    }
+  };
+
+  const handleClearFields = () => {
+    if(window.confirm("¿Estás seguro de que deseas limpiar todos los campos?")) {
+      resetFields();
     }
   };
 
   return (
     <div className="create-customer-container">
-      <h1>Crear Customer</h1>
+      <h1>Crear Socio</h1>
       <div className="carnet-preview">
         <CardFront data={customerData} />
         <CardBack data={customerData} />
@@ -204,7 +216,10 @@ const CreateCustomer = () => {
             <img src={customerData.url_image_card_back} alt="Credencial Atrás" className="preview-image" />
           )}
         </div>
-        <button type="submit" className="submit-btn">Crear Customer</button>
+        <div className="button-group">
+          <button type="submit" className="submit-btn">Crear Socio</button>
+          <button type="button" className="clear-btn" onClick={handleClearFields}>Limpiar campos</button>
+        </div>
       </form>
     </div>
   );
