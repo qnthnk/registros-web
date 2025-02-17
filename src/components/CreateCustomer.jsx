@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { Context } from '../js/store/appContext';
 import CardFront from './CardFront';
 import CardBack from './CardBack';
 import './CreateCustomer.css';
@@ -30,7 +31,7 @@ const initialCustomerData = {
   comment: '',
 };
 
-const CreateCustomer = ({ actions }) => {
+const CreateCustomer = () => {
   const [customerData, setCustomerData] = useState(() => {
     const saved = localStorage.getItem('customerData');
     return saved ? JSON.parse(saved) : initialCustomerData;
@@ -38,6 +39,7 @@ const CreateCustomer = ({ actions }) => {
   const [loadingSelfPhoto, setLoadingSelfPhoto] = useState(false);
   const [loadingCardFront, setLoadingCardFront] = useState(false);
   const [loadingCardBack, setLoadingCardBack] = useState(false);
+  const { actions } = useContext(Context)
 
   useEffect(() => {
     localStorage.setItem('customerData', JSON.stringify(customerData));
