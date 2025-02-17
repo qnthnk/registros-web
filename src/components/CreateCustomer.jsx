@@ -41,6 +41,8 @@ const CreateCustomer = () => {
   const [loadingCardBack, setLoadingCardBack] = useState(false);
   // Estado para decidir si limpiar campos al terminar de crear/actualizar
   const [clearAfterSubmit, setClearAfterSubmit] = useState(false);
+  // Estado que indica si el CURP ya existe
+  const [updateMode, setUpdateMode] = useState(false);
   const { actions } = useContext(Context);
 
   useEffect(() => {
@@ -53,6 +55,18 @@ const CreateCustomer = () => {
       ...prev,
       [name]: type === 'checkbox' ? checked : value
     }));
+  };
+
+  // Handler para cuando el input de CURP pierde el foco
+  const handleCurpBlur = async () => {
+    if (customerData.curp.trim() !== '') {
+      try {
+        const exists = await actions.checkCustomerExists(customerData.curp);
+        setUpdateMode(exists);
+      } catch (error) {
+        console.error("Error al verificar el CURP:", error);
+      }
+    }
   };
 
   const uploadImage = async (e, imageField, setLoading) => {
@@ -86,6 +100,7 @@ const CreateCustomer = () => {
   const resetFields = () => {
     setCustomerData(initialCustomerData);
     localStorage.removeItem('customerData');
+    setUpdateMode(false);
   };
 
   const handleSubmit = async (e) => {
@@ -138,11 +153,21 @@ const CreateCustomer = () => {
         </div>
         <div className="form-group">
           <label>CURP:</label>
-          <input type="text" name="curp" value={customerData.curp} onChange={handleChange} required />
+          <input
+            type="text"
+            name="curp"
+            value={customerData.curp}
+            onChange={handleChange}
+            onBlur={handleCurpBlur}
+            required
+          />
           <small className="curp-info">
-            Nota: Si el CURP ya existe, se actualizarán los datos.
+            {updateMode 
+              ? "El CURP ingresado existe, se realizará una actualización."
+              : "Nota: Si el CURP ya existe, se actualizarán los datos."}
           </small>
         </div>
+        {/* Resto de campos */}
         <div className="form-group">
           <label>Entidad Nacimiento:</label>
           <input type="text" name="entidad_nac" value={customerData.entidad_nac} onChange={handleChange} />
@@ -238,7 +263,9 @@ const CreateCustomer = () => {
           <span>{clearAfterSubmit ? "Activado" : "Desactivado"}</span>
         </div>
         <div className="button-group">
-          <button type="submit" className="submit-btn">Crear Socio</button>
+          <button type="submit" className="submit-btn">
+            {updateMode ? "Actualizar Socio" : "Crear Socio"}
+          </button>
           <button type="button" className="clear-btn" onClick={handleClearFields}>Limpiar campos</button>
         </div>
       </form>
