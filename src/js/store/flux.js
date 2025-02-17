@@ -15,8 +15,14 @@ const getState = ({ getStore, getActions, setStore }) => {
         },
         actions: {
             checkCustomerExists: async (curp) => {
+                console.log("entro en check de flux y el curp que va a usar es:", curp)
+                const apiKey = process.env.REACT_APP_API_KEY;
                 try{
-                    const response = await fetch(`https://petroclub-back.onrender.com/get_customer/${curp}`)
+                    const response = await fetch(`https://petroclub-back.onrender.com/get_customer/${curp}`,{
+                        headers:{
+                            'Authorization': apiKey
+                        }
+                    })
                     const data = await response.json();
                     if(data.exist){
                         return true

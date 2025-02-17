@@ -59,6 +59,7 @@ const CreateCustomer = () => {
 
   // Handler para cuando el input de CURP pierde el foco
   const handleCurpBlur = async () => {
+    console.log("handleCurpBlur entró con valor , ", customerData.curp)
     if (customerData.curp.trim() !== '') {
       try {
         const exists = await actions.checkCustomerExists(customerData.curp);
