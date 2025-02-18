@@ -47,6 +47,9 @@ const Usuarios = () => {
       if (confirmed) {
         const response = await actions.toggleAdmin(user.email, user.admin);
         console.log(response.message);
+        if(response){
+          setRefreshFlag((prev) => !prev)
+        }
       }
     } catch (e) {
       console.error(e);

@@ -304,15 +304,15 @@ const getState = ({ getStore, getActions, setStore }) => {
                     console.log("data: ", data)
                     if (data.message) {
                         console.log("Admin updated")
-                        let currentTrigger = getStore().trigger
-                        setStore({ ...getStore(), trigger: !currentTrigger })
-                        return data
+                        return true
                     } else {
                         console.log("algo salio mal actualizando el estado de admin")
+                        return false
                     }
 
                 } catch (e) {
                     console.error(e)
+                    return false
                 }
             },
             getUsers: async () => {
