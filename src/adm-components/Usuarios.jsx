@@ -30,7 +30,12 @@ const Usuarios = () => {
   const handleDelete = (user) => {
     const confirmed = window.confirm(`¿Estás seguro de que deseas eliminar al usuario ${user.name}? Esta acción no se puede deshacer.`);
     if (confirmed) {
-      actions.deleteUser(user.id);
+      let result = actions.deleteUser(user.id);
+      if(result){
+        alert(`Usuario ${user.name} eliminado con éxito.`)
+      }else{
+        alert(`Error al eliminar a ${user.name}.`)
+      }
     }
   };
 

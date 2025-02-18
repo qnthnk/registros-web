@@ -355,10 +355,19 @@ const getState = ({ getStore, getActions, setStore }) => {
             setUserForEdit: (user) => {
                 setStore({ ...getStore(), userForEdit: user });
             },
-            deleteUser: (userId) => {
-                const store = getStore();
-                setStore({ ...getStore(), users: store.users.filter((user) => user.id !== userId) });
-            },
+            deleteUser: async (userId) => {
+                try {
+                  let response = await fetch(`https://api.tuapp.com/users/${userId}`, {
+                    method: 'DELETE'
+                  });
+                  let data = await response.json()
+                  return data.success
+
+                } catch (error) {
+                  console.error('Error al eliminar usuario:', error);
+                  return false
+                }
+              },
             updateReport: async (payload) => {
                 const apiKey = process.env.REACT_APP_API_KEY
                 try {
