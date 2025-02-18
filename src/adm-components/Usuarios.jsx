@@ -146,7 +146,7 @@ const Usuarios = () => {
       ) : (
         <div className="usuarios-list">
           {store.users.map((user) => (
-            <div key={user.dni} className="usuario-card">
+            <div key={user.id} className="usuario-card">
               <h3>{user.name}</h3>
               <p>Email: {user.email}</p>
               <p>CURP: {user.curp}</p>

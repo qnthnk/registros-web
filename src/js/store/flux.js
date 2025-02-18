@@ -293,7 +293,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 }
                 console.log("payload preparado: ", payload)
                 try {
-                    let response = await fetch("https://e3digital.onrender.com/update_admin", {
+                    let response = await fetch("https://petroclub-back.onrender.com/update_admin", {
                         body: JSON.stringify(payload),
                         method: "PUT",
                         headers: {
