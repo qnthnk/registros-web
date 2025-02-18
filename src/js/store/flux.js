@@ -356,12 +356,12 @@ const getState = ({ getStore, getActions, setStore }) => {
                 setStore({ ...getStore(), userForEdit: user });
             },
             deleteUser: async (userId) => {
-                let token = localStorage.getItem('token')
+                const apiKey = process.env.REACT_APP_API_KEY
                 try {
                   let response = await fetch(`https://petroclub-back.onrender.com/users/${userId}`, {
                     method: 'DELETE',
                     headers: {
-                        'Authorization': 'Bearer ' + token
+                        'Authorization': apiKey
                         }
                   });
                   
