@@ -356,11 +356,18 @@ const getState = ({ getStore, getActions, setStore }) => {
                 setStore({ ...getStore(), userForEdit: user });
             },
             deleteUser: async (userId) => {
+                let token = localStorage.getItem('token')
                 try {
-                  let response = await fetch(`https://api.tuapp.com/users/${userId}`, {
-                    method: 'DELETE'
+                  let response = await fetch(`https://petroclub-back.onrender.com/users/${userId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                        }
                   });
                   let data = await response.json()
+                  if(!response.ok){
+                    throw new Error("Algo falló")
+                  }
                   return data.success
 
                 } catch (error) {
