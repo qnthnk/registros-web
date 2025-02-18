@@ -364,10 +364,11 @@ const getState = ({ getStore, getActions, setStore }) => {
                         'Authorization': 'Bearer ' + token
                         }
                   });
-                  let data = await response.json()
-                  if(!response.ok){
+                  
+                  if(!response.success){
                     throw new Error("Algo falló")
                   }
+                  let data = await response.json()
                   return data.success
 
                 } catch (error) {
