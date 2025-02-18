@@ -15,8 +15,13 @@ const getState = ({ getStore, getActions, setStore }) => {
         },
         actions: {
             getTerminales: async () => {
+                let token = localStorage.getItem('token')
                 try {
-                  const response = await fetch('https://petroclub-back.onrender.com/terminals');
+                  const response = await fetch('https://petroclub-back.onrender.com/terminals',{
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                        }
+                  });
                   const data = await response.json();
                   setStore({ terminales: data.terminals });
                 } catch (error) {
