@@ -8,7 +8,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             reportes_no_disponibles: [],
             userName: "",
             token: "",
-            user: { admin: "",  curp: "", email: "", id: "", username: "", terminal: "" },
+            user: { admin: "", curp: "", email: "", id: "", username: "", terminal: "" },
             trigger: false,
             access_token_transaction: "",
             dataEstadisticas: {}
@@ -16,46 +16,46 @@ const getState = ({ getStore, getActions, setStore }) => {
         actions: {
             createNewUser: async (newUser) => {
                 try {
-                  const response = await fetch('https://petroclub-back.onrender.com/create_user', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(newUser)
-                  });
-                  const result = await response.json();
-                  // Se asume que el API devuelve { success: true/false }
-                  return result.success;
+                    const response = await fetch('https://petroclub-back.onrender.com/create_user', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(newUser)
+                    });
+                    const result = await response.json();
+                    // Se asume que el API devuelve { success: true/false }
+                    return result.success;
                 } catch (error) {
-                  console.error('Error al crear usuario:', error);
-                  return false;
+                    console.error('Error al crear usuario:', error);
+                    return false;
                 }
             },
             getTerminales: async () => {
                 let token = localStorage.getItem('token')
                 try {
-                  const response = await fetch('https://petroclub-back.onrender.com/terminals',{
-                    headers: {
-                        'Authorization': 'Bearer ' + token
+                    const response = await fetch('https://petroclub-back.onrender.com/terminals', {
+                        headers: {
+                            'Authorization': 'Bearer ' + token
                         }
-                  });
-                  const data = await response.json();
-                  setStore({ terminales: data.terminals });
+                    });
+                    const data = await response.json();
+                    setStore({ terminales: data.terminals });
                 } catch (error) {
-                  console.error('Error al obtener terminales:', error);
+                    console.error('Error al obtener terminales:', error);
                 }
             },
             checkCustomerExists: async (curp) => {
                 console.log("entro en check de flux y el curp que va a usar es:", curp)
                 const apiKey = process.env.REACT_APP_API_KEY;
-                try{
-                    const response = await fetch(`https://petroclub-back.onrender.com/get_customer/${curp}`,{
-                        headers:{
+                try {
+                    const response = await fetch(`https://petroclub-back.onrender.com/get_customer/${curp}`, {
+                        headers: {
                             'Authorization': apiKey
                         }
                     })
                     const data = await response.json();
-                    if(data.exist){
+                    if (data.exist) {
                         return true
-                    }else{
+                    } else {
                         return false
                     }
                 } catch (error) {
@@ -66,20 +66,20 @@ const getState = ({ getStore, getActions, setStore }) => {
             createCustomer: async (customerData) => {
                 const token = localStorage.getItem('token');
                 const actions = getActions(); // Para acceder al logout directamente
-            
+
                 if (!token) {
                     console.error("El token es undefined. Asegurate de que esté guardado correctamente.");
                     actions.logout(); // Llamamos al logout si no hay token
                     return;
                 }
 
-                try{
+                try {
                     const response = await fetch('https://petroclub-back.onrender.com/create_customer', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                             'Authorization': 'Bearer ' + token
-                            },
+                        },
                         body: JSON.stringify(customerData)
                     })
 
@@ -91,7 +91,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                     }
 
                     const data = await response.json();
-                    console.log("esta es la data respuesta de crear customer: ",data)
+                    console.log("esta es la data respuesta de crear customer: ", data)
                     return data.proceso
 
                 } catch (error) {
@@ -133,10 +133,10 @@ const getState = ({ getStore, getActions, setStore }) => {
                 // Recuperamos el store actual
                 const store = getStore();
                 // Si el store no tiene user.id, usamos el que guardamos en localStorage
-                const user_id = (store.user && store.user.id) 
-                    ? store.user.id 
+                const user_id = (store.user && store.user.id)
+                    ? store.user.id
                     : localStorage.getItem('user_id');
-            
+
                 let payload = {
                     curp,
                     user_id
@@ -168,19 +168,19 @@ const getState = ({ getStore, getActions, setStore }) => {
             getAfiliacion: async (payload) => {
                 const token = localStorage.getItem('token');
                 const actions = getActions(); // Para acceder al logout directamente
-            
+
                 if (!token) {
                     console.error("El token es undefined. Asegurate de que esté guardado correctamente.");
                     actions.logout(); // Llamamos al logout si no hay token
                     return;
                 }
-                try{
+                try {
                     const response = await fetch('https://e3digital.onrender.com/consulta-afiliado', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                             'Authorization': 'Bearer ' + token
-                            },
+                        },
                         body: JSON.stringify(payload)
                     })
                     const data = await response.json();
@@ -193,9 +193,9 @@ const getState = ({ getStore, getActions, setStore }) => {
                         return;
                     }
 
-                    if(!data.msg) throw new Error('algo salio mal en la solicitud')
+                    if (!data.msg) throw new Error('algo salio mal en la solicitud')
                     alert(data.msg)
-                }catch(e){
+                } catch (e) {
                     console.error(e)
                 }
             },
@@ -203,7 +203,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 try {
                     const controller = new AbortController();
                     const timeoutId = setTimeout(() => controller.abort(), 120000); // 2min
-            
+
                     let response = await fetch("https://e3digital.onrender.com/resultados_electorales", {
                         method: 'POST',
                         headers: {
@@ -213,19 +213,19 @@ const getState = ({ getStore, getActions, setStore }) => {
                         body: JSON.stringify(payload),
                         signal: controller.signal // Vinculamos el abort signal
                     });
-            
+
                     clearTimeout(timeoutId); // Limpiamos el timeout si llega la respuesta
-            
+
                     let data = await response.json();
                     console.log("Data entrante para resultados electorales: ", data);
-            
+
                     if (!response.ok) {
                         throw new Error("Error HTTP: " + response.status);
                     }
-            
+
                     let store = getStore();
                     setStore({ ...store, dataEstadisticas: data });
-            
+
                 } catch (e) {
                     if (e.name === 'AbortError') {
                         console.error("Error: La solicitud tomó demasiado tiempo y fue abortada.");
@@ -240,7 +240,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
                     const token = localStorage.getItem('token');
                     const actions = getActions(); // Para acceder al logout directamente
-                
+
                     if (!token) {
                         console.error("El token es undefined. Asegurate de que esté guardado correctamente.");
                         actions.logout(); // Llamamos al logout si no hay token
@@ -319,31 +319,31 @@ const getState = ({ getStore, getActions, setStore }) => {
                 console.log("getUsers ejecutándose...");
                 const token = localStorage.getItem('token');
                 const actions = getActions(); // Para acceder al logout directamente
-            
+
                 if (!token) {
                     console.error("El token es undefined. Asegurate de que esté guardado correctamente.");
                     actions.logout(); // Llamamos al logout si no hay token
                     return;
                 }
-            
+
                 try {
                     const response = await fetch("https://petroclub-back.onrender.com/users", {
                         headers: {
                             "Authorization": `Bearer ${token}`
                         }
                     });
-            
+
                     // Si el token es inválido, se recibe un código 401
                     if (response.status === 401) {
                         console.error("El token expiró o no es válido. Cerrando sesión...");
                         actions.logout(); // Logout automático
                         return;
                     }
-            
+
                     if (!response.ok) {
                         throw new Error(`Error en la solicitud: ${response.status} ${response.statusText}`);
                     }
-            
+
                     const data = await response.json();
                     if (data.lista_usuarios) {
                         setStore({ ...getStore(), users: data.lista_usuarios });
@@ -358,24 +358,25 @@ const getState = ({ getStore, getActions, setStore }) => {
             deleteUser: async (userId) => {
                 const apiKey = process.env.REACT_APP_API_KEY
                 try {
-                  let response = await fetch(`https://petroclub-back.onrender.com/users/${userId}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'Authorization': apiKey
+                    let response = await fetch(`https://petroclub-back.onrender.com/users/${userId}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Authorization': apiKey
                         }
-                  });
-                  
-                  if(!response.success){
-                    throw new Error("Algo falló")
-                  }
-                  let data = await response.json()
-                  return data.success
+                    });
+
+                    let data = await response.json()
+
+                    if (!data.success) {
+                        throw new Error("Algo falló")
+                    }
+                    return data.success
 
                 } catch (error) {
-                  console.error('Error al eliminar usuario:', error);
-                  return false
+                    console.error('Error al eliminar usuario:', error);
+                    return false
                 }
-              },
+            },
             updateReport: async (payload) => {
                 const apiKey = process.env.REACT_APP_API_KEY
                 try {
@@ -497,12 +498,12 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
             logout: () => {
                 const store = getStore();
-            
+
                 setStore({ ...store, token: "", userName: "" });
                 localStorage.removeItem('token');
                 localStorage.removeItem('name');
                 localStorage.removeItem('admin');
-            
+
                 console.log("LogOut manual o Token vencido...");
             },
             getReportList: async () => {
