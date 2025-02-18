@@ -33,6 +33,7 @@ const Usuarios = () => {
       let result = actions.deleteUser(user.id);
       if(result){
         alert(`Usuario ${user.name} eliminado con éxito.`)
+        setRefreshFlag((prev) => !prev)
       }else{
         alert(`Error al eliminar a ${user.name}.`)
       }
