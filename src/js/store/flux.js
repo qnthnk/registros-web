@@ -298,7 +298,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 }
             
                 try {
-                    const response = await fetch("https://e3digital.onrender.com/users", {
+                    const response = await fetch("https://petroclub-back.onrender.com/users", {
                         headers: {
                             "Authorization": `Bearer ${token}`
                         }

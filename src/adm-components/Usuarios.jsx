@@ -47,7 +47,7 @@ const Usuarios = () => {
             <div key={user.dni} className="usuario-card">
               <h3>{user.name}</h3>
               <p>Email: {user.email}</p>
-              <p>DNI: {user.dni}</p>
+              <p>DNI: {user.curp}</p>
               <div className="botones-container">
                 <button className="btn editar" onClick={() => handleEdit(user)}>Editar</button>
                 <button className="btn eliminar" onClick={() => handleDelete(user)}>Eliminar</button>
