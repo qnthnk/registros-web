@@ -14,6 +14,15 @@ const getState = ({ getStore, getActions, setStore }) => {
             dataEstadisticas: {}
         },
         actions: {
+            getTerminales: async () => {
+                try {
+                  const response = await fetch('https://petroclub-back.onrender.com/terminals');
+                  const data = await response.json();
+                  setStore({ terminales: data.terminals });
+                } catch (error) {
+                  console.error('Error al obtener terminales:', error);
+                }
+            },
             checkCustomerExists: async (curp) => {
                 console.log("entro en check de flux y el curp que va a usar es:", curp)
                 const apiKey = process.env.REACT_APP_API_KEY;
