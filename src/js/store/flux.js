@@ -14,6 +14,21 @@ const getState = ({ getStore, getActions, setStore }) => {
             dataEstadisticas: {}
         },
         actions: {
+            createNewUser: async (newUser) => {
+                try {
+                  const response = await fetch('https://petroclub-back.onrender.com/create_user', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(newUser)
+                  });
+                  const result = await response.json();
+                  // Se asume que el API devuelve { success: true/false }
+                  return result.success;
+                } catch (error) {
+                  console.error('Error al crear usuario:', error);
+                  return false;
+                }
+            },
             getTerminales: async () => {
                 let token = localStorage.getItem('token')
                 try {

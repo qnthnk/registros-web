@@ -55,25 +55,30 @@ const Usuarios = () => {
   // Handler para crear un nuevo usuario
   const handleCreateNewUser = async (e) => {
     e.preventDefault();
-    const result = await actions.createNewUser(newUser);
-    if (result) {
-      alert("usuario creado");
-      // Alternamos el flag para refrescar la lista en el useEffect
-      setRefreshFlag(!refreshFlag);
-      // Reseteamos el formulario
-      setNewUser({
-        email: '',
-        password: '',
-        name: '',
-        curp: '',
-        terminal_id: '',
-        first_pass: ''
-      });
-      // Cerramos el acordeón
-      setIsAccordionOpen(false);
-    } else {
-      alert("falla al crear al usuario");
+    try {
+      const result = await actions.createNewUser(newUser);
+      if (result) {
+        alert("usuario creado");
+        // Alternamos el flag para refrescar la lista en el useEffect
+        setRefreshFlag(!refreshFlag);
+        // Reseteamos el formulario
+        setNewUser({
+          email: '',
+          password: '',
+          name: '',
+          curp: '',
+          terminal_id: '',
+          first_pass: ''
+        });
+        // Cerramos el acordeón
+        setIsAccordionOpen(false);
+      } else {
+        alert("falla al crear al usuario");
+      }
+    } catch (error) {
+      console.error(error)
     }
+
   };
 
   // useEffect para cargar usuarios y terminales
