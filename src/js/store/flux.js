@@ -286,12 +286,12 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
 
             toggleAdmin: async (email, admin) => {
-                console.log("entro en toggleadmin")
+                console.log("entro en toggleadmin");
                 let payload = {
                     email: email,
                     admin: admin
-                }
-                console.log("payload preparado: ", payload)
+                };
+                console.log("payload preparado: ", payload);
                 try {
                     let response = await fetch("https://petroclub-back.onrender.com/update_admin", {
                         body: JSON.stringify(payload),
@@ -299,20 +299,30 @@ const getState = ({ getStore, getActions, setStore }) => {
                         headers: {
                             'Content-Type': 'application/json',
                         }
-                    })
-                    let data = await response.json()
-                    console.log("data: ", data)
+                    });
+                    let data = await response.json();
+                    console.log("data: ", data);
                     if (data.message) {
-                        console.log("Admin updated")
-                        return true
-                    } else {
-                        console.log("algo salio mal actualizando el estado de admin")
-                        return false
-                    }
+                        console.log("Admin updated");
 
+                        // Actualizamos el array de usuarios en el store
+                        const store = getStore();
+                        const updatedUsers = store.users.map((user) => {
+                            if (user.email === email) {
+                                // Actualizamos la propiedad admin según lo que venga del backend
+                                return { ...user, admin: data.admin };
+                            }
+                            return user;
+                        });
+                        setStore({ ...store, users: updatedUsers });
+                        return true;
+                    } else {
+                        console.log("algo salio mal actualizando el estado de admin");
+                        return false;
+                    }
                 } catch (e) {
-                    console.error(e)
-                    return false
+                    console.error(e);
+                    return false;
                 }
             },
             getUsers: async () => {
