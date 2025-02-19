@@ -2,7 +2,7 @@ const getState = ({ getStore, getActions, setStore }) => {
     return {
         store: {
             users: [],
-            userForEdit: null,
+            userForEdit: {},
             registerOk: true,
             reportes_disponibles: [],
             reportes_no_disponibles: [],
@@ -14,6 +14,28 @@ const getState = ({ getStore, getActions, setStore }) => {
             dataEstadisticas: {}
         },
         actions: {
+            updateUser: async (userData) => {
+                try {
+                    const response = await fetch("https://petroclub-back.onrender.com/update_profile", {
+                        method: "PUT",
+                        body: JSON.stringify(userData),
+                        headers: {
+                            "Content-Type": "application/json"
+                        }
+                    });
+                    const data = await response.json();
+                    if (data.message) {
+                        // Opcional: si querés actualizar el store.users, podés hacerlo acá
+                        return true;
+                    } else {
+                        console.log("Error en la actualización: ", data);
+                        return false;
+                    }
+                } catch (error) {
+                    console.error("Error al actualizar usuario: ", error);
+                    return false;
+                }
+            },
             createNewUser: async (newUser) => {
                 try {
                     const response = await fetch('https://petroclub-back.onrender.com/create_user', {

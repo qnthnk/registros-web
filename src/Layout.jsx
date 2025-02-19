@@ -13,6 +13,7 @@ import Estadistica from './views/Estadistica.jsx';
 import Directorio from './views/Directorio.jsx';
 import Footer from './components/Footer.jsx';
 import Utilidades from './views/Utilidades.jsx';
+import UpdateUser from './adm-components/UpdateUser.jsx';
 
 const Layout = () => {
 
@@ -33,6 +34,7 @@ const Layout = () => {
                 <Route exact path="/estadistica" element={<Estadistica />}/>
                 <Route exact path="/directorio" element={<Directorio />}/>
                 <Route exact path="/utilidades" element={<Utilidades />}/>
+                <Route exact path="/editar-usuario" element={<UpdateUser />}/>
                 <Route exact path="/*" element={<NotFound/>}/>
             </Routes>
             <Footer />
