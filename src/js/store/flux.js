@@ -14,8 +14,27 @@ const getState = ({ getStore, getActions, setStore }) => {
             dataEstadisticas: {}
         },
         actions: {
+            getCustomers: async () => {
+                try {
+                    const apiKey = process.env.REACT_APP_API_KEY;
+                    const response = await fetch("https://petroclub-back.onrender.com/users-list", {
+                        method: "GET",
+                        headers: {
+                            "Authorization": apiKey
+                        }
+                    });
+                    const data = await response.json();
+                    if (data.list) {
+                        setStore({ ...getStore(), customers: data.list });
+                    } else {
+                        console.error("No se recibió la lista de clientes");
+                    }
+                } catch (error) {
+                    console.error("Error al obtener los clientes:", error);
+                }
+            },
             updateUser: async (userData) => {
-                console.log("La data para actualizar el usuario en el action es : ",userData)
+                console.log("La data para actualizar el usuario en el action es : ", userData)
                 try {
                     const response = await fetch("https://petroclub-back.onrender.com/update_profile", {
                         method: "PUT",
@@ -37,8 +56,8 @@ const getState = ({ getStore, getActions, setStore }) => {
                     return false;
                 }
             },
-            cleanUseForEdit:() =>{
-                setStore({...getStore(), userForEdit: {}})
+            cleanUseForEdit: () => {
+                setStore({ ...getStore(), userForEdit: {} })
             },
             createNewUser: async (newUser) => {
                 try {

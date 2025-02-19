@@ -4,8 +4,7 @@ import './Admin.css';
 import Navbar from '../components/Navbar.jsx'
 import Usuarios from '../adm-components/Usuarios.jsx';
 import Reportes from '../adm-components/Reportes.jsx';
-import Errores from '../adm-components/Errores.jsx';
-import Servidor from '../adm-components/Servidor.jsx';
+import ClientList from '../adm-components/ClientList.jsx';
 import RedirectToHome from '../components/RedirectHome.jsx';
 import CreateCustomer from '../components/CreateCustomer.jsx';
 
@@ -30,8 +29,8 @@ const Admin = () => {
                 return <Reportes />;
             case 'crear-cliente':
                 return <CreateCustomer />;
-            case 'servidor':
-                return <Servidor />;
+            case 'lista-clientes':
+                return <ClientList />;
             default:
                 return <Usuarios />;
         }
@@ -66,10 +65,10 @@ const Admin = () => {
                                 </button>
 
                                 <button
-                                    className={`tab-button ${activeTab === 'servidor' ? 'active' : ''}`}
-                                    onClick={() => setActiveTab('servidor')}
+                                    className={`tab-button ${activeTab === 'lista-clientes' ? 'active' : ''}`}
+                                    onClick={() => setActiveTab('lista-clientes')}
                                 >
-                                    Servidor
+                                    Lista de Clientes
                                 </button>
                             </div>
                             <div className="admin-content">
