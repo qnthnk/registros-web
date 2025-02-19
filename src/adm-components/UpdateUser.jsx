@@ -12,7 +12,8 @@ const UpdateUser = () => {
     email: '',
     name: '',
     curp: '',
-    terminal_id: ''
+    terminal_id: '',
+    password: ''
   });
 
   useEffect(() => {
@@ -76,6 +77,15 @@ const UpdateUser = () => {
             value={formData.curp} 
             onChange={handleChange} 
             required 
+          />
+        </div>
+        <div className="form-group">
+          <label>Password/Opcional</label>
+          <input 
+            type="password" 
+            name="password" 
+            value={formData.password} 
+            onChange={handleChange} 
           />
         </div>
         <div className="form-group">

@@ -15,6 +15,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         },
         actions: {
             updateUser: async (userData) => {
+                console.log("La data para actualizar el usuario en el action es : ",userData)
                 try {
                     const response = await fetch("https://petroclub-back.onrender.com/update_profile", {
                         method: "PUT",
