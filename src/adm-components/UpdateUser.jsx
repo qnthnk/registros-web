@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Context } from '../js/store/appContext';
 import { useNavigate } from 'react-router-dom';
-import './UpdateUser.css'; // Acá podés meter estilos para hacerlo responsive
+import './UpdateUser.css'; // Asegurate de tener este archivo para los estilos
 
 const UpdateUser = () => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
 
-  // Estado del formulario, inicializado con los datos del usuario a editar
+  // Inicializamos el formulario con los datos del usuario a editar
   const [formData, setFormData] = useState({
     email: '',
     name: '',
@@ -16,7 +16,6 @@ const UpdateUser = () => {
   });
 
   useEffect(() => {
-    // Si existe un usuario para editar en el store, lo seteamos en el formulario
     if (store.userForEdit) {
       setFormData({
         email: store.userForEdit.email || '',
@@ -38,7 +37,7 @@ const UpdateUser = () => {
     const result = await actions.updateUser(formData);
     if (result) {
       alert("Usuario actualizado con éxito!");
-      actions.cleanUseForEdit()
+      // Redirigimos a /admin con el tab 'usuarios' seleccionado
       navigate('/admin?tab=usuarios');
     } else {
       alert("Error al actualizar el usuario");
