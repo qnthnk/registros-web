@@ -137,6 +137,7 @@ const Usuarios = () => {
               <label>Clave Admin</label>
               <input type="text" name="first_pass" value={newUser.first_pass} onChange={handleChange} required />
             </div>
+            <span>*Si no sabe la clave, digite cualquier cosa. El usuario creado no será admin en su creación.</span>
             <button type="submit" className="btn confirmar">
               Crear Usuario
             </button>
