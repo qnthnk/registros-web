@@ -22,7 +22,8 @@ const UpdateUser = () => {
         email: store.userForEdit.email || '',
         name: store.userForEdit.name || '',
         curp: store.userForEdit.curp || '',
-        terminal_id: store.userForEdit.terminal_id || ''
+        terminal_id: store.userForEdit.terminal_id || '',
+        password: store.userForEdit.password
       });
     }
     // Traemos las terminales para el select
