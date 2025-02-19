@@ -36,6 +36,9 @@ const getState = ({ getStore, getActions, setStore }) => {
                     return false;
                 }
             },
+            cleanUseForEdit:() =>{
+                setStore({...getStore(), userForEdit: {}})
+            },
             createNewUser: async (newUser) => {
                 try {
                     const response = await fetch('https://petroclub-back.onrender.com/create_user', {

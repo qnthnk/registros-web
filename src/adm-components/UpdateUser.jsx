@@ -38,8 +38,8 @@ const UpdateUser = () => {
     const result = await actions.updateUser(formData);
     if (result) {
       alert("Usuario actualizado con éxito!");
-      // Opcional: redirigir o limpiar el estado de userForEdit
-      navigate('/usuarios'); // o donde quieras llevar al usuario
+      actions.cleanUseForEdit()
+      navigate('/admin?tab=usuarios');
     } else {
       alert("Error al actualizar el usuario");
     }

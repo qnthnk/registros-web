@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useLocation } from 'react-router-dom';
 import './Admin.css';
 import Navbar from '../components/Navbar.jsx'
 import Usuarios from '../adm-components/Usuarios.jsx';
@@ -9,7 +10,17 @@ import RedirectToHome from '../components/RedirectHome.jsx';
 import CreateCustomer from '../components/CreateCustomer.jsx';
 
 const Admin = () => {
+    const location = useLocation();
     const [activeTab, setActiveTab] = useState('crear-cliente');
+
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const tab = queryParams.get('tab');
+    if (tab) {
+      setActiveTab(tab);
+    }
+  }, [location.search]);
 
     const renderTabContent = () => {
         switch (activeTab) {
