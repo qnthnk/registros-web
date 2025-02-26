@@ -17,7 +17,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             getCustomers: async () => {
                 try {
                     const apiKey = process.env.REACT_APP_API_KEY;
-                    const response = await fetch("https://petroclub-back.onrender.com/users-list", {
+                    const response = await fetch("https://registros-back.onrender.com/users-list", {
                         method: "GET",
                         headers: {
                             "Authorization": apiKey
@@ -36,7 +36,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             updateUser: async (userData) => {
                 console.log("La data para actualizar el usuario en el action es : ", userData)
                 try {
-                    const response = await fetch("https://petroclub-back.onrender.com/update_profile", {
+                    const response = await fetch("https://registros-back.onrender.com/update_profile", {
                         method: "PUT",
                         body: JSON.stringify(userData),
                         headers: {
@@ -61,7 +61,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
             createNewUser: async (newUser) => {
                 try {
-                    const response = await fetch('https://petroclub-back.onrender.com/create_user', {
+                    const response = await fetch('https://registros-back.onrender.com/create_user', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(newUser)
@@ -77,7 +77,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             getTerminales: async () => {
                 let token = localStorage.getItem('token')
                 try {
-                    const response = await fetch('https://petroclub-back.onrender.com/terminals', {
+                    const response = await fetch('https://registros-back.onrender.com/terminals', {
                         headers: {
                             'Authorization': 'Bearer ' + token
                         }
@@ -92,7 +92,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 console.log("entro en check de flux y el curp que va a usar es:", curp)
                 const apiKey = process.env.REACT_APP_API_KEY;
                 try {
-                    const response = await fetch(`https://petroclub-back.onrender.com/get_customer/${curp}`, {
+                    const response = await fetch(`https://registros-back.onrender.com/get_customer/${curp}`, {
                         headers: {
                             'Authorization': apiKey
                         }
@@ -119,7 +119,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 }
 
                 try {
-                    const response = await fetch('https://petroclub-back.onrender.com/create_customer', {
+                    const response = await fetch('https://registros-back.onrender.com/create_customer', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -152,7 +152,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                     return;
                 }
                 try {
-                    let response = await fetch('https://petroclub-back.onrender.com/generate_transaction', {
+                    let response = await fetch('https://registros-back.onrender.com/generate_transaction', {
                         method: "POST",
                         body: JSON.stringify(finalPayload),
                         headers: {
@@ -188,7 +188,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 };
                 const apiKey = process.env.REACT_APP_API_KEY;
                 try {
-                    let response = await fetch('https://petroclub-back.onrender.com/pre_transaction_check', {
+                    let response = await fetch('https://registros-back.onrender.com/pre_transaction_check', {
                         method: "POST",
                         body: JSON.stringify(payload),
                         headers: {
@@ -338,7 +338,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 };
                 console.log("payload preparado: ", payload);
                 try {
-                    let response = await fetch("https://petroclub-back.onrender.com/update_admin", {
+                    let response = await fetch("https://registros-back.onrender.com/update_admin", {
                         body: JSON.stringify(payload),
                         method: "PUT",
                         headers: {
@@ -382,7 +382,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 }
 
                 try {
-                    const response = await fetch("https://petroclub-back.onrender.com/users", {
+                    const response = await fetch("https://registros-back.onrender.com/users", {
                         headers: {
                             "Authorization": `Bearer ${token}`
                         }
@@ -413,7 +413,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             deleteUser: async (userId) => {
                 const apiKey = process.env.REACT_APP_API_KEY
                 try {
-                    let response = await fetch(`https://petroclub-back.onrender.com/users/${userId}`, {
+                    let response = await fetch(`https://registros-back.onrender.com/users/${userId}`, {
                         method: 'DELETE',
                         headers: {
                             'Authorization': apiKey
@@ -474,7 +474,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
             login: async (payload) => {
                 try {
-                    let response = await fetch("https://petroclub-back.onrender.com/login", {
+                    let response = await fetch("https://registros-back.onrender.com/login", {
                         method: 'POST',
                         body: JSON.stringify(payload),
                         headers: {
