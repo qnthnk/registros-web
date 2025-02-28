@@ -24,7 +24,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 const apiKey = process.env.REACT_APP_API_KEY;
 
                 try {
-                    const response = await fetch('https://petroclub-back.onrender.com/complete_customer', {
+                    const response = await fetch('https://registros-back.onrender.com/complete_customer', {
                         method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json',
