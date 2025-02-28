@@ -2,9 +2,11 @@ import React from 'react';
 import './CardFront.css';
 
 const CardFront = ({ data }) => {
+  console.log(data);
   return (
+    <>
     <div className="card-front">
-      <div className="card-top">
+      <div className="cardContainer creditCard">
         <div className="card-photo">
           {data.url_image_self_photo ? (
             <img src={data.url_image_self_photo} alt="Foto" />
@@ -12,22 +14,20 @@ const CardFront = ({ data }) => {
             <div className="placeholder">Foto</div>
           )}
         </div>
-        <div className="card-basic">
-          <p className="card-name">{data.name} {data.lastname_f} {data.lastname_m}</p>
-          <p className="card-curp">CURP: {data.curp}</p>
-          <p className="card-dir">Dirección: {data.entidad_dir}, {data.municipio_dir}</p>
-          <p className="card-colonia">Colonia: {data.colonia}</p>
-          <p className="card-localidad">Localidad: {data.localidad}</p>
+        <div className="creditCardFront">
+        <p className="cardHolderLNF">{data.lastname_f || "A.Paterno"}</p>
+            <p className="cardHolderLNM">{data.lastname_m || "A.Materno"}</p>
+            <p className="cardHolderN">{data.name || "Nombre"}</p>
+            <p className="cardHolderC" style={{maxWidth:"5px"}}>{data.org || "Estructura"}</p>
+            <p className="cardHolderO" style={{maxWidth:"5px"}}>{data.curp || "CURP"}</p>
+            <p className="cardHolderEnt">{data.entidad_dir || "Entidad"}</p>
+            <p className="cardHolderExp">Expedición</p>
+            <p className="cardHolderVig">Vigencia</p>
+
         </div>
       </div>
-      <div className="card-bottom">
-        <p className="card-postal">C.P.: {data.postal_code}</p>
-        <p className="card-state">Estado: {data.state ? "Activo" : "Inactivo"}</p>
-        <p className="card-created">Creado: {new Date(data.created_at).toLocaleDateString()}</p>
-        <p className="card-mun_nac">Municipio Nac.: {data.municipio_nac}</p>
-        <p className="card-ent_nac">Entidad Nac.: {data.entidad_nac}</p>
-      </div>
     </div>
+    </>
   );
 };
 

@@ -1,13 +1,16 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Context } from '../js/store/appContext';
 import CardFront from './CardFront';
-import CardBack from './CardBack';
+import Edomun from '../estadosympios.json';
+
 import './CreateCustomer.css';
 
 const initialCustomerData = {
   name: '',
   lastname_f: '',
   lastname_m: '',
+  // agregar campo a bd
+  cve: '',
   curp: '',
   entidad_nac: '',
   municipio_nac: '',
@@ -137,9 +140,13 @@ const CreateCustomer = () => {
       <h1>Crear/Actualizar</h1>
       <div className="carnet-preview">
         <CardFront data={customerData} />
-        <CardBack data={customerData} />
+      
       </div>
+      <div style={{  height: '400px', overflowY: 'auto', border: '1px solid black', padding: '10px' }}>
       <form onSubmit={handleSubmit} className="customer-form">
+      <hr/>
+            <h3>Datos Generales:</h3>
+           
         <div className="form-group">
           <label>Nombre:</label>
           <input type="text" name="name" value={customerData.name} onChange={handleChange} required />
@@ -151,6 +158,10 @@ const CreateCustomer = () => {
         <div className="form-group">
           <label>Apellido Materno:</label>
           <input type="text" name="lastname_m" value={customerData.lastname_m} onChange={handleChange} />
+        </div>
+        <div className="form-group">
+          <label>Clave de Elector:</label>
+          <input type="text" name="cve" value={customerData.cve} onChange={handleChange} />
         </div>
         <div className="form-group">
           <label>CURP:</label>
@@ -168,18 +179,31 @@ const CreateCustomer = () => {
               : "Nota: Si el CURP ya existe, se actualizarán los datos."}
           </small>
         </div>
-        {/* Resto de campos */}
-        <div className="form-group">
+        {/* <div className="form-group">
           <label>Entidad Nacimiento:</label>
           <input type="text" name="entidad_nac" value={customerData.entidad_nac} onChange={handleChange} />
         </div>
         <div className="form-group">
           <label>Municipio Nacimiento:</label>
           <input type="text" name="municipio_nac" value={customerData.municipio_nac} onChange={handleChange} />
-        </div>
+        </div> */}
         <div className="form-group">
-          <label>Organización:</label>
-          <input type="text" name="org" value={customerData.org} onChange={handleChange} />
+          <label>Estructura:</label>
+          <select name="org" value={customerData.org} onChange={handleChange}>
+            <option value="Comite Ejecutivo Nacional">Comite Ejecutivo Nacional</option>
+            <option value="Confederacion Nacional Agronomica">Confederacion Nacional Agronomica</option>
+            <option value="SAF">SAF</option>
+            <option value="Conmujer">Conmujer</option>
+            <option value="Vanguardia Juvenil Agrarista">Vanguardia Juvenil Agrarista</option>
+            <option value="Ramas de produccion">Ramas de produccion</option>
+            <option value="Comite Ejecutivo Estatal">Comite Ejecutivo Estatal</option>
+            <option value="Comite Municipales Campesinos">Comite Municipales Campesinos</option>
+            <option value="Comite de Base Campesino">Comite de Base Campesino</option>
+            <option value="Miembro Activo">Miembro Activo</option>
+          </select>
+          <hr/>
+            <h3>Direccion:</h3>
+         
         </div>
         <div className="form-group">
           <label>Calle:</label>
@@ -202,13 +226,15 @@ const CreateCustomer = () => {
           <input type="text" name="localidad" value={customerData.localidad} onChange={handleChange} />
         </div>
         <div className="form-group">
-          <label>Entidad Dirección:</label>
+          <label>Entidad:</label>
           <input type="text" name="entidad_dir" value={customerData.entidad_dir} onChange={handleChange} />
         </div>
         <div className="form-group">
-          <label>Municipio Dirección:</label>
+          <label>Municipio:</label>
           <input type="text" name="municipio_dir" value={customerData.municipio_dir} onChange={handleChange} />
         </div>
+        <hr/>
+        <h3>Datos de contacto:</h3>
         <div className="form-group">
           <label>Email:</label>
           <input type="email" name="email" value={customerData.email} onChange={handleChange} />
@@ -218,6 +244,10 @@ const CreateCustomer = () => {
           <input type="text" name="cell_num" value={customerData.cell_num} onChange={handleChange} />
         </div>
         <div className="form-group">
+          <label>Teléfono fijo:</label>
+          <input type="text" name="tel_num" value={customerData.tel_num} onChange={handleChange} />
+        </div>
+        <div className="form-group">
           <label>Instagram:</label>
           <input type="text" name="instagram" value={customerData.instagram} onChange={handleChange} />
         </div>
@@ -225,11 +255,8 @@ const CreateCustomer = () => {
           <label>Facebook:</label>
           <input type="text" name="facebook" value={customerData.facebook} onChange={handleChange} />
         </div>
-        <div className="form-group">
-          <label>Teléfono:</label>
-          <input type="text" name="tel_num" value={customerData.tel_num} onChange={handleChange} />
-        </div>
-        <div className="form-group file-input">
+        
+        <div className="form-group file-input" >
           <label>Foto Self:</label>
           <input type="file" onChange={(e) => uploadImage(e, 'url_image_self_photo', setLoadingSelfPhoto)} />
           {loadingSelfPhoto && <span>Cargando imagen...</span>}
@@ -253,14 +280,21 @@ const CreateCustomer = () => {
             <img src={customerData.url_image_card_back} alt="Credencial Atrás" className="preview-image" />
           )}
         </div>
+       
+      </form>
+      
+      </div>
+      
         <div className="toggle-group">
           <label htmlFor="clearToggle">Borrar campos al terminar de crear/actualizar:</label>
+          <br/>
           <input 
             type="checkbox" 
             id="clearToggle" 
             checked={clearAfterSubmit}
             onChange={handleToggleClear} 
           />
+          
           <span>{clearAfterSubmit ? "Activado" : "Desactivado"}</span>
         </div>
         <div className="button-group">
@@ -269,7 +303,6 @@ const CreateCustomer = () => {
           </button>
           <button type="button" className="clear-btn" onClick={handleClearFields}>Limpiar campos</button>
         </div>
-      </form>
     </div>
   );
 };

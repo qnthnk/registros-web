@@ -1,9 +1,12 @@
+
 .create-customer-container {
     padding: 1rem;
     max-width: 800px;
     margin: 0 auto;
-    color: #333;
-    box-sizing: border-box;
+    background-color: #ffffff;
+   /* cambia color de la letra */ 
+    color: #131212; 
+        box-sizing: border-box;
 }
 
 .create-customer-container h1 {
@@ -39,9 +42,12 @@
 .form-group input,
 .form-group select {
     padding: 0.5rem;
-    border: 1px solid #ccc;
+    /* cambia color del borde del input */
+    border: 1px solid #000000;
     border-radius: 4px;
     box-sizing: border-box;
+    background-color: #e7e7e7;
+    color: #000000;
 }
 
 .file-input input {
@@ -65,7 +71,7 @@
 }
 
 .submit-btn:hover {
-    background-color: #45a049;
+    background-color: #d8e126;
 }
 
 .button-group {
@@ -77,7 +83,7 @@
   
   .clear-btn {
     padding: 0.75rem;
-    background-color: #d9534f;
+    background-color: #ff0800;
     color: #fff;
     border: none;
     border-radius: 4px;
@@ -87,7 +93,7 @@
   }
   
   .clear-btn:hover {
-    background-color: #c9302c;
+    background-color: #d8e126;
   }
 
 /* Responsive: en móviles forzamos que el contenedor y los cards se ajusten al ancho */

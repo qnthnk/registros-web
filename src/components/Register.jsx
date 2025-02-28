@@ -29,7 +29,7 @@ const Register = () => {
     const { name, value } = event.target;
     setFormDataRegister({ ...formDataRegister, [name]: value });
   };
-
+///sdsdsd
   const handleVerifications = async () => {
     if (formDataRegister.password.length < 8) {
       alert("El password debe ser por lo menos de 8 caracteres");
