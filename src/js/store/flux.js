@@ -14,6 +14,31 @@ const getState = ({ getStore, getActions, setStore }) => {
             dataEstadisticas: {}
         },
         actions: {
+            downloadExcel: async () => {
+                try {
+                const apiKey = process.env.REACT_APP_API_KEY
+                  const response = await fetch("https://registros-back.onrender.com/get_registers_list",{
+                    headers:{
+                        "Authorization": apiKey
+                    }
+                  });
+                  if (!response.ok) throw new Error("Network response was not ok");
+                  const blob = await response.blob();
+                  const url = window.URL.createObjectURL(blob);
+                  const a = document.createElement('a');
+                  a.href = url;
+                  a.download = "clientes.xlsx";
+                  document.body.appendChild(a);
+                  a.click();
+                  a.remove();
+                  window.URL.revokeObjectURL(url);
+                } catch (error) {
+                  alert("Error descargando el excel.");
+                  console.error("Download Excel Error:", error);
+                  throw error;
+                }
+              },
+
             stateCustomer: async (customer, actionType) => {
                 // Si la acción es "dar_baja", seteamos state en false, sino en true
                 const newState = actionType === "dar_baja" ? false : true;
@@ -725,7 +750,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
 
             // Action para descargar el Excel
-            downloadExcel: async () => {
+            downloadExcelDeprecated: async () => {
 
                 const apiKey = process.env.REACT_APP_API_KEY
                 try {

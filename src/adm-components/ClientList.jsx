@@ -7,6 +7,7 @@ const ClientList = () => {
   const { store, actions } = useContext(Context);
   const [reload, setReload] = useState(false);
   const [selectedCustomer, setSelectedCustomer] = useState(null);
+  const [isDownloading, setIsDownloading] = useState(false);
 
   useEffect(() => {
     actions.getCustomers();
@@ -18,39 +19,38 @@ const ClientList = () => {
 
   // Handler para eliminar
   const handleEliminar = async (customer) => {
-    // Paso 1: Preguntar confirmación al usuario
-    if (!window.confirm(`¿Estás seguro de eliminar a ${customer.name}?`)) {
-      return; // Paso 2: Si dice que no, se corta la ejecución
-    }
-    // Paso 3: Ejecutar el action deleteCustomer
+    if (!window.confirm(`¿Estás seguro de eliminar a ${customer.name}?`)) return;
     const isDeleted = await actions.deleteCustomer(customer);
     if (isDeleted) {
-      // Paso 4: Si se eliminó correctamente, mostramos un alert y toggleamos el flag
       alert(`${customer.name} eliminado con éxito`);
       setReload(prev => !prev);
     }
   };
-
-  // Handler para generar tarjeta: abre el modal
-  // const handleGenerarTarjeta = (customer) => {
-  //   console.log("Generar Tarjeta", customer);
-  //   setSelectedCustomer(customer);
-  // };
 
   // Handler para dar baja o alta (toggle)
   const toggleStateCustomer = async (customer, actionType) => {
     const confirmMsg = actionType === "dar_baja" 
       ? "¿Estás seguro que el usuario pagó?" 
       : "¿Estás seguro que el usuario no pagó?";
-      
-    if (!window.confirm(confirmMsg)) return; // Si cancela, no hacemos nada
+    if (!window.confirm(confirmMsg)) return;
 
     const result = await actions.stateCustomer(customer, actionType);
     if (result) {
-      // Si todo salió bien, cambiamos el flag para refrescar la lista
       setReload(!reload);
     } else {
       alert("Algo no salió como se esperaba.");
+    }
+  };
+
+  // Handler para descargar Excel
+  const handleDownloadExcel = async () => {
+    setIsDownloading(true);
+    try {
+      await actions.downloadExcel();
+    } catch (error) {
+      alert("Error descargando el excel.");
+    } finally {
+      setIsDownloading(false);
     }
   };
 
@@ -96,6 +96,18 @@ const ClientList = () => {
   return (
     <div className="client-list-container">
       <h2>Lista de Clientes</h2>
+      {/* Botón para descargar Excel */}
+      <div className="download-excel-container">
+        <button className="btn download-excel-btn" onClick={handleDownloadExcel} disabled={isDownloading}>
+          {isDownloading ? (
+            <>
+              <i className="fas fa-spinner fa-spin"></i> Descargando...
+            </>
+          ) : (
+            "Descargar Excel"
+          )}
+        </button>
+      </div>
       {renderCustomerList("Por pagar", activeCustomers)}
       {renderCustomerList("Pagos", inactiveCustomers)}
       {selectedCustomer && (
