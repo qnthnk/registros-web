@@ -27,7 +27,7 @@ const ClientList = () => {
     if (isDeleted) {
       // Paso 4: Si se eliminó correctamente, mostramos un alert y toggleamos el flag
       alert(`${customer.name} eliminado con éxito`);
-      setRefreshFlag(prev => !prev);
+      setReload(prev => !prev);
     }
   };
 
