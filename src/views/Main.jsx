@@ -13,7 +13,7 @@ const Main = () => {
 
     return (
         <div className='mainTotal'>
-            <Navbar />
+         
             <div className="list-group">
                 {
                     token ? (

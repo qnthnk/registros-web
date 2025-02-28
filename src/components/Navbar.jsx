@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Context } from '../js/store/appContext';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './Navbar.css';
-import logo3 from '../img/logo3_individual.png'
+import logo3 from '../img/LOGOCNC.png'
 
 const Navbar = () => {
     const { actions } = useContext(Context);
@@ -33,7 +33,8 @@ const Navbar = () => {
             <div className="container-fluid">
                 <div className='logo_and_title'>
                     <img className="logo" src={logo3} alt="logo petroclub" onClick={handleShowRegister} />
-                    <h4 className='title_navbar'>PetroClub</h4>
+                    <br/>
+                    <h4 className='title_navbar'>CNC Digital</h4>
                 </div>
 
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,7 +50,16 @@ const Navbar = () => {
                             )
 
                         }
-                        {
+
+{
+                            token && (
+                                <li className="nav-item">
+                                    <Link className={isActive('/createcustomer')} to="/createcustomer">Nuevo Usuario</Link>
+                                </li>
+                            )
+                        }
+
+                        {/* {
                             token && (
                                 <li className="nav-item">
                                     <Link className={isActive('/estadistica')} to="/estadistica">Estadística</Link>
@@ -70,7 +80,7 @@ const Navbar = () => {
                                     <Link className={isActive('/utilidades')} to="/utilidades">Herramientas</Link>
                                 </li>
                             )
-                        }
+                        } */}
                         {/* <li className="nav-item">
                             <Link className={isActive('/plus')} to="/plus">Saber más</Link>
                         </li> */}

@@ -10,7 +10,7 @@ const Home = () => {
 
     return (
         <div className='total_home'>
-            <Navbar />
+       
 
             {token ? (
                 <>

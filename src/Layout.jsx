@@ -9,10 +9,9 @@ import Main from './views/Main.jsx'
 import SaberMas from './views/SaberMas.jsx';
 import Admin from './views/Admin.jsx';
 import Profile from './views/Profile.jsx'
-import Directorio from './views/Directorio.jsx';
 import Footer from './components/Footer.jsx';
-import Utilidades from './views/Utilidades.jsx';
-import UpdateUser from './adm-components/UpdateUser.jsx';
+import CreateCustomer from './components/CreateCustomer.jsx';
+import Navbar from './components/Navbar.jsx';
 
 const Layout = () => {
 
@@ -21,6 +20,7 @@ const Layout = () => {
   return (
     <div>
         <BrowserRouter basename={basename}>
+        <Navbar/>
             <Routes>
                 <Route exact path="/" element={<Home/>}/>
                 <Route exact path="/home" element={<Home/>}/>
@@ -30,9 +30,10 @@ const Layout = () => {
                 <Route exact path="/plus" element={<SaberMas/>}/>
                 <Route exact path="/admin" element={<Admin/>}/>
                 <Route exact path="/profile" element={<Profile />}/>
+                <Route exact path="/createcustomer" element={<CreateCustomer />}/>
+                {/* <Route exact path="/estadistica" element={<Estadistica />}/>
                 <Route exact path="/directorio" element={<Directorio />}/>
-                <Route exact path="/utilidades" element={<Utilidades />}/>
-                <Route exact path="/editar-usuario" element={<UpdateUser />}/>
+                <Route exact path="/utilidades" element={<Utilidades />}/> */}
                 <Route exact path="/*" element={<NotFound/>}/>
             </Routes>
             <Footer />
