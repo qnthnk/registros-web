@@ -17,9 +17,18 @@ const ClientList = () => {
   const inactiveCustomers = store.customers?.filter(customer => customer.state === false) || [];
 
   // Handler para eliminar
-  const handleEliminar = (customer) => {
-    console.log("Eliminar", customer);
-    // Lógica para eliminar
+  const handleEliminar = async (customer) => {
+    // Paso 1: Preguntar confirmación al usuario
+    if (!window.confirm(`¿Estás seguro de eliminar a ${customer.name}?`)) {
+      return; // Paso 2: Si dice que no, se corta la ejecución
+    }
+    // Paso 3: Ejecutar el action deleteCustomer
+    const isDeleted = await actions.deleteCustomer(customer);
+    if (isDeleted) {
+      // Paso 4: Si se eliminó correctamente, mostramos un alert y toggleamos el flag
+      alert(`${customer.name} eliminado con éxito`);
+      setRefreshFlag(prev => !prev);
+    }
   };
 
   // Handler para generar tarjeta: abre el modal
