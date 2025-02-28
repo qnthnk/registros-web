@@ -298,7 +298,7 @@ const CreateCustomer = () => {
           <span>{clearAfterSubmit ? "Activado" : "Desactivado"}</span>
         </div>
         <div className="button-group">
-          <button type="submit" className="submit-btn">
+          <button type="submit" onClick={handleSubmit} className="submit-btn">
             {updateMode ? "Actualizar Socio" : "Crear Socio"}
           </button>
           <button type="button" className="clear-btn" onClick={handleClearFields}>Limpiar campos</button>

@@ -39,7 +39,6 @@ const Admin = () => {
     const token = localStorage.getItem('token')
     return (
         <div>
-            <Navbar />
             {
                 admin === true && token ? (
                     <div>

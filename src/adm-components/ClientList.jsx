@@ -1,35 +1,43 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Context } from '../js/store/appContext';
 import './ClientList.css';
 
 const ClientList = () => {
   const { store, actions } = useContext(Context);
+  const [refreshFlag, setRefreshFlag] = useState(true);
 
   useEffect(() => {
     actions.getCustomers();
-  }, []);
+  }, [refreshFlag]);
 
   // Filtramos los clientes según su estado
   const activeCustomers = store.customers?.filter(customer => customer.state === true) || [];
   const inactiveCustomers = store.customers?.filter(customer => customer.state === false) || [];
 
-  // Handlers para cada botón (acá se puede agregar la lógica necesaria)
   const handleDarBaja = (customer) => {
     console.log("Dar baja", customer);
-    // Acá va la lógica para dar baja
+    // Lógica para dar baja
   };
 
-  const handleEliminar = (customer) => {
-    console.log("Eliminar", customer);
-    // Acá va la lógica para eliminar
+  const handleEliminar = async (customer) => {
+    // Paso 1: Preguntar confirmación al usuario
+    if (!window.confirm(`¿Estás seguro de eliminar a ${customer.name}?`)) {
+      return; // Paso 2: Si dice que no, se corta la ejecución
+    }
+    // Paso 3: Ejecutar el action deleteCustomer
+    const isDeleted = await actions.deleteCustomer(customer);
+    if (isDeleted) {
+      // Paso 4: Si se eliminó correctamente, mostramos un alert y toggleamos el flag
+      alert(`${customer.name} eliminado con éxito`);
+      setRefreshFlag(prev => !prev);
+    }
   };
 
   const handleGenerarTarjeta = (customer) => {
     console.log("Generar Tarjeta", customer);
-    // Acá va la lógica para generar tarjeta
+    // Lógica para generar tarjeta
   };
 
-  // Función para renderizar una sección de clientes con título
   const renderCustomerList = (title, customers) => (
     <div className="customer-list-section">
       <h3>{title}</h3>
@@ -47,7 +55,7 @@ const ClientList = () => {
               <div className="customer-actions">
                 <button className="btn baja-btn" onClick={() => handleDarBaja(customer)}>Dar baja</button>
                 <button className="btn eliminar-btn" onClick={() => handleEliminar(customer)}>Eliminar</button>
-                <button className="btn tarjeta-btn" onClick={() => handleGenerarTarjeta(customer)}>Generar Tarjeta</button>
+                {/* <button className="btn tarjeta-btn" onClick={() => handleGenerarTarjeta(customer)}>Generar Tarjeta</button> */}
               </div>
             </div>
           ))}
