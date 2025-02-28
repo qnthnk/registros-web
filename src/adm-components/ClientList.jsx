@@ -31,8 +31,8 @@ const ClientList = () => {
   // Handler para dar baja o alta (toggle)
   const toggleStateCustomer = async (customer, actionType) => {
     const confirmMsg = actionType === "dar_baja" 
-      ? "¿Estás seguro que querés dar de baja al usuario?" 
-      : "¿Estás seguro que querés dar de alta al usuario?";
+      ? "¿Estás seguro que el usuario pagó?" 
+      : "¿Estás seguro que el usuario no pagó?";
       
     if (!window.confirm(confirmMsg)) return; // Si cancela, no hacemos nada
 
