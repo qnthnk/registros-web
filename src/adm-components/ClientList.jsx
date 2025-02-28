@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Context } from '../js/store/appContext';
 import './ClientList.css';
-// import GenerateCardModal from './GenerateCardModal';
+import GenerateCardModal from './GenerateCardModal';
 
 const ClientList = () => {
   const { store, actions } = useContext(Context);
@@ -89,12 +89,12 @@ const ClientList = () => {
       <h2>Lista de Clientes</h2>
       {renderCustomerList("Por pagar", activeCustomers)}
       {renderCustomerList("Pagos", inactiveCustomers)}
-      {/* {selectedCustomer && (
+      {selectedCustomer && (
         <GenerateCardModal 
           customer={selectedCustomer} 
           onClose={() => setSelectedCustomer(null)} 
         />
-      )} */}
+      )}
     </div>
   );
 };
