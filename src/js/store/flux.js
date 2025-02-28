@@ -14,6 +14,36 @@ const getState = ({ getStore, getActions, setStore }) => {
             dataEstadisticas: {}
         },
         actions: {
+            stateCustomer: async (customer, actionType) => {
+                // Si la acción es "dar_baja", seteamos state en false, sino en true
+                const newState = actionType === "dar_baja" ? false : true;
+                const payload = {
+                    state: newState,
+                    customer_id: customer.id
+                };
+                const apiKey = process.env.REACT_APP_API_KEY;
+
+                try {
+                    const response = await fetch('https://petroclub-back.onrender.com/complete_customer', {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': apiKey,
+                        },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        console.error("Error actualizando el estado del customer:", response);
+                        return false;
+                    }
+                    // Si todo sale bien, devolvemos true
+                    return true;
+                } catch (error) {
+                    console.error("Error en la acción stateCustomer:", error);
+                    return false;
+                }
+            },
             deleteCustomer: async (customer) => {
                 try {
                     const apiKey = process.env.REACT_APP_API_KEY;
