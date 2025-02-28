@@ -16,8 +16,12 @@ const getState = ({ getStore, getActions, setStore }) => {
         actions: {
             deleteCustomer: async (customer) => {
                 try {
+                    const apiKey = process.env.REACT_APP_API_KEY;
                     const response = await fetch(`https://registros-back.onrender.com/delete_customer/${customer.id}`, {
-                        method: "DELETE"
+                        method: "DELETE",
+                        headers:{
+                            "Authorization": apiKey
+                        }
                     });
                     if (!response.ok) {
                         throw new Error("Error eliminando el cliente");
