@@ -98,7 +98,7 @@ const ClientList = () => {
       <h2>Lista de Clientes</h2>
       {/* Botón para descargar Excel */}
       <div className="download-excel-container">
-        <button className="btn download-excel-btn" onClick={handleDownloadExcel} disabled={isDownloading}>
+        <button className="btn download-excel-btn-blue" onClick={handleDownloadExcel} disabled={isDownloading}>
           {isDownloading ? (
             <>
               <i className="fas fa-spinner fa-spin"></i> Descargando...

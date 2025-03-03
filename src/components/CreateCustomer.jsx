@@ -79,8 +79,8 @@ const CreateCustomer = () => {
     if (!files || files.length === 0) return;
     const data = new FormData();
     data.append('file', files[0]);
-    const preset_name = 'yu1h90st'; // Reemplazar con tu preset
-    const cloud_name = 'drlqmol4c'; // Reemplazar con tu cloud name
+    const preset_name = 'xpo95f7i'; // Reemplazar con tu preset
+    const cloud_name = 'dmzz8olyo'; // Reemplazar con tu cloud name
     data.append('upload_preset', preset_name);
     setLoading(true);
     try {

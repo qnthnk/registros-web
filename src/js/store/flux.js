@@ -645,8 +645,8 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
             uploadImageToCloudinary: async (imageFile) => {
 
-                const preset_name = "j9z88xqz";
-                const cloud_name = "drlqmol4c"
+                const preset_name = "xpo95f7i";
+                const cloud_name = "dmzz8olyo"
 
                 const data = new FormData();
                 data.append('file', imageFile);
