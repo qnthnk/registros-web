@@ -1,8 +1,8 @@
 body {
   font-family: 'Poppins', sans-serif; /* Corregir typo en `sanas-serif` */
   min-height: 100vh;
-  background: #2a2929 !important;
-  /* background: url('./img/back - Copia.jpg') no-repeat center center; */
+  /* background-image: #f40707 !important; */
+  background: url('./img/backCNCblack.png') no-repeat center center;
   background-size: cover;
   margin: 0;
   -webkit-font-smoothing: antialiased;

@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar.jsx';
 import './Home.css';
 import Login from '../components/Login.jsx';
 import Capture from '../components/Capture.jsx';
+import HomeCNC from './HomeCNC.jsx';
 
 const Home = () => {
     const token = localStorage.getItem('token');
@@ -14,7 +15,7 @@ const Home = () => {
 
             {token ? (
                 <>
-                <Capture />
+                <HomeCNC />
                 </>
             ) : (
                 <Login />
