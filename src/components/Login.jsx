@@ -3,7 +3,7 @@ import { Context } from '../js/store/appContext.js';
 import './Login.css';
 import { FaUser, FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-import gifLoading from '../img/Loading_2.gif';
+import gifLoading from '../img/loader-9342.gif';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -82,12 +82,12 @@ const Login = () => {
           e.preventDefault();
           handlerLogin();
         }}
-      >
-        <h1>Login</h1>
+            >
+        <h1>Bienvenidos</h1>
         <div className='input-box tex'>
           <input
             type='email'
-            placeholder='E-mail'
+            placeholder='Entidad'
             id='email'
             value={email}
             autoComplete='email'
@@ -112,7 +112,7 @@ const Login = () => {
         </div>
         {store.wrongPass && (
           <p style={{ color: 'white', fontSize: '18px' }}>
-            Credencial/es incorrecta/s
+            Contraseña incorrecta
           </p>
         )}
         <div className='remember-forgot'>
@@ -123,7 +123,7 @@ const Login = () => {
               checked={rememberMe}
               onChange={handleRememberMeChange}
             />
-            Recordame en este dispositivo
+            Recordarme en este dispositivo
           </label>
         </div>
         <button type='submit'>
@@ -131,10 +131,10 @@ const Login = () => {
             <img
               src={gifLoading}
               alt='gif de carga'
-              style={{ width: '30vh', height: '5vh' }}
+              style={{ width: '50%', height: '140%' }}
             />
           ) : (
-            <h5>Login</h5>
+            <h5>Ingresar</h5>
           )}
         </button>
         {/* Opcional: enlace para registrarse */}

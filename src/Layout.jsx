@@ -13,6 +13,7 @@ import Footer from './components/Footer.jsx';
 import CreateCustomer from './components/CreateCustomer.jsx';
 import Navbar from './components/Navbar.jsx';
 
+
 const Layout = () => {
 
   const basename = process.env.BASENAME || "";

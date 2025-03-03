@@ -3,8 +3,9 @@ import { Context } from '../js/store/appContext';
 import { FaUser, FaLock } from "react-icons/fa";
 import { HiMiniIdentification } from "react-icons/hi2";
 import { MdEmail } from "react-icons/md";
-import gifLoading from "../img/Loading_2.gif";
+import gifLoading from "../img/loader-9342.gif";
 import { useNavigate } from 'react-router-dom';
+import './Register.css';
 
 const Register = () => {
   const { actions } = useContext(Context);

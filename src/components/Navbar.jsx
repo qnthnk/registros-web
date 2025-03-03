@@ -54,7 +54,7 @@ const Navbar = () => {
 {
                             token && (
                                 <li className="nav-item">
-                                    <Link className={isActive('/createcustomer')} to="/createcustomer">Nuevo Usuario</Link>
+                                    <Link className={isActive('/createcustomer')} to="/createcustomer">Nuevo Registro</Link>
                                 </li>
                             )
                         }
