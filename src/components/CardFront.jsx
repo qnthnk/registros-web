@@ -1,7 +1,7 @@
 import React from 'react';
 import './CardFront.css';
 
-const CardFront = ({ data }) => {
+const CardFront = ({ data, localImage }) => {
   console.log(data);
   return (
     <>
@@ -9,7 +9,7 @@ const CardFront = ({ data }) => {
       <div className="cardContainer creditCard">
         <div className="card-photo">
           {data.url_image_self_photo ? (
-            <img src={data.url_image_self_photo} alt="Foto" />
+            <img src={localImage} alt="Foto" />
           ) : (
             <div className="placeholder">Foto</div>
           )}

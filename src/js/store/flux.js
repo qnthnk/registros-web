@@ -14,30 +14,50 @@ const getState = ({ getStore, getActions, setStore }) => {
             dataEstadisticas: {}
         },
         actions: {
+            uploadImageToDrive: async (file) => {
+                const formData = new FormData();
+                formData.append('file', file);
+
+                try {
+                    const response = await fetch('https://registros-back.onrender.com/upload-image', {  // Ajustá la URL si es necesario
+                        method: 'POST',
+                        body: formData,
+                    });
+                    const data = await response.json();
+                    if (response.ok) {
+                        return data.url;
+                    } else {
+                        throw new Error(data.error || 'Error uploading image');
+                    }
+                } catch (error) {
+                    console.error('Error in uploadImageToDrive action:', error);
+                    throw error;
+                }
+            },
             downloadExcel: async () => {
                 try {
-                const apiKey = process.env.REACT_APP_API_KEY
-                  const response = await fetch("https://registros-back.onrender.com/get_registers_list",{
-                    headers:{
-                        "Authorization": apiKey
-                    }
-                  });
-                  if (!response.ok) throw new Error("Network response was not ok");
-                  const blob = await response.blob();
-                  const url = window.URL.createObjectURL(blob);
-                  const a = document.createElement('a');
-                  a.href = url;
-                  a.download = "clientes.xlsx";
-                  document.body.appendChild(a);
-                  a.click();
-                  a.remove();
-                  window.URL.revokeObjectURL(url);
+                    const apiKey = process.env.REACT_APP_API_KEY
+                    const response = await fetch("https://registros-back.onrender.com/get_registers_list", {
+                        headers: {
+                            "Authorization": apiKey
+                        }
+                    });
+                    if (!response.ok) throw new Error("Network response was not ok");
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = "clientes.xlsx";
+                    document.body.appendChild(a);
+                    a.click();
+                    a.remove();
+                    window.URL.revokeObjectURL(url);
                 } catch (error) {
-                  alert("Error descargando el excel.");
-                  console.error("Download Excel Error:", error);
-                  throw error;
+                    alert("Error descargando el excel.");
+                    console.error("Download Excel Error:", error);
+                    throw error;
                 }
-              },
+            },
 
             stateCustomer: async (customer, actionType) => {
                 // Si la acción es "dar_baja", seteamos state en false, sino en true
@@ -74,7 +94,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                     const apiKey = process.env.REACT_APP_API_KEY;
                     const response = await fetch(`https://registros-back.onrender.com/delete_customer/${customer.id}`, {
                         method: "DELETE",
-                        headers:{
+                        headers: {
                             "Authorization": apiKey
                         }
                     });
