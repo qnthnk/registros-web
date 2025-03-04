@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Context } from '../js/store/appContext';
+import { useNavigate } from 'react-router-dom';
 import CardFront from './CardFront';
 import './CreateCustomer.css';
 
@@ -44,6 +45,7 @@ const CreateCustomer = () => {
   const [localImage, setLocalImage] = useState(''); // preview local para self photo
   const [updateMode, setUpdateMode] = useState(false);
   const { actions } = useContext(Context);
+  let navigate = useNavigate()
 
   useEffect(() => {
     localStorage.setItem('customerData', JSON.stringify(customerData));
@@ -166,16 +168,21 @@ const CreateCustomer = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if(customerData.curp && customerData.curp.length !== 18){
+      alert("El campo CURP debe estar completo y ser válido.")
+      return
+    }
     console.log("Submitting customer data:", customerData);
     try {
       let result = await actions.createCustomer(customerData);
       if (result) {
-        alert(`Cliente ${result} con éxito.`);
+        alert(`Socio ${result} con éxito.`);
         if (clearAfterSubmit) {
           resetFields();
         }
       } else {
-        alert("O el token se venció o el server anda sacando chispas...");
+        actions.logout()
+        navigate('/redirect-home')
       }
     } catch (error) {
       console.error(error);

@@ -12,7 +12,7 @@ import Profile from './views/Profile.jsx'
 import Footer from './components/Footer.jsx';
 import CreateCustomer from './components/CreateCustomer.jsx';
 import Navbar from './components/Navbar.jsx';
-
+import RedirectToHome from './components/RedirectHome.jsx';
 
 const Layout = () => {
 
@@ -32,6 +32,7 @@ const Layout = () => {
                 <Route exact path="/admin" element={<Admin/>}/>
                 <Route exact path="/profile" element={<Profile />}/>
                 <Route exact path="/createcustomer" element={<CreateCustomer />}/>
+                <Route exact path="/redirect-home" element={<RedirectToHome />}/>
                 {/* <Route exact path="/estadistica" element={<Estadistica />}/>
                 <Route exact path="/directorio" element={<Directorio />}/>
                 <Route exact path="/utilidades" element={<Utilidades />}/> */}
