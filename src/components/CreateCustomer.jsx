@@ -69,20 +69,60 @@ const CreateCustomer = () => {
     }
   };
 
+
+  const resizeImage = (file, maxWidth, maxHeight, quality = 0.9) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = event => {
+        const img = new Image();
+        img.src = event.target.result;
+        img.onload = () => {
+          let width = img.width;
+          let height = img.height;
+          // Redimensionar manteniendo la proporción
+          if (width > maxWidth || height > maxHeight) {
+            const aspectRatio = width / height;
+            if (width > height) {
+              width = maxWidth;
+              height = maxWidth / aspectRatio;
+            } else {
+              height = maxHeight;
+              width = maxHeight * aspectRatio;
+            }
+          }
+          // Crear un canvas y dibujar la imagen redimensionada
+          const canvas = document.createElement("canvas");
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(img, 0, 0, width, height);
+          // Convertir la imagen a Blob
+          canvas.toBlob(blob => {
+            resolve(blob);
+          }, "image/jpeg", quality);
+        };
+        img.onerror = error => reject(error);
+      };
+      reader.onerror = error => reject(error);
+    });
+  };
+
   // Handler para subir imagen a Google Drive usando el action de flux
   // Se genera el preview local y se guarda la URL remota en customerData
   const uploadImageToDriveHandler = async (e, imageField, setLoading) => {
     const files = e.target.files;
     if (!files || files.length === 0) return;
     setLoading(true);
+    
     try {
       const file = files[0];
-
+      const resizedImage = await resizeImage(file, 98, 121, 0.9); // Tamaño máximo definido
       // Generar preview local
       const localPreviewUrl = URL.createObjectURL(file);
 
       // Subir la imagen a través del action (este action debe devolver la URL remota)
-      const url = await actions.uploadImageToDrive(file);
+      const url = await actions.uploadImageToDrive(resizedImage);
       console.log("Imagen subida a Google Drive:", url);
 
       // Suponemos que la URL viene en formato "https://drive.google.com/uc?id=FILE_ID..."
