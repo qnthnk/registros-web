@@ -210,6 +210,22 @@ const CreateCustomer = () => {
           <hr />
           <h3>Datos Generales:</h3>
           <div className="form-group">
+            <label>CURP:</label>
+            <input
+              type="text"
+              name="curp"
+              value={customerData.curp}
+              onChange={handleChange}
+              onBlur={handleCurpBlur}
+              required
+            />
+            <small className="curp-info">
+              {updateMode
+                ? "El CURP ingresado existe. Se realizará una actualización."
+                : "Nota: Si el CURP ya existe, se actualizarán los datos."}
+            </small>
+          </div>
+          <div className="form-group">
             <label>Nombre:</label>
             <input type="text" name="name" value={customerData.name} onChange={handleChange} required />
           </div>
@@ -225,22 +241,7 @@ const CreateCustomer = () => {
             <label>Clave de Elector:</label>
             <input type="text" name="cve" value={customerData.cve} onChange={handleChange} />
           </div>
-          <div className="form-group">
-            <label>CURP:</label>
-            <input
-              type="text"
-              name="curp"
-              value={customerData.curp}
-              onChange={handleChange}
-              onBlur={handleCurpBlur}
-              required
-            />
-            <small className="curp-info">
-              {updateMode
-                ? "El CURP ingresado existe, se realizará una actualización."
-                : "Nota: Si el CURP ya existe, se actualizarán los datos."}
-            </small>
-          </div>
+          
           <div className="form-group">
             <label>Estructura:</label>
             <select name="org" value={customerData.org} onChange={handleChange}>
@@ -310,14 +311,14 @@ const CreateCustomer = () => {
           </div>
           {/* Sección de subida de imágenes */}
           <div className="form-group file-input">
-            <label>Foto Self:</label>
+            <label>Foto Carnet:</label>
             <input type="file" onChange={(e) => uploadImageToDriveHandler(e, 'url_image_self_photo', setLoadingSelfPhoto)} />
             {loadingSelfPhoto && <span>Cargando imagen...</span>}
             {localImage && (
               <img src={localImage} alt="Self" className="preview-image" />
             )}
           </div>
-          <div className="form-group file-input">
+          {/* <div className="form-group file-input">
             <label>Imagen Credencial Frente:</label>
             <input type="file" onChange={(e) => uploadImageToDriveHandler(e, 'url_image_card_front', setLoadingCardFront)} />
             {loadingCardFront && <span>Cargando imagen...</span>}
@@ -332,11 +333,12 @@ const CreateCustomer = () => {
             {customerData.url_image_card_back && (
               <img src={customerData.url_image_card_back} alt="Credencial Atrás" className="preview-image" />
             )}
-          </div>
+          </div> */}
         </form>
       </div>
+      <br/>
       <div className="toggle-group">
-        <label htmlFor="clearToggle">Borrar campos al terminar de crear/actualizar:</label>
+        <label htmlFor="clearToggle">Borrar campos al terminar de crear/actualizar?:</label>
         <br />
         <input
           type="checkbox"
@@ -344,7 +346,7 @@ const CreateCustomer = () => {
           checked={clearAfterSubmit}
           onChange={handleToggleClear}
         />
-        <span>{clearAfterSubmit ? "Activado" : "Desactivado"}</span>
+        <span>{clearAfterSubmit ? "Activado" : "  Marca para activar el borrado automático."}</span>
       </div>
       <div className="button-group">
         <button type="submit" onClick={handleSubmit} className="submit-btn">
