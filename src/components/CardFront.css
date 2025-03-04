@@ -40,7 +40,7 @@ body {
     width: 100%;
     aspect-ratio: 1.586/1;
     margin: 0 auto;
-    background-image: url('/src/img/LETY\ 2.0.png'); /*cambiar imagen de la tarjeta*/
+    background-image: url('/src/img/Lety\ 2.0.png'); /*cambiar imagen de la tarjeta*/
     background-size: cover;
     background-position: center;
     border-radius: 15px;
@@ -115,14 +115,15 @@ body {
 .cardHolderC {
     text-transform: uppercase;
     position: relative;
-    left: 115px;
-    top: 20px;
+    left: 117px;
+    top: 7px;
 }
 .cardHolderO {
     text-transform: uppercase;
     position: relative;
-    left: 259px;
-    top: -15px;
+    left: 117px;
+    top: 15px;
+    font-size: smaller;
 }
 .cardHolderEnt {
     text-transform: uppercase;
