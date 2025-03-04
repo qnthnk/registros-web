@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import { Context } from '../js/store/appContext';
 import { useNavigate } from 'react-router-dom';
 import CardFront from './CardFront';
@@ -41,11 +41,13 @@ const CreateCustomer = () => {
   const [loadingSelfPhoto, setLoadingSelfPhoto] = useState(false);
   const [loadingCardFront, setLoadingCardFront] = useState(false);
   const [loadingCardBack, setLoadingCardBack] = useState(false);
-  const [clearAfterSubmit, setClearAfterSubmit] = useState(false);
+  // Se inicia clearAfterSubmit en true por defecto
+  const [clearAfterSubmit, setClearAfterSubmit] = useState(true);
   const [localImage, setLocalImage] = useState(''); // preview local para self photo
   const [updateMode, setUpdateMode] = useState(false);
   const { actions } = useContext(Context);
-  let navigate = useNavigate()
+  const navigate = useNavigate();
+  const formContainerRef = useRef(null);
 
   useEffect(() => {
     localStorage.setItem('customerData', JSON.stringify(customerData));
@@ -68,9 +70,10 @@ const CreateCustomer = () => {
       } catch (error) {
         console.error("Error al verificar el CURP:", error);
       }
+    } else {
+      setUpdateMode(false);
     }
   };
-
 
   const resizeImage = (file, maxWidth, maxHeight, quality = 0.9) => {
     return new Promise((resolve, reject) => {
@@ -82,7 +85,6 @@ const CreateCustomer = () => {
         img.onload = () => {
           let width = img.width;
           let height = img.height;
-          // Redimensionar manteniendo la proporción
           if (width > maxWidth || height > maxHeight) {
             const aspectRatio = width / height;
             if (width > height) {
@@ -93,13 +95,11 @@ const CreateCustomer = () => {
               width = maxHeight * aspectRatio;
             }
           }
-          // Crear un canvas y dibujar la imagen redimensionada
           const canvas = document.createElement("canvas");
           canvas.width = width;
           canvas.height = height;
           const ctx = canvas.getContext("2d");
           ctx.drawImage(img, 0, 0, width, height);
-          // Convertir la imagen a Blob
           canvas.toBlob(blob => {
             resolve(blob);
           }, "image/jpeg", quality);
@@ -111,42 +111,29 @@ const CreateCustomer = () => {
   };
 
   // Handler para subir imagen a Google Drive usando el action de flux
-  // Se genera el preview local y se guarda la URL remota en customerData
   const uploadImageToDriveHandler = async (e, imageField, setLoading) => {
     const files = e.target.files;
     if (!files || files.length === 0) return;
     setLoading(true);
-    
     try {
       const file = files[0];
-      const resizedImage = await resizeImage(file, 98, 121, 0.9); // Tamaño máximo definido
-      // Generar preview local
-      const localPreviewUrl = URL.createObjectURL(file);
-
-      // Subir la imagen a través del action (este action debe devolver la URL remota)
+      const resizedImage = await resizeImage(file, 98, 121, 0.9);
+      // Generar preview local a partir del blob redimensionado
+      const localPreviewUrl = URL.createObjectURL(resizedImage);
       const url = await actions.uploadImageToDrive(resizedImage);
       console.log("Imagen subida a Google Drive:", url);
-
-      // Suponemos que la URL viene en formato "https://drive.google.com/uc?id=FILE_ID..."
       if (url.startsWith("https://drive.google.com/uc?id=")) {
-        // Extraer el fileId
-        const parts = url.split('?'); // ["https://drive.google.com/uc", "id=FILE_ID"]
+        const parts = url.split('?');
         if (parts.length < 2) throw new Error("Formato de URL no esperado");
-        const query = parts[1]; // "id=FILE_ID"
+        const query = parts[1];
         const queryParts = query.split('=');
         if (queryParts.length !== 2) throw new Error("No se pudo extraer el ID de la imagen");
         const fileId = queryParts[1];
-
-        // Armar la URL remota final usando drive.usercontent (para que sirva correctamente en un <img>)
         const customUrl = `https://drive.usercontent.google.com/download?id=${fileId}&export=view`;
-
-        // Actualizamos customerData con la URL remota
         setCustomerData(prev => ({
           ...prev,
           [imageField]: customUrl
         }));
-
-        // Y guardamos el preview local en estado local para mostrarlo inmediatamente
         setLocalImage(localPreviewUrl);
       } else {
         alert("Error: La URL devuelta no es válida.");
@@ -164,13 +151,19 @@ const CreateCustomer = () => {
     localStorage.removeItem('customerData');
     setUpdateMode(false);
     setLocalImage('');
+    // Scroll interno: hacia arriba (smooth)
+    if (formContainerRef.current) {
+      formContainerRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    // Scroll externo: hacia abajo (smooth)
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(customerData.curp && customerData.curp.length !== 18){
-      alert("El campo CURP debe estar completo y ser válido.")
-      return
+    if (customerData.curp && customerData.curp.length !== 18) {
+      alert("El campo CURP debe estar completo y ser válido.");
+      return;
     }
     console.log("Submitting customer data:", customerData);
     try {
@@ -181,9 +174,16 @@ const CreateCustomer = () => {
           resetFields();
         }
       } else {
-        actions.logout()
-        navigate('/redirect-home')
+        actions.logout();
+        navigate('/redirect-home');
       }
+      // Al finalizar el submit, hacemos scroll:
+      // Scroll interno: hacia arriba (smooth)
+      if (formContainerRef.current) {
+        formContainerRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      // Scroll externo: hacia abajo (smooth)
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
     } catch (error) {
       console.error(error);
     }
@@ -199,13 +199,22 @@ const CreateCustomer = () => {
     setClearAfterSubmit(prev => !prev);
   };
 
+  let curpMessage = "";
+  if (!customerData.curp.trim()) {
+    curpMessage = "Nota: Si el CURP ya se registró previamente, se actualizarán los datos.";
+  } else if (updateMode) {
+    curpMessage = "El CURP ingresado existe. Se realizará una actualización.";
+  } else {
+    curpMessage = "Nota: CURP nuevo. Se procede a crear usuario.";
+  }
+
   return (
     <div className="create-customer-container">
       <h1>Crear/Actualizar</h1>
       <div className="carnet-preview">
         <CardFront data={customerData} localImage={localImage} />
       </div>
-      <div style={{ height: '400px', overflowY: 'auto', border: '1px solid black', padding: '10px' }}>
+      <div ref={formContainerRef} style={{ height: '400px', overflowY: 'auto', border: '1px solid black', padding: '10px' }}>
         <form onSubmit={handleSubmit} className="customer-form">
           <hr />
           <h3>Datos Generales:</h3>
@@ -219,11 +228,7 @@ const CreateCustomer = () => {
               onBlur={handleCurpBlur}
               required
             />
-            <small className="curp-info">
-              {updateMode
-                ? "El CURP ingresado existe. Se realizará una actualización."
-                : "Nota: Si el CURP ya existe, se actualizarán los datos."}
-            </small>
+            <small className="curp-info">{curpMessage}</small>
           </div>
           <div className="form-group">
             <label>Nombre:</label>
@@ -241,7 +246,6 @@ const CreateCustomer = () => {
             <label>Clave de Elector:</label>
             <input type="text" name="cve" value={customerData.cve} onChange={handleChange} />
           </div>
-          
           <div className="form-group">
             <label>Estructura:</label>
             <select name="org" value={customerData.org} onChange={handleChange}>
@@ -318,25 +322,9 @@ const CreateCustomer = () => {
               <img src={localImage} alt="Self" className="preview-image" />
             )}
           </div>
-          {/* <div className="form-group file-input">
-            <label>Imagen Credencial Frente:</label>
-            <input type="file" onChange={(e) => uploadImageToDriveHandler(e, 'url_image_card_front', setLoadingCardFront)} />
-            {loadingCardFront && <span>Cargando imagen...</span>}
-            {customerData.url_image_card_front && (
-              <img src={customerData.url_image_card_front} alt="Credencial Frente" className="preview-image" />
-            )}
-          </div>
-          <div className="form-group file-input">
-            <label>Imagen Credencial Atrás:</label>
-            <input type="file" onChange={(e) => uploadImageToDriveHandler(e, 'url_image_card_back', setLoadingCardBack)} />
-            {loadingCardBack && <span>Cargando imagen...</span>}
-            {customerData.url_image_card_back && (
-              <img src={customerData.url_image_card_back} alt="Credencial Atrás" className="preview-image" />
-            )}
-          </div> */}
         </form>
       </div>
-      <br/>
+      <br />
       <div className="toggle-group">
         <label htmlFor="clearToggle">Borrar campos al terminar de crear/actualizar?:</label>
         <br />
@@ -348,7 +336,7 @@ const CreateCustomer = () => {
         />
         <span>{clearAfterSubmit ? "Activado" : "  Marca para activar el borrado automático."}</span>
       </div>
-      <div className="button-group mb-5">
+      <div className="button-group mb-3">
         <button type="submit" onClick={handleSubmit} className="submit-btn">
           {updateMode ? "Actualizar Socio" : "Crear Socio"}
         </button>
