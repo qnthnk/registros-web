@@ -1,3 +1,14 @@
+
+
+.section {
+display: flex;
+flex-direction: row;
+
+@media (max-width: 720px) {
+    flex-direction: column;
+}
+}
+
 .body {
     font-family: 'Poppins', sans-serif; /* Corregir typo en `sanas-serif` */
     min-height: 100vh;
@@ -10,7 +21,7 @@
   }
 .create-customer-container {
     padding: 1rem;
-    max-width: 800px;
+    max-width: 1000px;
     margin: 0 auto;
     background-color: rgba(68, 124, 15, 0.139); /* Fondo semitransparente para resaltar sobre el #404040 */
    /* cambia color de la letra */ 
