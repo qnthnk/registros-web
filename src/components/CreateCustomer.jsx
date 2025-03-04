@@ -348,7 +348,7 @@ const CreateCustomer = () => {
         />
         <span>{clearAfterSubmit ? "Activado" : "  Marca para activar el borrado automático."}</span>
       </div>
-      <div className="button-group">
+      <div className="button-group mb-5">
         <button type="submit" onClick={handleSubmit} className="submit-btn">
           {updateMode ? "Actualizar Socio" : "Crear Socio"}
         </button>
