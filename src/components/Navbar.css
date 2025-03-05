@@ -56,6 +56,14 @@
   color: white;
   background-color: #444; /* Fondo un poco más claro */
 }
+
+.welcome-message {
+  color: white;
+  font-size: 1rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
 @media (max-width: 427px) {
   .navbar .logo_and_title {
     flex: 1; /* Ocupa el espacio restante */

@@ -30,7 +30,7 @@ const ClientList = () => {
   // Handler para dar baja o alta (toggle)
   const toggleStateCustomer = async (customer, actionType) => {
     const confirmMsg = actionType === "dar_baja" 
-      ? "¿Estás seguro que el usuario pagó?" 
+      ? "¿Estás seguro que el usuario pagó? Esta acción NO tiene vuelta atrás." 
       : "¿Estás seguro que el usuario no pagó?";
     if (!window.confirm(confirmMsg)) return;
 
@@ -96,6 +96,7 @@ const ClientList = () => {
   return (
     <div className="client-list-container">
       <h2>Lista de Clientes</h2>
+      <h6>(últimos 50 creados por ti)</h6>
       {/* Botón para descargar Excel */}
       <div className="download-excel-container">
         <button className="btn download-excel-btn-blue" onClick={handleDownloadExcel} disabled={isDownloading}>

@@ -10,7 +10,7 @@ import CreateCustomer from '../components/CreateCustomer.jsx';
 
 const Admin = () => {
     const location = useLocation();
-    const [activeTab, setActiveTab] = useState('crear-cliente');
+    const [activeTab, setActiveTab] = useState('lista-clientes');
 
 
   useEffect(() => {
