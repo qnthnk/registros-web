@@ -39,15 +39,14 @@ const CreateCustomer = () => {
     return saved ? JSON.parse(saved) : initialCustomerData;
   });
   const [loadingSelfPhoto, setLoadingSelfPhoto] = useState(false);
-  // const [loadingCardFront, setLoadingCardFront] = useState(false);
-  // const [loadingCardBack, setLoadingCardBack] = useState(false);
-  // Se inicia clearAfterSubmit en true por defecto
   const [clearAfterSubmit, setClearAfterSubmit] = useState(true);
   const [localImage, setLocalImage] = useState(''); // preview local para self photo
   const [updateMode, setUpdateMode] = useState(false);
+  const [customerDeudor, setCustomerDeudor] = useState(true); // true por default para permitir alta
   const { actions } = useContext(Context);
   const navigate = useNavigate();
   const formContainerRef = useRef(null);
+  const curpInputRef = useRef(null);
 
   useEffect(() => {
     localStorage.setItem('customerData', JSON.stringify(customerData));
@@ -61,18 +60,37 @@ const CreateCustomer = () => {
     }));
   };
 
-  const handleCurpBlur = async () => {
-    console.log("handleCurpBlur entró con valor , ", customerData.curp);
+  // Función para verificar el CURP y actualizar estados
+  const verifyCurp = async () => {
     if (customerData.curp.trim() !== '') {
       try {
-        const exists = await actions.checkCustomerExists(customerData.curp);
-        setUpdateMode(exists);
+        const { deudor, exists } = await actions.checkCustomerExists(customerData.curp);
+        console.log("Resultado de checkCustomerExists:", { deudor, exists });
+        if (exists) {
+          setUpdateMode(true);
+          setCustomerDeudor(deudor);
+          return { exists, deudor };
+        } else {
+          setUpdateMode(false);
+          setCustomerDeudor(true);
+          return { exists: false, deudor: true };
+        }
       } catch (error) {
         console.error("Error al verificar el CURP:", error);
+        setUpdateMode(false);
+        setCustomerDeudor(true);
+        return { exists: false, deudor: true };
       }
     } else {
       setUpdateMode(false);
+      setCustomerDeudor(true);
+      return { exists: false, deudor: true };
     }
+  };
+
+  // Se sigue usando en el onBlur
+  const handleCurpBlur = async () => {
+    await verifyCurp();
   };
 
   const resizeImage = (file, maxWidth, maxHeight, quality = 0.9) => {
@@ -150,21 +168,31 @@ const CreateCustomer = () => {
     setCustomerData(initialCustomerData);
     localStorage.removeItem('customerData');
     setUpdateMode(false);
+    setCustomerDeudor(true);
     setLocalImage('');
-    // Scroll interno: hacia arriba (smooth)
     if (formContainerRef.current) {
       formContainerRef.current.scrollTo({ top: 0, behavior: 'smooth' });
     }
-    // Scroll externo: hacia abajo (smooth)
     window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
     if (customerData.curp && customerData.curp.length !== 18) {
       alert("El campo CURP debe estar completo y ser válido.");
       return;
     }
+    
+    // Forzamos la verificación del CURP en el submit
+    const { exists, deudor } = await verifyCurp();
+    
+    // Si existe y el usuario no es deudor, bloqueo el submit.
+    if (exists && !deudor) {
+      alert("Usuario pago. No permite actualizaciones.");
+      return;
+    }
+    
     console.log("Submitting customer data:", customerData);
     try {
       let result = await actions.createCustomer(customerData);
@@ -177,12 +205,9 @@ const CreateCustomer = () => {
         actions.logout();
         navigate('/redirect-home');
       }
-      // Al finalizar el submit, hacemos scroll:
-      // Scroll interno: hacia arriba (smooth)
       if (formContainerRef.current) {
         formContainerRef.current.scrollTo({ top: 0, behavior: 'smooth' });
       }
-      // Scroll externo: hacia abajo (smooth)
       window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
     } catch (error) {
       console.error(error);
@@ -202,6 +227,8 @@ const CreateCustomer = () => {
   let curpMessage = "";
   if (!customerData.curp.trim()) {
     curpMessage = "Nota: Si el CURP ya se registró previamente, se actualizarán los datos.";
+  } else if (updateMode && !customerDeudor) {
+    curpMessage = "Usuario pago. No permite actualizaciones";
   } else if (updateMode) {
     curpMessage = "El CURP ingresado existe. Se realizará una actualización.";
   } else {
@@ -211,14 +238,12 @@ const CreateCustomer = () => {
   return (
     <div className="create-customer-container">
       <h1 style={{color:"#F2F2F2", fontWeight:"bolder"}}>Alta de registros</h1>
-      {/* En el div de abajo esta la clase section de CSS para el responsive view */}
       <div className='section'>
         <div style={{marginRight:"5%"}}>
           <div className="carnet-preview">
             <CardFront data={customerData} localImage={localImage} />
           </div>
         </div>
-
         <div style={{width:"100%", backgroundColor:"#F2F2F2", padding:"10px", borderRadius: '8px'}}>
           <div ref={formContainerRef} style={{ height: '400px', overflowY: 'auto', padding: '10px' }}>
             <form onSubmit={handleSubmit} className="customer-form">
@@ -226,6 +251,7 @@ const CreateCustomer = () => {
               <div className="form-group">
                 <label>CURP:</label>
                 <input
+                  ref={curpInputRef}
                   type="text"
                   name="curp"
                   value={customerData.curp}
@@ -254,8 +280,7 @@ const CreateCustomer = () => {
               <div className="form-group">
                 <label>Estructura:</label>
                 <select name="org" value={customerData.org} onChange={handleChange}>
-                <option >Seleccione una opción</option>
-                <option value="Comite Ejecutivo Nacional">Comite Ejecutivo Nacional</option>
+                  <option>Seleccione una opción</option>
                   <option value="Comite Ejecutivo Nacional">Comite Ejecutivo Nacional</option>
                   <option value="Confederacion Nacional Agronomica">Confederacion Nacional Agronomica</option>
                   <option value="SAF">SAF</option>
@@ -268,7 +293,7 @@ const CreateCustomer = () => {
                   <option value="Miembro Activo">Miembro Activo</option>
                 </select>
                 <hr />
-                <h3>Direccion:</h3>
+                <h3>Dirección:</h3>
               </div>
               <div className="form-group">
                 <label>Calle:</label>
@@ -346,14 +371,15 @@ const CreateCustomer = () => {
         <span>{clearAfterSubmit ? "Activado" : "  Marca para activar el borrado automático."}</span>
       </div>
       <div className="button-group mb-3">
-        <button type="submit" onClick={handleSubmit} className="submit-btn">
-          {updateMode ? "Actualizar Socio" : "Crear Socio"}
-        </button>
+        {(!updateMode || (updateMode && customerDeudor)) && (
+          <button type="submit" onClick={handleSubmit} className="submit-btn">
+            {updateMode ? "Actualizar Socio" : "Crear Socio"}
+          </button>
+        )}
         <button type="button" className="clear-btn" onClick={handleClearFields}>
           Limpiar campos
         </button>
       </div>
-
     </div>
   );
 };

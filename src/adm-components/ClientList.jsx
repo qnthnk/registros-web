@@ -55,7 +55,8 @@ const ClientList = () => {
   };
 
   // Función para renderizar una sección de clientes con título
-  const renderCustomerList = (title, customers) => (
+  // showActions determina si se muestran o no los botones de acción.
+  const renderCustomerList = (title, customers, showActions = true) => (
     <div className="customer-list-section">
       <h3>{title}</h3>
       {customers.length === 0 ? (
@@ -69,23 +70,22 @@ const ClientList = () => {
                 <span className="customer-email" title={customer.email}>{customer.email}</span>
                 <span className="customer-curp" title={customer.curp}>{customer.curp}</span>
               </div>
-              <div className="customer-actions">
-                {customer.deudor ? (
-                  <button className="btn baja-btn" onClick={() => toggleStateCustomer(customer, "dar_baja")}>
-                    confirmar pago
+              {showActions && (
+                <div className="customer-actions">
+                  {customer.deudor ? (
+                    <button className="btn baja-btn" onClick={() => toggleStateCustomer(customer, "dar_baja")}>
+                      confirmar pago
+                    </button>
+                  ) : (
+                    <button className="btn alta-btn" onClick={() => toggleStateCustomer(customer, "dar_alta")}>
+                      Informa falta pagar
+                    </button>
+                  )}
+                  <button className="btn eliminar-btn" onClick={() => handleEliminar(customer)}>
+                    Eliminar
                   </button>
-                ) : (
-                  <button className="btn alta-btn" onClick={() => toggleStateCustomer(customer, "dar_alta")}>
-                    Informa falta pagar
-                  </button>
-                )}
-                <button className="btn eliminar-btn" onClick={() => handleEliminar(customer)}>
-                  Eliminar
-                </button>
-                {/* <button className="btn tarjeta-btn" onClick={() => handleGenerarTarjeta(customer)}>
-                  Generar Tarjeta
-                </button> */}
-              </div>
+                </div>
+              )}
             </div>
           ))}
         </div>
@@ -108,8 +108,8 @@ const ClientList = () => {
           )}
         </button>
       </div>
-      {renderCustomerList("Por pagar", activeCustomers)}
-      {renderCustomerList("Pagos", inactiveCustomers)}
+      {renderCustomerList("Por pagar", activeCustomers, true)}
+      {renderCustomerList("Pagos", inactiveCustomers, false)}
       {selectedCustomer && (
         <GenerateCardModal 
           customer={selectedCustomer} 
