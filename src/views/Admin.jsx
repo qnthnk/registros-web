@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom';
 import './Admin.css';
-import Navbar from '../components/Navbar.jsx'
 import Usuarios from '../adm-components/Usuarios.jsx';
 import Reportes from '../adm-components/Reportes.jsx';
 import ClientList from '../adm-components/ClientList.jsx';
@@ -43,25 +42,25 @@ const Admin = () => {
                 admin === true && token ? (
                     <div>
                         <div className="admin-container">
-                            <div className="admin-tabs">
-                                <button
+                            <div className="admin-tabs mt-5">
+                                {/* <button
                                     className={`tab-button ${activeTab === 'crear-cliente' ? 'active' : ''}`}
                                     onClick={() => setActiveTab('crear-cliente')}
                                 >
                                     Crear Cliente
-                                </button>
+                                </button> */}
                                 <button
                                     className={`tab-button ${activeTab === 'usuarios' ? 'active' : ''}`}
                                     onClick={() => setActiveTab('usuarios')}
                                 >
                                     Usuarios
                                 </button>
-                                <button
+                                {/* <button
                                     className={`tab-button ${activeTab === 'reportes' ? 'active' : ''}`}
                                     onClick={() => setActiveTab('reportes')}
                                 >
                                     Reportes
-                                </button>
+                                </button> */}
 
                                 <button
                                     className={`tab-button ${activeTab === 'lista-clientes' ? 'active' : ''}`}
