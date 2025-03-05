@@ -5,7 +5,7 @@ import Usuarios from '../adm-components/Usuarios.jsx';
 import Reportes from '../adm-components/Reportes.jsx';
 import ClientList from '../adm-components/ClientList.jsx';
 import RedirectToHome from '../components/RedirectHome.jsx';
-import CreateCustomer from '../components/CreateCustomer.jsx';
+import GetList from '../adm-components/GetList.jsx';
 
 const Admin = () => {
     const location = useLocation();
@@ -26,8 +26,8 @@ const Admin = () => {
                 return <Usuarios />;
             case 'reportes':
                 return <Reportes />;
-            case 'crear-cliente':
-                return <CreateCustomer />;
+            case 'get-list':
+                return <GetList />;
             case 'lista-clientes':
                 return <ClientList />;
             default:
@@ -43,12 +43,12 @@ const Admin = () => {
                     <div>
                         <div className="admin-container">
                             <div className="admin-tabs mt-5">
-                                {/* <button
-                                    className={`tab-button ${activeTab === 'crear-cliente' ? 'active' : ''}`}
-                                    onClick={() => setActiveTab('crear-cliente')}
+                                <button
+                                    className={`tab-button ${activeTab === 'get-list' ? 'active' : ''}`}
+                                    onClick={() => setActiveTab('get-list')}
                                 >
-                                    Crear Cliente
-                                </button> */}
+                                    Obtener listas
+                                </button>
                                 <button
                                     className={`tab-button ${activeTab === 'usuarios' ? 'active' : ''}`}
                                     onClick={() => setActiveTab('usuarios')}

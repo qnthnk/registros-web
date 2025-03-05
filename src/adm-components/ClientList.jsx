@@ -7,7 +7,7 @@ const ClientList = () => {
   const { store, actions } = useContext(Context);
   const [reload, setReload] = useState(false);
   const [selectedCustomer, setSelectedCustomer] = useState(null);
-  const [isDownloading, setIsDownloading] = useState(false);
+
 
   useEffect(() => {
     actions.getCustomers();
@@ -42,17 +42,7 @@ const ClientList = () => {
     }
   };
 
-  // Handler para descargar Excel
-  const handleDownloadExcel = async () => {
-    setIsDownloading(true);
-    try {
-      await actions.downloadExcel();
-    } catch (error) {
-      alert("Error descargando el excel.");
-    } finally {
-      setIsDownloading(false);
-    }
-  };
+
 
   // Función para renderizar una sección de clientes con título
   // showActions determina si se muestran o no los botones de acción.
@@ -97,18 +87,7 @@ const ClientList = () => {
     <div className="client-list-container">
       <h2>Lista de Clientes</h2>
       <h6>(últimos 50 creados por ti)</h6>
-      {/* Botón para descargar Excel */}
-      <div className="download-excel-container">
-        <button className="btn download-excel-btn-blue" onClick={handleDownloadExcel} disabled={isDownloading}>
-          {isDownloading ? (
-            <>
-              <i className="fas fa-spinner fa-spin"></i> Descargando...
-            </>
-          ) : (
-            "Descargar Excel"
-          )}
-        </button>
-      </div>
+
       {renderCustomerList("Por pagar", activeCustomers, true)}
       {renderCustomerList("Pagos", inactiveCustomers, false)}
       {selectedCustomer && (
