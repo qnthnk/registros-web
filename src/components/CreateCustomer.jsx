@@ -31,6 +31,7 @@ const initialCustomerData = {
   url_image_card_back: '',
   tel_num: '',
   comment: '',
+  deudor: true
 };
 
 const CreateCustomer = () => {

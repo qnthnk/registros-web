@@ -316,7 +316,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                     actions.logout(); // Llamamos al logout si no hay token
                     return;
                 }
-
+                console.log("Create customer datos salientes. primero el id del creador o actualizador: ", creador, "Y el customer data: ", customerData)
                 try {
                     const response = await fetch('https://registros-back.onrender.com/create_customer', {
                         method: 'POST',
