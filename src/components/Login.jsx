@@ -25,7 +25,7 @@ const Login = () => {
       await actions.login(info);
       if (store.userName !== '' && store.userName !== undefined) {
         actions.wrongPass(false);
-        navigate('/');
+        navigate('/createcustomer');
       } else {
         actions.wrongPass(true);
         setEmail('');
