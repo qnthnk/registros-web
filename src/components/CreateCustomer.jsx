@@ -39,8 +39,8 @@ const CreateCustomer = () => {
     return saved ? JSON.parse(saved) : initialCustomerData;
   });
   const [loadingSelfPhoto, setLoadingSelfPhoto] = useState(false);
-  const [loadingCardFront, setLoadingCardFront] = useState(false);
-  const [loadingCardBack, setLoadingCardBack] = useState(false);
+  // const [loadingCardFront, setLoadingCardFront] = useState(false);
+  // const [loadingCardBack, setLoadingCardBack] = useState(false);
   // Se inicia clearAfterSubmit en true por defecto
   const [clearAfterSubmit, setClearAfterSubmit] = useState(true);
   const [localImage, setLocalImage] = useState(''); // preview local para self photo

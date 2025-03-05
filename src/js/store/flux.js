@@ -203,6 +203,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
             createCustomer: async (customerData) => {
                 const token = localStorage.getItem('token');
+                const creador = localStorage.getItem('user_id')
                 const actions = getActions(); // Para acceder al logout directamente
 
                 if (!token) {
@@ -218,7 +219,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                             'Content-Type': 'application/json',
                             'Authorization': 'Bearer ' + token
                         },
-                        body: JSON.stringify(customerData)
+                        body: JSON.stringify({'customerData':customerData,'creador':creador})
                     })
 
                     // Si el token es inválido, se recibe un código 401
