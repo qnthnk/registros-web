@@ -1,86 +1,120 @@
-
-
-.section {
-display: flex;
-flex-direction: row;
-
-@media (max-width: 720px) {
-    flex-direction: column;
-}
-}
-
-.body {
-    font-family: 'Poppins', sans-serif; /* Corregir typo en `sanas-serif` */
-    min-height: 100vh;
-    /* background-image: #f40707 !important; */
-    background: url('../img/backCNCblack.png') no-repeat center center;
-    background-size: cover;
-    margin: 0;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
+/* Contenedor general */
 .create-customer-container {
     padding: 1rem;
     max-width: 1000px;
     margin: 0 auto;
-    background-color: rgba(68, 124, 15, 0.139); /* Fondo semitransparente para resaltar sobre el #404040 */
-   /* cambia color de la letra */ 
-    color: #131212; 
+    background-color: rgba(68, 124, 15, 0.139);
+    color: #131212;
     backdrop-filter: blur(20px);
-        box-sizing: border-box;
-}
-
-.create-customer-container h1 {
+    box-sizing: border-box;
+  }
+  
+  .create-customer-container h1 {
     text-align: center;
     margin-bottom: 1rem;
-}
-
-/* Carnet preview container */
-.carnet-preview {
+  }
+  
+  /* Contenedor GRID con 3 áreas: card, form, controls */
+  .container-grid {
+    display: grid;
+    grid-gap: 1rem;
+  }
+  
+  /* Definimos nombres para cada área */
+  .grid-card {
+    grid-area: card;
+  }
+  .grid-form {
+    grid-area: form;
+  }
+  .grid-controls {
+    grid-area: controls;
+  }
+  
+  /* Layout móvil (por defecto) => una columna: card, luego form, luego controls */
+  .container-grid {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "card"
+      "form"
+      "controls";
+  }
+  
+  /* A partir de 720px => layout desktop */
+  @media (min-width: 720px) {
+    .container-grid {
+      grid-template-columns: 1fr 1fr; /* Dos columnas: la izquierda y la derecha */
+      grid-template-areas:
+        "card form"
+        "controls form"; 
+      /* 
+        Arriba: card (col izq) y form (col der)
+        Abajo: controls (col izq) y form (col der) 
+      */
+    }
+  }
+  
+  /* Carnet preview */
+  .carnet-preview {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     margin-bottom: 2rem;
-}
-
-/* Formulario styles */
-.customer-form {
+  }
+  
+  /* Formulario */
+  .customer-form {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-}
-
-.form-group {
+    /* Si querés un fondo clarito en el form: 
+       background-color: #F2F2F2; 
+       padding: 10px; 
+       border-radius: 8px;
+    */
+  }
+  
+  .form-group {
     display: flex;
     flex-direction: column;
-}
-
-.form-group label {
+    margin-bottom: 0.5rem;
+  }
+  
+  .form-group label {
     margin-bottom: 0.3rem;
     font-weight: bold;
-}
-
-.form-group input,
-.form-group select {
+  }
+  
+  .form-group input,
+  .form-group select {
     padding: 0.5rem;
-    /* cambia color del borde del input */
     border: 1px solid #000000;
     border-radius: 4px;
-    box-sizing: border-box;
     background-color: #e7e7e7;
     color: #000000;
-}
-
-.file-input input {
+  }
+  
+  .file-input input {
     padding: 0;
-}
-
-.preview-image {
+  }
+  
+  .preview-image {
     max-width: 150px;
     margin-top: 0.5rem;
-}
-
-.submit-btn {
+  }
+  
+  /* Toggle y botones */
+  .toggle-group {
+    margin-bottom: 1rem;
+  }
+  
+  .button-group {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .submit-btn {
     padding: 0.75rem;
     background-color: #4CAF50;
     color: #fff;
@@ -89,17 +123,10 @@ flex-direction: row;
     cursor: pointer;
     font-size: 1rem;
     transition: background-color 0.3s ease;
-}
-
-.submit-btn:hover {
+  }
+  
+  .submit-btn:hover {
     background-color: #d8e126;
-}
-
-.button-group {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    margin-top: 1rem;
   }
   
   .clear-btn {
@@ -116,15 +143,24 @@ flex-direction: row;
   .clear-btn:hover {
     background-color: #d8e126;
   }
-
-/* Responsive: en móviles forzamos que el contenedor y los cards se ajusten al ancho */
-@media (max-width: 600px) {
-    .create-customer-container {
-        width: 100%;
-        padding: 0.5rem;
-    }
-    .carnet-preview {
-        flex-direction: column;
-        align-items: center;
-    }
-}
+  
+  /* Ajustes para el scroll interno del form */
+  .grid-form {
+    height: 400px;
+    overflow-y: auto;
+    background-color: #F2F2F2;
+    padding: 10px;
+    border-radius: 8px;
+  }
+  
+  /* Ajustes globales (body, etc.) */
+  .body {
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    background: url('../img/backCNCblack.png') no-repeat center center;
+    background-size: cover;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
