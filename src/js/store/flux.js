@@ -3,6 +3,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         store: {
             users: [],
             customers: [],
+            customer_finded: {},
             userForEdit: {},
             registerOk: true,
             reportes_disponibles: [],
@@ -15,7 +16,35 @@ const getState = ({ getStore, getActions, setStore }) => {
             dataEstadisticas: {}
         },
         actions: {
-            downloadExcelByUser: async (user_id,user_name) => {
+            searchCustomerByCurp: async (curp) => {
+                const admin = JSON.parse(localStorage.getItem('admin'));
+                const user_id = localStorage.getItem('user_id');
+                const payload = { admin, id: user_id, curp };
+                const apiKey = process.env.REACT_APP_API_KEY;
+                try {
+                    const response = await fetch('https://registros-back.onrender.com/get_customer', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': apiKey,
+                        },
+                        body: JSON.stringify(payload)
+                    });
+                    const data = await response.json();
+                    if (data.exist) {
+                        // Actualizamos el store (esto depende de tu implementación, por ejemplo):
+                        let store = getStore()
+                        setStore({...store, customer_finded: data.customer_data});
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } catch (e) {
+                    console.error(e);
+                    return false;
+                }
+            },
+            downloadExcelByUser: async (user_id, user_name) => {
                 try {
                     const token = localStorage.getItem('token');
                     const response = await fetch("https://registros-back.onrender.com/get_registers_by_user", {
@@ -86,8 +115,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                     throw error;
                 }
             },
-
-            stateCustomer: async (customer, actionType) => {
+            stateCustomerIndividual: async (customer, actionType) => { 
                 // Si la acción es "dar_baja", seteamos deudor en false, sino en true.
                 const newState = actionType === "dar_baja" ? false : true;
                 const payload = {
@@ -95,7 +123,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                     customer_id: customer.id
                 };
                 const apiKey = process.env.REACT_APP_API_KEY;
-            
+                
                 try {
                     const response = await fetch('https://registros-back.onrender.com/complete_customer', {
                         method: 'PUT',
@@ -105,12 +133,43 @@ const getState = ({ getStore, getActions, setStore }) => {
                         },
                         body: JSON.stringify(payload)
                     });
-            
+                    
                     if (!response.ok) {
                         console.error("Error actualizando el estado del customer:", response);
                         return false;
                     }
-            
+                    let store = getStore()
+                    setStore({...store, customer_finded:{...store.customer_finded,deudor:false}})
+                    return true;
+                } catch (error) {
+                    console.error("Exception en stateCustomerIndividual:", error);
+                    return false;
+                }
+            },
+            stateCustomer: async (customer, actionType) => {
+                // Si la acción es "dar_baja", seteamos deudor en false, sino en true.
+                const newState = actionType === "dar_baja" ? false : true;
+                const payload = {
+                    deudor: newState,
+                    customer_id: customer.id
+                };
+                const apiKey = process.env.REACT_APP_API_KEY;
+
+                try {
+                    const response = await fetch('https://registros-back.onrender.com/complete_customer', {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': apiKey,
+                        },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        console.error("Error actualizando el estado del customer:", response);
+                        return false;
+                    }
+
                     // Actualizamos la lista de customers en el store:
                     const store = getStore();
                     const updatedCustomers = store.customers.map(item => {
@@ -119,9 +178,9 @@ const getState = ({ getStore, getActions, setStore }) => {
                         }
                         return item;
                     });
-                    
-                    setStore({...store, customers: updatedCustomers });
-            
+
+                    setStore({ ...store, customers: updatedCustomers });
+
                     return true;
                 } catch (error) {
                     console.error("Error en la acción stateCustomer:", error);
@@ -148,12 +207,12 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
             getCustomers: async () => {
                 let id = localStorage.getItem('user_id')
-                console.log("Este es el id anexado : ",id)
+                console.log("Este es el id anexado : ", id)
                 try {
                     const apiKey = process.env.REACT_APP_API_KEY;
                     const response = await fetch("https://registros-back.onrender.com/users-list-by-user", {
                         method: "POST",
-                        body: JSON.stringify({'id':id}),
+                        body: JSON.stringify({ 'id': id }),
                         headers: {
                             "Content-Type": "application/json",
                             "Authorization": apiKey
@@ -238,7 +297,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                     let deudor = data.customer_data.deudor
                     console.log("repuesta deudor: ", deudor)
                     if (data.exist) {
-                        return {deudor: deudor, exists: true}
+                        return { deudor: deudor, exists: true }
                     } else {
                         return false
                     }
@@ -265,7 +324,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                             'Content-Type': 'application/json',
                             'Authorization': 'Bearer ' + token
                         },
-                        body: JSON.stringify({'customerData':customerData,'creador':creador})
+                        body: JSON.stringify({ 'customerData': customerData, 'creador': creador })
                     })
 
                     // Si el token es inválido, se recibe un código 401

@@ -55,18 +55,18 @@ const Admin = () => {
                                 >
                                     Usuarios
                                 </button>
-                                {/* <button
+                                <button
                                     className={`tab-button ${activeTab === 'reportes' ? 'active' : ''}`}
                                     onClick={() => setActiveTab('reportes')}
                                 >
-                                    Reportes
-                                </button> */}
+                                    Busca socio
+                                </button>
 
                                 <button
                                     className={`tab-button ${activeTab === 'lista-clientes' ? 'active' : ''}`}
                                     onClick={() => setActiveTab('lista-clientes')}
                                 >
-                                    Lista de Clientes
+                                    Últimos 50 registros
                                 </button>
                             </div>
                             <div className="admin-content">
