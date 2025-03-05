@@ -14,8 +14,8 @@ const ClientList = () => {
   }, [reload]);
 
   // Filtramos los clientes según su estado
-  const activeCustomers = store.customers?.filter(customer => customer.state === true) || [];
-  const inactiveCustomers = store.customers?.filter(customer => customer.state === false) || [];
+  const activeCustomers = store.customers?.filter(customer => customer.deudor === true) || [];
+  const inactiveCustomers = store.customers?.filter(customer => customer.deudor === false) || [];
 
   // Handler para eliminar
   const handleEliminar = async (customer) => {
@@ -70,7 +70,7 @@ const ClientList = () => {
                 <span className="customer-curp" title={customer.curp}>{customer.curp}</span>
               </div>
               <div className="customer-actions">
-                {customer.state ? (
+                {customer.deudor ? (
                   <button className="btn baja-btn" onClick={() => toggleStateCustomer(customer, "dar_baja")}>
                     confirmar pago
                   </button>
