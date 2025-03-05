@@ -28,11 +28,7 @@ const Reportes = () => {
 
     // Llama al action que actualiza el estado del Customer individual.
     const res = await actions.stateCustomerIndividual(store.customer_finded, "dar_baja");
-    if (res) {
-      // Actualizamos la propiedad deudor localmente
-      store.customer_finded.deudor = false;
-      alert("Informe de pago realizado");
-    } else {
+    if (!res) {
       alert("Error en el cambio de estado");
     }
   };

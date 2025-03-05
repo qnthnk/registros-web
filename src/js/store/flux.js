@@ -285,25 +285,25 @@ const getState = ({ getStore, getActions, setStore }) => {
                 }
             },
             checkCustomerExists: async (curp) => {
-                console.log("entro en check de flux y el curp que va a usar es:", curp)
+                console.log("entro en check de flux y el curp que va a usar es:", curp);
                 const apiKey = process.env.REACT_APP_API_KEY;
                 try {
                     const response = await fetch(`https://registros-back.onrender.com/get_customer/${curp}`, {
                         headers: {
                             'Authorization': apiKey
                         }
-                    })
+                    });
                     const data = await response.json();
-                    let deudor = data.customer_data.deudor
-                    console.log("repuesta deudor: ", deudor)
                     if (data.exist) {
-                        return { deudor: deudor, exists: true }
+                        let deudor = data.customer_data.deudor;
+                        console.log("respuesta deudor: ", deudor);
+                        return { deudor, exists: true };
                     } else {
-                        return false
+                        return { exists: false };
                     }
                 } catch (error) {
-                    console.error(error)
-                    return false
+                    console.error(error);
+                    return { exists: false };
                 }
             },
             createCustomer: async (customerData) => {
