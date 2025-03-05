@@ -21,6 +21,19 @@ const Usuarios = () => {
   // Flag para refrescar la lista cuando se crea un usuario nuevo
   const [refreshFlag, setRefreshFlag] = useState(false);
 
+  const [loadingIndividual, setLoadingIndividual] = useState(false);
+
+  const handleDownloadExcel = async (user_id, user_name) => {
+    try {
+      setLoadingIndividual(true);
+      await actions.downloadExcelByUser(user_id, user_name);
+    } catch (error) {
+      console.error("Error en descarga individual:", error);
+    } finally {
+      setLoadingIndividual(false);
+    }
+  };
+
   // Handlers existentes
   const handleEdit = (user) => {
     actions.setUserForEdit(user);
@@ -31,10 +44,10 @@ const Usuarios = () => {
     const confirmed = window.confirm(`¿Estás seguro de que deseas eliminar al usuario ${user.name}? Esta acción no se puede deshacer.`);
     if (confirmed) {
       let result = actions.deleteUser(user.id);
-      if(result){
+      if (result) {
         alert(`Usuario ${user.name} eliminado con éxito.`)
         setRefreshFlag((prev) => !prev)
-      }else{
+      } else {
         alert(`Error al eliminar a ${user.name}.`)
       }
     }
@@ -47,7 +60,7 @@ const Usuarios = () => {
       if (confirmed) {
         const response = await actions.toggleAdmin(user.email, user.admin);
         console.log(response.message);
-        if(response){
+        if (response) {
           setRefreshFlag((prev) => !prev)
         }
       }
@@ -166,6 +179,17 @@ const Usuarios = () => {
                   onClick={() => handleAdminToggle(user)}
                 >
                   {user.admin ? 'Admin' : 'No Admin'}
+                </button>
+                <button
+                  onClick={() => handleDownloadExcel(user.id, user.name)}
+                  className="btn btn-primary"
+                >
+                  {loadingIndividual ? (
+                    <i className="fas fa-spinner fa-spin"></i>
+                  ) : (
+                    <i className="fas fa-download"></i>
+                  )}{" "}
+                  Descargar sus Registros
                 </button>
               </div>
             </div>

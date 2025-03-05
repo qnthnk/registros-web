@@ -14,6 +14,33 @@ const getState = ({ getStore, getActions, setStore }) => {
             dataEstadisticas: {}
         },
         actions: {
+            downloadExcelByUser: async (user_id,user_name) => {
+                try {
+                    const token = localStorage.getItem('token');
+                    const response = await fetch("https://registros-back.onrender.com/get_registers_by_user", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": "Bearer " + token
+                        },
+                        body: JSON.stringify({ user_id })
+                    });
+                    if (!response.ok) throw new Error("Network response was not ok");
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `${user_name}_registros.xlsx`;
+                    document.body.appendChild(a);
+                    a.click();
+                    a.remove();
+                    window.URL.revokeObjectURL(url);
+                } catch (error) {
+                    alert("Error descargando el Excel.");
+                    console.error("Download Excel by User Error:", error);
+                    throw error;
+                }
+            },
             uploadImageToDrive: async (file) => {
                 const formData = new FormData();
                 formData.append('file', file);
@@ -63,7 +90,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 // Si la acción es "dar_baja", seteamos state en false, sino en true
                 const newState = actionType === "dar_baja" ? false : true;
                 const payload = {
-                    state: newState,
+                    deudor: newState,
                     customer_id: customer.id
                 };
                 const apiKey = process.env.REACT_APP_API_KEY;
