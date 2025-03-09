@@ -46,6 +46,8 @@ const CreateCustomer = () => {
   const { actions } = useContext(Context);
   const navigate = useNavigate();
   const formContainerRef = useRef(null);
+  const firstInputRef = useRef(null);
+
 
   useEffect(() => {
     localStorage.setItem('customerData', JSON.stringify(customerData));
@@ -167,6 +169,11 @@ const CreateCustomer = () => {
     if (formContainerRef.current) {
       formContainerRef.current.scrollTo({ top: 0, behavior: 'smooth' });
     }
+    setTimeout(() => {
+      if (firstInputRef.current) {
+        firstInputRef.current.focus();
+      }
+    }, 300);
     window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
   };
 
@@ -249,6 +256,7 @@ const CreateCustomer = () => {
                 onChange={handleChange}
                 onBlur={handleCurpBlur}
                 required
+                ref={firstInputRef}
               />
               <small className="curp-info">{curpMessage}</small>
             </div>

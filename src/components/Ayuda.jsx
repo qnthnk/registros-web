@@ -1,0 +1,63 @@
+import React from 'react';
+import './Ayuda.css';
+
+const faqData = [
+  {
+    question: "¿Cómo registro un nuevo socio?",
+    answer:
+      "Para registrar un nuevo socio, tenés que ir al menú 'Nuevo Registro'. Allí, asegurate de utilizar un CURP válido que no haya sido ingresado previamente."
+  },
+  {
+    question: "¿Puedo editar o eliminar un registro?",
+    answer:
+      "Sí, podés editar o eliminar un registro siempre y cuando el socio aún no haya sido declarado como pago. Para editarlo, simplemente ingresá al menú 'Nuevo Registro' y proporcioná el CURP correspondiente. El sistema te indicará que se está efectuando una actualización."
+  },
+  {
+    question: "¿Qué sucede una vez que se declara un pago?",
+    answer:
+      "Una vez declarado el pago de un usuario, no hay vuelta atrás. El pago se informa solo si el socio pagó, y esa información se guarda en la base de datos para su contabilización."
+  },
+  {
+    question: "¿Cómo funciona la opción de limpiar campos?",
+    answer:
+      "En el menú 'Nuevo Registro' encontrás una casilla desmarcable que, al guardar un registro exitosamente, limpia todos los campos. Si lo necesitás, podés desactivar esa opción. Además, hay un botón 'Limpiar campos' justo al lado de 'Crear Socio'."
+  },
+  {
+    question: "¿Quién puede ver los registros totales de todos los usuarios?",
+    answer:
+      "Solo los usuarios administradores tienen acceso a ver los registros de todos los usuarios. Los usuarios normales solo pueden visualizar los últimos 50 registros de su propia sesión y declararlos como pagos."
+  },
+  {
+    question: "¿Qué hago si mi registro excede los últimos 50?",
+    answer:
+      "Si realizaste un registro que querés informar como pago y ya excede los últimos 50 registros, podés buscarlo vía CURP en el menú 'Busca Socio'. Allí verás solo los registros generados en tu sesión; solo el administrador tiene acceso a la búsqueda completa del padrón."
+  },
+  {
+    question: "¿Qué opciones tienen los administradores?",
+    answer:
+      "Los administradores pueden acceder al menú 'Obtener listas', donde revisan el estado de cada registro y, si es necesario, informan el pago. También tienen acceso al menú 'Usuarios', donde pueden crear, editar o eliminar usuarios, otorgar permisos de administrador y descargar listas de registros filtradas por usuario."
+  },
+  {
+    question: "¿Dónde encuentro más información sobre las herramientas?",
+    answer:
+      "Cada usuario puede ver un resumen de todas las herramientas disponibles en esta web ingresando a 'Perfil / Ayuda'."
+  }
+];
+
+const Ayuda = () => {
+  return (
+    <div className="ayuda-container mb-5">
+      <h1>Preguntas Frecuentes</h1>
+      <div className="faq-list">
+        {faqData.map((faq, index) => (
+          <details key={index} className="faq-item">
+            <summary className="faq-question">{faq.question}</summary>
+            <p className="faq-answer">{faq.answer}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default Ayuda;

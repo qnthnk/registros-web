@@ -64,6 +64,10 @@
   margin-right: 1rem;
 }
 
+.mano {
+  cursor: pointer;
+}
+
 @media (max-width: 427px) {
   .navbar .logo_and_title {
     flex: 1; /* Ocupa el espacio restante */
