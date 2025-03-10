@@ -63,6 +63,8 @@ const Navbar = () => {
                                 <ul className="dropdown-menu dropdown-menu-end">
                                     <li><div className="dropdown-item mano" onClick={() => navigate("/ayuda")}>Ayuda</div></li>
                                     {admin && <li><div className="dropdown-item mano" onClick={() => navigate("/admin")}>Herramientas</div></li>}
+                                    <li><div className="dropdown-item mano" onClick={() => navigate("/registros")}>Registros</div></li>
+                                    <li><div className="dropdown-item mano" onClick={() => navigate("/busca-socio")}>Busca Socio</div></li>
                                     <li><div className="dropdown-item mano" onClick={handlerLogOut}>Log-out</div></li>
                                 </ul>
                             </li>

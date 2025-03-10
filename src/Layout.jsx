@@ -14,6 +14,8 @@ import CreateCustomer from './components/CreateCustomer.jsx';
 import Navbar from './components/Navbar.jsx';
 import RedirectToHome from './components/RedirectHome.jsx';
 import Ayuda from './components/Ayuda.jsx';
+import ClientList from './adm-components/ClientList.jsx';
+import Reportes from './adm-components/Reportes.jsx';
 
 const Layout = () => {
 
@@ -35,6 +37,8 @@ const Layout = () => {
                 <Route exact path="/createcustomer" element={<CreateCustomer />}/>
                 <Route exact path="/redirect-home" element={<RedirectToHome />}/>
                 <Route exact path="/ayuda" element={<Ayuda/>}/>
+                <Route exact path="/registros" element={<ClientList/>}/>
+                <Route exact path="/busca-socio" element={<Reportes/>}/>
                 {/* <Route exact path="/estadistica" element={<Estadistica />}/>
                 <Route exact path="/directorio" element={<Directorio />}/>
                 <Route exact path="/utilidades" element={<Utilidades />}/> */}

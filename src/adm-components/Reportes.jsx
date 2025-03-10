@@ -50,8 +50,12 @@ const Reportes = () => {
         <div className="customer-card">
           <h3>Detalle del Customer</h3>
           <p>
+            <strong>Creado por:</strong> {store.customer_finded.created_by}
+          </p>
+          <p>
             <strong>Nombre:</strong> {store.customer_finded.name}
           </p>
+          
           <p>
             <strong>Apellido:</strong> {store.customer_finded.lastname_f}
           </p>
