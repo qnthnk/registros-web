@@ -182,7 +182,7 @@ const Usuarios = () => {
                 </button>
                 <button
                   onClick={() => handleDownloadExcel(user.id, user.name)}
-                  className="btn btn-primary"
+                  className="btn descargar"
                 >
                   {loadingIndividual ? (
                     <i className="fas fa-spinner fa-spin"></i>

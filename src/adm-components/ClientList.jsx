@@ -50,7 +50,7 @@ const ClientList = () => {
     <div className="customer-list-section">
       <h3>{title}</h3>
       {customers.length === 0 ? (
-        <p>No hay clientes en esta categoría.</p>
+        <p>No hay registros en esta categoría.</p>
       ) : (
         <div className="customer-list">
           {customers.map((customer, index) => (
@@ -85,8 +85,8 @@ const ClientList = () => {
 
   return (
     <div className="client-list-container">
-      <h2>Lista de Clientes</h2>
-      <h6>(últimos 50 creados por ti)</h6>
+      <h2>Lista de registros</h2>
+      <h6>(últimos 50 creados)</h6>
 
       {renderCustomerList("Por pagar", activeCustomers, true)}
       {renderCustomerList("Pagos", inactiveCustomers, false)}
