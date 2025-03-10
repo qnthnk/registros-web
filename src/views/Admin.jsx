@@ -37,40 +37,44 @@ const Admin = () => {
     const admin = JSON.parse(localStorage.getItem('admin'));
     const token = localStorage.getItem('token')
     return (
+        <>
+        <div className="create-customer-container">
+      <h1 style={{ color: "#F2F2F2", fontWeight: "bolder" }}>Panel de control</h1>
+
+      {/** Contenedor GRID con 3 áreas: card, form, controls */}
+      <div className="container-grid">
+        {/* Área 1: Card */}
         <div>
             {
                 admin === true && token ? (
                     <div>
-                        <div className="admin-container">
-                            <div className="admin-tabs mt-5">
+                        <div className="grid-card">
+                            <div className="button-group">
                                 <button
-                                    className={`tab-button ${activeTab === 'get-list' ? 'active' : ''}`}
+                                    className={`submit-btn ${activeTab === 'get-list' ? 'active' : ''}`}
                                     onClick={() => setActiveTab('get-list')}
                                 >
-                                    Obtener listas
+                                    Descargar listados
                                 </button>
                                 <button
-                                    className={`tab-button ${activeTab === 'usuarios' ? 'active' : ''}`}
+                                    className={`submit-btn ${activeTab === 'usuarios' ? 'active' : ''}`}
                                     onClick={() => setActiveTab('usuarios')}
                                 >
-                                    Usuarios
+                                    Administrar usuarios
                                 </button>
                                 <button
-                                    className={`tab-button ${activeTab === 'reportes' ? 'active' : ''}`}
+                                    className={`submit-btn ${activeTab === 'reportes' ? 'active' : ''}`}
                                     onClick={() => setActiveTab('reportes')}
                                 >
-                                    Busca socio
+                                    Buscar registro
                                 </button>
 
                                 <button
-                                    className={`tab-button ${activeTab === 'lista-clientes' ? 'active' : ''}`}
+                                    className={`submit-btn ${activeTab === 'lista-clientes' ? 'active' : ''}`}
                                     onClick={() => setActiveTab('lista-clientes')}
                                 >
                                     Últimos 50 registros
                                 </button>
-                            </div>
-                            <div className="admin-content">
-                                {renderTabContent()}
                             </div>
                         </div>
                     </div>
@@ -79,6 +83,21 @@ const Admin = () => {
                 )
             }
         </div>
+
+        {/* Área 2: Form */}
+        <div className="grid-form">
+            <div className="customer-form">
+                {renderTabContent()}
+            </div>
+        </div>
+
+        {/* Área 3: Controls (checkbox + botones) */}
+        <div className="grid-controls">
+            {/* Add your controls here */}
+        </div>
+      </div>
+    </div>
+    </>
     )
 }
 

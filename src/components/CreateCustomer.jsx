@@ -317,6 +317,7 @@ const CreateCustomer = () => {
             <div className="form-group">
               <label>Entidad:</label>
               <input type="text" name="entidad_dir" value={customerData.entidad_dir} onChange={handleChange} />
+
             </div>
             <div className="form-group">
               <label>Municipio:</label>
@@ -371,7 +372,7 @@ const CreateCustomer = () => {
           <div className="button-group mb-3">
             {(!updateMode || (updateMode && customerDeudor)) && (
               <button type="submit" onClick={handleSubmit} className="submit-btn">
-                {updateMode ? "Actualizar Socio" : "Crear Socio"}
+                {updateMode ? "Actualizar Socio" : "Crear Registro"}
               </button>
             )}
             <button type="button" className="clear-btn" onClick={handleClearFields}>
