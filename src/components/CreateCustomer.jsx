@@ -3,6 +3,7 @@ import { Context } from '../js/store/appContext';
 import { useNavigate } from 'react-router-dom';
 import CardFront from './CardFront';
 import './CreateCustomer.css';
+const entidad = localStorage.getItem('name') || '';
 
 const initialCustomerData = {
   name: '',
@@ -316,7 +317,10 @@ const CreateCustomer = () => {
             </div>
             <div className="form-group">
               <label>Entidad:</label>
-              <input type="text" name="entidad_dir" value={customerData.entidad_dir} onChange={handleChange} />
+              <select name="entidad_dir" value={customerData.entidad_dir} onChange={handleChange}>
+                <option>Seleccione una opción</option>
+                <option >{entidad}</option>
+              </select>
             </div>
             <div className="form-group">
               <label>Municipio:</label>
@@ -371,7 +375,7 @@ const CreateCustomer = () => {
           <div className="button-group mb-3">
             {(!updateMode || (updateMode && customerDeudor)) && (
               <button type="submit" onClick={handleSubmit} className="submit-btn">
-                {updateMode ? "Actualizar Socio" : "Crear Socio"}
+                {updateMode ? "Actualizar Socio" : "Crear Registro"}
               </button>
             )}
             <button type="button" className="clear-btn" onClick={handleClearFields}>

@@ -10,7 +10,7 @@
 .btn.crear-usuario {
   display: block;
   margin: 0 auto 1.5rem auto;
-  background-color: #17a2b8;
+  background-color:#4CAF50;
   color: #fff;
   padding: 10px 20px;
   border: none;
@@ -21,9 +21,20 @@
 }
 
 .btn.crear-usuario:hover {
-  background-color: #138496;
+  background-color: rgb(242,164,19);
 }
-
+.btn.editar:hover {
+  background-color: rgb(242,164,19);
+}
+.btn.descargar:hover {
+  background-color: rgb(242,164,19);
+}
+.btn.eliminar:hover {
+  background-color: rgb(242,164,19);
+}
+.btn.admin:hover {
+  background-color: #95968a;
+}
 .accordion-form {
   background-color: #fff;
   border-radius: 8px;
@@ -52,7 +63,7 @@
 }
 
 .btn.confirmar {
-  background-color: #28a745;
+  background-color: #4CAF50;
   color: #fff;
   width: 100%;
   padding: 0.75rem;
@@ -79,7 +90,7 @@
   border-radius: 10px;
   padding: 1.5rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  width: 300px;
+  width: 400px;
   text-align: center;
   transition: transform 0.3s ease;
 }
@@ -102,6 +113,11 @@
 
 .botones-container {
   margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  
+  
 }
 
 .btn {
@@ -116,29 +132,35 @@
 
 .btn:hover {
   opacity: 0.9;
+  background-color: #c0e508;
+
 }
 
 .btn.editar {
-  background-color: #007bff;
+  background-color: rgb(10,166,49);
   color: #fff;
 }
 
 .btn.eliminar {
-  background-color: #ff4d4d;
+  background-color: rgb(217,41,41);
   color: #fff;
 }
 
 .btn.admin {
-  background-color: #ccc;
+  background-color: rgb(242,139,48);
+  color: #fff;
+}
+.btn.descargar {
+  background-color: rgb(13,13,13);
   color: #fff;
 }
 
 .btn.admin-activo {
-  background-color: #28a745;
+  background-color: rgb(242,164,19);
 }
 
 .btn.admin-inactivo {
-  background-color: #6c757d;
+  background-color: rgb(242,139,48);
 }
 
 @media (max-width: 768px) {

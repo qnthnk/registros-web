@@ -116,7 +116,7 @@
   
   .submit-btn {
     padding: 0.75rem;
-    background-color: #4CAF50;
+    background-color: rgb(10,166,49);
     color: #fff;
     border: none;
     border-radius: 4px;
@@ -126,12 +126,12 @@
   }
   
   .submit-btn:hover {
-    background-color: #d8e126;
+    background-color: rgb(242,164,19);
   }
   
   .clear-btn {
     padding: 0.75rem;
-    background-color: #ff0800;
+    background-color: rgb(217,41,41);
     color: #fff;
     border: none;
     border-radius: 4px;
@@ -141,7 +141,7 @@
   }
   
   .clear-btn:hover {
-    background-color: #d8e126;
+    background-color: rgb(242,164,19);
   }
   
   /* Ajustes para el scroll interno del form */
