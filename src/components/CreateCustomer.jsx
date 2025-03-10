@@ -3,7 +3,6 @@ import { Context } from '../js/store/appContext';
 import { useNavigate } from 'react-router-dom';
 import CardFront from './CardFront';
 import './CreateCustomer.css';
-const entidad = localStorage.getItem('name') || '';
 
 const initialCustomerData = {
   name: '',
@@ -317,10 +316,8 @@ const CreateCustomer = () => {
             </div>
             <div className="form-group">
               <label>Entidad:</label>
-              <select name="entidad_dir" value={customerData.entidad_dir} onChange={handleChange}>
-                <option>Seleccione una opción</option>
-                <option >{entidad}</option>
-              </select>
+              <input type="text" name="entidad_dir" value={customerData.entidad_dir} onChange={handleChange} />
+
             </div>
             <div className="form-group">
               <label>Municipio:</label>
