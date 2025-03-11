@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Context } from '../js/store/appContext';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './Navbar.css';
@@ -7,12 +7,27 @@ import logo3 from '../img/LOGOCNC.png';
 const Navbar = () => {
     const { actions } = useContext(Context);
     const [contador, setContador] = useState(0);
+    const [isAdmin, setIsAdmin] = useState(false);
     const location = useLocation();
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
     const name = localStorage.getItem('name') || '';
-    const admin = JSON.parse(localStorage.getItem('admin'));
+
     const isActive = (path) => location.pathname === path ? 'nav-link active' : 'nav-link';
+
+    // UseEffect para chequear el rol admin al cargar el componente
+    useEffect(() => {
+        if (token) {
+            actions.checkAdmin()
+                .then(result => {
+                    setIsAdmin(result.admin);
+                })
+                .catch(err => {
+                    console.error("Error verificando admin:", err);
+                    setIsAdmin(false);
+                });
+        }
+    }, [token, actions]);
 
     const handlerLogOut = () => {
         actions.logout();
@@ -45,11 +60,6 @@ const Navbar = () => {
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul className="navbar-nav nav-underline nav-tabs ms-auto">
-                        {/* {token && (
-                            <li className="nav-item">
-                                <Link className={isActive('/')} to="/">Inicio</Link>
-                            </li>
-                        )} */}
                         {token && (
                             <li className="nav-item">
                                 <Link className={isActive('/createcustomer')} to="/createcustomer">Nuevo Registro</Link>
@@ -61,15 +71,37 @@ const Navbar = () => {
                                     Perfil
                                 </div>
                                 <ul className="dropdown-menu dropdown-menu-end">
-                                    <li><div className="dropdown-item mano" onClick={() => navigate("/ayuda")}>Ayuda</div></li>
-                                    <li><div className="dropdown-item mano" onClick={() => navigate("/registros")}>Registros</div></li>
-                                    <li><div className="dropdown-item mano" onClick={() => navigate("/busca-socio")}>Busca Socio</div></li>
-                                    {admin && <li><div className="dropdown-item mano" onClick={() => navigate("/admin")}>Panel de control</div></li>}
-                                    <li><div className="dropdown-item mano" onClick={handlerLogOut}>Salir</div></li>
+                                    <li>
+                                        <div className="dropdown-item mano" onClick={() => navigate("/ayuda")}>
+                                            Ayuda
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div className="dropdown-item mano" onClick={() => navigate("/registros")}>
+                                            Registros
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div className="dropdown-item mano" onClick={() => navigate("/busca-socio")}>
+                                            Busca Socio
+                                        </div>
+                                    </li>
+                                    {isAdmin && (
+                                        <li>
+                                            <div className="dropdown-item mano" onClick={() => navigate("/admin")}>
+                                                Panel de control
+                                            </div>
+                                        </li>
+                                    )}
+                                    <li>
+                                        <div className="dropdown-item mano" onClick={handlerLogOut}>
+                                            Salir
+                                        </div>
+                                    </li>
                                 </ul>
                             </li>
                         )}
-                    </ul>   
+                    </ul>
                 </div>
             </div>
         </nav>

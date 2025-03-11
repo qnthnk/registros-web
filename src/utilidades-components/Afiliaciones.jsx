@@ -22,7 +22,7 @@ const Afiliaciones = () => {
 
   const handleConsulta = async () => {
     try {
-      actions.getAfiliacion(afiliaciones)
+      console.log("check")
     } catch (e) {
       console.error(e)
     }

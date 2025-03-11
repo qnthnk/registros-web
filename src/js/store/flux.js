@@ -16,6 +16,28 @@ const getState = ({ getStore, getActions, setStore }) => {
             dataEstadisticas: {}
         },
         actions: {
+            checkAdmin: async () => {
+                try {
+                    const token = localStorage.getItem('token');
+                    const response = await fetch('https://registros-back.onrender.com/check_admin', {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
+                        mode: 'cors' // Aseguramos que el request sea CORS-friendly
+                    });
+                    if (!response.ok) {
+                        console.log(response.statusText)
+                        throw new Error('Error al verificar admin');
+                    }
+                    const data = await response.json();
+                    return data;  // Se espera que data tenga la forma { admin: true/false }
+                } catch (error) {
+                    console.error("Error en checkAdmin:", error);
+                    return { admin: false };
+                }
+            },
             searchCustomerByCurp: async (curp) => {
                 const admin = JSON.parse(localStorage.getItem('admin'));
                 const user_id = localStorage.getItem('user_id');
@@ -407,40 +429,6 @@ const getState = ({ getStore, getActions, setStore }) => {
                 } catch (error) {
                     console.error(error);
                     return false;
-                }
-            },
-            getAfiliacion: async (payload) => {
-                const token = localStorage.getItem('token');
-                const actions = getActions(); // Para acceder al logout directamente
-
-                if (!token) {
-                    console.error("El token es undefined. Asegurate de que esté guardado correctamente.");
-                    actions.logout(); // Llamamos al logout si no hay token
-                    return;
-                }
-                try {
-                    const response = await fetch('https://e3digital.onrender.com/consulta-afiliado', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': 'Bearer ' + token
-                        },
-                        body: JSON.stringify(payload)
-                    })
-                    const data = await response.json();
-                    // console.log("esta es la data entrante: ",data)
-
-                    // Si el token es inválido, se recibe un código 401
-                    if (response.status === 401) {
-                        console.error("El token expiró o no es válido. Cerrando sesión...");
-                        actions.logout(); // Logout automático
-                        return;
-                    }
-
-                    if (!data.msg) throw new Error('algo salio mal en la solicitud')
-                    alert(data.msg)
-                } catch (e) {
-                    console.error(e)
                 }
             },
             getStadistics: async (payload) => {
