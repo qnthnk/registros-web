@@ -79,79 +79,75 @@ const Login = () => {
 
   return (
     <>
-     <div className="background-video-container">
-     <img src={BackgroundVideo} alt="Background Video" className="background-video" />
-
-           </div>
-    <div className="contentVideo">
-    <div className='wrapper d-flex justify-content-center'>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          handlerLogin();
-        }}
-            >
-        <h1>CNC Digital</h1>
-        <div className='input-box tex'>
-          <input
-            type='email'
-            placeholder='Entidad'
-            id='email'
-            value={email}
-            autoComplete='email'
-            onChange={(e) => handlerSetEmail(e.target.value)}
-            required
-          />
-          <FaUser className='icon' />
+      <div className="background-video-container">
+        <img src={BackgroundVideo} alt="Background Video" className="background-video" />
+      </div>
+      <div className="contentVideo">
+        <div className='wrapper d-flex justify-content-center align-items-center'>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handlerLogin();
+            }}
+            className="text-center"
+          >
+            <h1>CNC Digital</h1>
+            <div className='input-box tex'>
+              <input
+                type='email'
+                placeholder='Entidad'
+                id='email'
+                value={email}
+                autoComplete='email'
+                onChange={(e) => handlerSetEmail(e.target.value)}
+                required
+              />
+              <FaUser className='icon' />
+            </div>
+            <div className='input-box'>
+              <input
+                type={showPassword ? 'text' : 'password'}
+                placeholder='Contraseña'
+                id='password'
+                value={pass}
+                autoComplete='current-password'
+                onChange={(e) => handlerSetPass(e.target.value)}
+                required
+              />
+              <span className="icon password-toggle" onClick={toggleShowPassword}>
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </span>
+            </div>
+            {store.wrongPass && (
+              <p style={{ color: 'white', fontSize: '18px' }}>
+                Contraseña incorrecta
+              </p>
+            )}
+            <div className='remember-forgot'>
+              <label>
+                <input
+                  type='checkbox'
+                  name='rememberMe'
+                  checked={rememberMe}
+                  onChange={handleRememberMeChange}
+                />
+                Recordarme en este dispositivo
+              </label>
+            </div>
+            <button type='submit'>
+              {isLoading ? (
+                <img
+                  src={gifLoading}
+                  alt='gif de carga'
+                  style={{ width: '50%', height: '140%' }}
+                />
+              ) : (
+                <h5>Ingresar</h5>
+              )}
+            </button>
+          </form>
         </div>
-        <div className='input-box'>
-          <input
-            type={showPassword ? 'text' : 'password'}
-            placeholder='Contraseña'
-            id='password'
-            value={pass}
-            autoComplete='current-password'
-            onChange={(e) => handlerSetPass(e.target.value)}
-            required
-          />
-          <span className="icon password-toggle" onClick={toggleShowPassword}>
-            {showPassword ? <FaEyeSlash /> : <FaEye />}
-          </span>
-        </div>
-        {store.wrongPass && (
-          <p style={{ color: 'white', fontSize: '18px' }}>
-            Contraseña incorrecta
-          </p>
-        )}
-        <div className='remember-forgot'>
-          <label>
-            <input
-              type='checkbox'
-              name='rememberMe'
-              checked={rememberMe}
-              onChange={handleRememberMeChange}
-            />
-            Recordarme en este dispositivo
-          </label>
-        </div>
-        <button type='submit'>
-          {isLoading ? (
-            <img
-              src={gifLoading}
-              alt='gif de carga'
-              style={{ width: '50%', height: '140%' }}
-            />
-          ) : (
-            <h5>Ingresar</h5>
-          )}
-        </button>
-        {/* Opcional: enlace para registrarse */}
-        {/* <div className='register-link'>
-          <p>No tienes cuenta? <span onClick={() => navigate('/loginregister')} style={{ color: 'blue', textDecoration: 'underline', cursor: 'pointer' }}>Registrate acá</span></p>
-        </div> */}
-      </form>
-    </div>
-    </div>
+      </div>
     </>
   );
 };

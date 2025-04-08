@@ -12,6 +12,7 @@ import { FaSearch } from "react-icons/fa";
 import { FaListAlt } from "react-icons/fa";
 import { VscSignOut } from "react-icons/vsc";
 import { TiThMenu } from "react-icons/ti";
+import { RiAdminFill } from "react-icons/ri";
 
 const Navbar = () => {
     const { actions } = useContext(Context);
@@ -105,14 +106,7 @@ const Navbar = () => {
                         >
                             <BiSolidHelpCircle className="iconNav" style={{ fontSize: "2em" }} />
                         </button>
-                        <button
-                            className="socialContainerNav"
-                            style={{ border: "none" }}
-                            type="button"
-                            onClick={handlerLogOut}
-                        >
-                            <VscSignOut className="iconNav" style={{ fontSize: "2em" }} />
-                        </button>
+                      
 
                         <div className="dropdown">
                             <a
@@ -158,9 +152,18 @@ const Navbar = () => {
                                     {isAdmin && (
                                         <div href="#" className="socialContainer containerFour" onClick={() => navigate("/admin")}>
                                             <svg className="socialSvg whatsappSvg" viewBox="0 0 16 16" >
+                                                <RiAdminFill />
                                             </svg>
                                         </div>
                                     )}
+                                      <button
+                            className="socialContainerNav"
+                            style={{ border: "none" }}
+                            type="button"
+                            onClick={handlerLogOut}
+                        >
+                            <VscSignOut className="iconNav" style={{ fontSize: "2em" }} />
+                        </button>
                                 </div>
                             </ul>
                         </div>
