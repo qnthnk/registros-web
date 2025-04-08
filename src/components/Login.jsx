@@ -80,10 +80,8 @@ const Login = () => {
   return (
     <>
      <div className="background-video-container">
-               <video autoPlay loop muted className="background-video">
-                   <source src={BackgroundVideo} type="video/mp4" />
-                   Tu navegador no soporta la etiqueta de video.
-               </video>
+     <img src={BackgroundVideo} alt="Background Video" className="background-video" />
+
            </div>
     <div className="contentVideo">
     <div className='wrapper d-flex justify-content-center'>
