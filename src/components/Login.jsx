@@ -3,7 +3,9 @@ import { Context } from '../js/store/appContext.js';
 import './Login.css';
 import { FaUser, FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-import gifLoading from '../img/loader-9342.gif';
+import gifLoading from '../img/Loading_2.gif';
+import BackgroundVideo from "../img/CNClogin.mp4";
+
 
 const Login = () => {
   const navigate = useNavigate();
@@ -25,7 +27,7 @@ const Login = () => {
       await actions.login(info);
       if (store.userName !== '' && store.userName !== undefined) {
         actions.wrongPass(false);
-        navigate('/createcustomer');
+        navigate('/home');
       } else {
         actions.wrongPass(true);
         setEmail('');
@@ -76,6 +78,14 @@ const Login = () => {
   };
 
   return (
+    <>
+     <div className="background-video-container">
+               <video autoPlay loop muted className="background-video">
+                   <source src={BackgroundVideo} type="video/mp4" />
+                   Tu navegador no soporta la etiqueta de video.
+               </video>
+           </div>
+    <div className="contentVideo">
     <div className='wrapper d-flex justify-content-center'>
       <form
         onSubmit={(e) => {
@@ -83,7 +93,7 @@ const Login = () => {
           handlerLogin();
         }}
             >
-        <h1>Bienvenidos</h1>
+        <h1>CNC Digital</h1>
         <div className='input-box tex'>
           <input
             type='email'
@@ -143,6 +153,8 @@ const Login = () => {
         </div> */}
       </form>
     </div>
+    </div>
+    </>
   );
 };
 

@@ -3,9 +3,7 @@
     width: 80%;
     margin-top: 3vh;
     max-width: 300px;
-    background-color: rgba(68, 124, 15, 0.139); /* Fondo semitransparente para resaltar sobre el #404040 */
     border: 2px solid rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(20px);
     color: #fff;
     border-radius: 10px;
     padding: 20px 40px;

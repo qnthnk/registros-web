@@ -62,9 +62,7 @@
     padding: 1rem;
     max-width: 1000px;
     margin: 0 auto;
-    background-color: rgba(68, 124, 15, 0.139);
     color: #131212;
-    backdrop-filter: blur(20px);
     box-sizing: border-box;
   }
   

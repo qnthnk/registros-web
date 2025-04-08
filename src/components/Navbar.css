@@ -1,85 +1,142 @@
-.logo_and_title {
+.card {
+  width:10px; /* Se ajusta al contenido */
+  height: 10%; /* Se ajusta al contenido */
   display: flex;
-  flex-direction: row;
+  flex-direction: row; /* Alinea los elementos horizontalmente (YA ESTABA) */
+  align-items: center; /* Alinea los elementos verticalmente al centro */
+  justify-content: flex-start; /* Alinea los elementos al inicio del contenedor */
+  padding: 25px; /* Reducido el padding para simplificar */
+  gap: 20px; /* Espacio entre los elementos */
+  border: none;
+}
+
+/* Para todos los contenedores sociales */
+.socialContainerNav {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background-color:rgb(187, 42, 41);
+  display: flex;
   align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: inset -4px -4px 8px rgba(255, 255, 255, 0.6), inset 4px 4px 8px rgba(0, 0, 0, 0.2), 
+              0 4px 6px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.logo {
-  max-width: 15%;
-  height: auto;
-  display: block;
-  margin-right: 1vh;
+.socialContainerNav:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3), 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
-.title_navbar {
-  color: white;font-weight: 900;
-  font-size: medium;
-  margin: 0;
+.socialContainerNav:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+.socialContainerNav:hover {
+  background-color: rgb(215, 222, 19);
+  transition-duration: .3s;
+}
+.socialContainerNav:active {
+  transform: scale(1.5);
+  transition-duration: .3s;
 }
 
-.navbar {
-  background-color:#D92929;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Sombra leve */
-  position: sticky; /* Hace que se quede en la parte de arriba al hacer scroll */
-  top: 0; /* Arriba del todo */
-  z-index: 1000; /* Aseguráte que quede por encima de otros elementos */
+.socialContainer {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background-color: rgb(44, 44, 44);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition-duration: 1s;
+  box-shadow: inset -4px -4px 8px rgba(255, 255, 255, 0.6), inset 4px 4px 8px rgba(0, 0, 0, 0.2), 
+              0 4px 6px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.1);
+
 }
 
-.navbar .nav-link {
-  color: white; /* Cambiá por el color que quieras */
-  text-decoration: none; /* Opcional: quita el subrayado */
+/* Instagram */
+.containerOne:hover {
+  background-color: #14aa23;
+  transition-duration: 1s;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3), 0 4px 6px rgba(0, 0, 0, 0.2);
+
 }
 
-.navbar .nav-link:hover {
-  color: #ccf456; /* Cambia a otro color al pasar el mouse */
-  font-weight: bolder;
+/* Facebook */
+.containerTwo:hover {
+  background-color: #b99a5b;
+  transition-duration: 1s;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3), 0 4px 6px rgba(0, 0, 0, 0.2);
 
-  
-  ;
 }
 
-.perfil {
-  color: #fff; /* Estilo inicial */
-  background-color: transparent;
-  transition: all 0.3s ease; /* Para un efecto suave */
+/* LinkedIn */
+.containerThree:hover {
+  background-color: #ac0daf;
+  transition-duration: 1s;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3), 0 4px 6px rgba(0, 0, 0, 0.2);
+
 }
 
-.perfil:focus,
-.perfil:active,
-.dropdown.show .perfil {
-  color: white; /* Mantiene el texto blanco */
-  background-color: #333; /* Fondo oscuro */
-  outline: none;
+/* WhatsApp */
+.containerFour:hover {
+  background-color: #25d366;
+  transition-duration: 1s;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3), 0 4px 6px rgba(0, 0, 0, 0.2);
+
 }
 
-.perfil:hover {
-  color: white;
-  background-color: #444; /* Fondo un poco más claro */
+.socialContainer:active {
+  transform: scale(0.9);
+  transition-duration: 1s;
 }
 
-.welcome-message {
-  color: white;
-  font-size: 1rem;
-  margin-left: 1rem;
-  margin-right: 1rem;
+.socialSvg {
+  width: 17px;
 }
 
-.mano {
-  cursor: pointer;
+.socialSvg path {
+  fill: rgb(255, 255, 255);
 }
 
-@media (max-width: 427px) {
-  .navbar .logo_and_title {
-    flex: 1; /* Ocupa el espacio restante */
+.iconNav {
+  width: 24px;
+}
+
+.iconNav path {
+  fill: rgb(255, 255, 255);
+}
+
+.socialContainer:hover .socialSvg {
+  animation: slide-in-top .5s both;
+}
+
+@keyframes slide-in-top {
+  0% {
+    transform: translateY(-50px);
+    opacity: 0;
   }
-
-  .navbar-toggler {
-    margin-left: auto; /* Empuja el botón hacia la derecha */
-    color: w#ccf456;
+  100% {
+    transform: translateY(0);
+    opacity: 1;
   }
 }
 
-
-.navbar .navbar-toggler .navbar-toggler-icon {
-  background-image: url("data:image/svg+xml;charset=UTF8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba(255,255,255,0.8)' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+.logoFont{
+  font-family: "Megrim", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+.userName{
+  font-family: "Roboto", system-ui;
+  font-weight: 400;
+  font-style: normal;
+  color: rgb(255, 255, 255);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

@@ -16,6 +16,7 @@ import RedirectToHome from './components/RedirectHome.jsx';
 import Ayuda from './components/Ayuda.jsx';
 import ClientList from './adm-components/ClientList.jsx';
 import Reportes from './adm-components/Reportes.jsx';
+import './index.css';
 
 const Layout = () => {
 
@@ -25,6 +26,7 @@ const Layout = () => {
     <div>
         <BrowserRouter basename={basename}>
         <Navbar/>
+        <div className="containerViews">
             <Routes>
                 <Route exact path="/" element={<Home/>}/>
                 <Route exact path="/home" element={<Home/>}/>
@@ -44,6 +46,7 @@ const Layout = () => {
                 <Route exact path="/utilidades" element={<Utilidades />}/> */}
                 <Route exact path="/*" element={<NotFound/>}/>
             </Routes>
+            </div>
             <Footer />
         </BrowserRouter>
     </div>

@@ -5,16 +5,12 @@ const CardFront = ({ data, localImage }) => {
   console.log(data);
   return (
     <>
-      <div className="card-front">
-        <div className="cardContainer creditCard">
-          <div className="card-photo">
             {data.url_image_self_photo ? (
               <img src={localImage} alt="Foto" />
             ) : (
-              <div className="placeholder">Foto</div>
+              <h1 className=""></h1>
             )}
-          </div>
-          <div className="creditCardFront">
+          {/* <div className="">
             <p className="cardHolderLNF">{data.lastname_f || "A.Paterno"}</p>
             <p className="cardHolderLNM">{data.lastname_m || "A.Materno"}</p>
             <p className="cardHolderN">{data.name || "Nombre"}</p>
@@ -24,9 +20,7 @@ const CardFront = ({ data, localImage }) => {
             <p className="cardHolderExp"></p>
             <p className="cardHolderVig"></p>
 
-          </div>
-        </div>
-      </div>
+          </div> */}
     </>
   );
 };

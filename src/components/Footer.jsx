@@ -5,9 +5,11 @@ import './Footer.css'
 const Footer = () => {
     
     return (
-    <footer className="footer">
-      &copy; 2025 QuanThink. Todos los derechos reservados.
-    </footer>
+      <footer className="footer">
+      <h2 className="logoFont">quanthink</h2>
+
+&copy; 2025. Todos los derechos reservados.
+</footer>
   );
 }
 

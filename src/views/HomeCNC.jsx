@@ -4,6 +4,7 @@ import './HomeCNC.css';
 import { FaUser, FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import gifLoading from '../img/loader-9342.gif';
+import BackgroundVideo from "../img/CNClogin.mp4";
 
 const HomeCNC = () => {
   const navigate = useNavigate();
@@ -12,10 +13,17 @@ const HomeCNC = () => {
   const name = localStorage.getItem('name');
 
   return (
-      <div className='container wrapper'>
-        <h1>Home CNC</h1>
-        <p>Este es el Home CNC</p>
+    <>
+         <div className="background-video-container">
+                   <video autoPlay loop muted className="background-video">
+                       <source src={BackgroundVideo} type="video/mp4" />
+                       Tu navegador no soporta la etiqueta de video.
+                   </video>
+               </div>
+        <div className="contentVideo">
+      
       </div>
+      </>
   );
 };
 

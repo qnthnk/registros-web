@@ -3,6 +3,7 @@ import { Context } from '../js/store/appContext';
 import { useNavigate } from 'react-router-dom';
 import CardFront from './CardFront';
 import './CreateCustomer.css';
+import './CardFlip.css';
 
 const initialCustomerData = {
   name: '',
@@ -237,12 +238,19 @@ const CreateCustomer = () => {
       {/** Contenedor GRID con 3 áreas: card, form, controls */}
       <div className="container-grid">
         {/* Área 1: Card */}
-        <div className="grid-card">
-          <div className="carnet-preview">
-            <CardFront data={customerData} localImage={localImage} />
+
+        <div className="cardNew">
+          <div className="cardNew-inner">
+            <div className="cardNew-front">
+              <div className="grid-card">
+                <CardFront data={customerData} localImage={localImage} />
+              </div>
+            </div>
+            <div className="cardNew-back">
+              {/* Poner lo que va en el back */}
+            </div>
           </div>
         </div>
-
         {/* Área 2: Form */}
         <div className="grid-form" ref={formContainerRef}>
           <form onSubmit={handleSubmit} className="customer-form">
@@ -371,12 +379,17 @@ const CreateCustomer = () => {
           </div>
           <div className="button-group mb-3">
             {(!updateMode || (updateMode && customerDeudor)) && (
-              <button type="submit" onClick={handleSubmit} className="submit-btn">
-                {updateMode ? "Actualizar Socio" : "Crear Registro"}
+              <button type="submit" onClick={handleSubmit} className="buttonCreate">
+                <span className="transition"></span>
+  <span className="gradient"></span>
+  <span className="label">{updateMode ? "Actualizar datos" : "Guardar registro"}</span>
+                
               </button>
             )}
-            <button type="button" className="clear-btn" onClick={handleClearFields}>
-              Limpiar campos
+            <button type="button" className="buttonClean" onClick={handleClearFields}>
+              <span className="buttonClean-content">
+                Limpiar formulario
+              </span>
             </button>
           </div>
         </div>

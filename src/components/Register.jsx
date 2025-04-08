@@ -68,7 +68,7 @@ const Register = () => {
   };
 
   return (
-    <div className='wrapper'>
+    <div className='wrapper' >
       <form onSubmit={handleSubmit}>
         <h1>Regístrate</h1>
         <div className="input-box">

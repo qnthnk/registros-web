@@ -2,15 +2,14 @@ body {
   font-family: 'Poppins', sans-serif; /* Corregir typo en `sanas-serif` */
   min-height: 100vh;
   /* background-image: #f40707 !important; */
-  background: url('./img/backCNCblack.png') no-repeat center center;
   background-size: cover;
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-.container {
+.containerViews {
   width: 100%; /* Asegura que el contenedor ocupe todo el ancho */
   max-width: 1140px; /* O el valor que prefieras, para pantallas grandes */
-  margin: 0 auto;
+  margin: 20px auto; /* Margen superior e inferior: 20px, Margen izquierdo y derecho: auto (centrado horizontalmente) */
 }

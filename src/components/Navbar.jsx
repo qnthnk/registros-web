@@ -3,6 +3,15 @@ import { Context } from '../js/store/appContext';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './Navbar.css';
 import logo3 from '../img/LOGOCNC.png';
+import { FaHome } from "react-icons/fa";
+import { BiSolidHelpCircle } from "react-icons/bi";
+import { FaInfo } from "react-icons/fa";
+import { TbSocial } from "react-icons/tb";
+import { FaPlus } from "react-icons/fa";
+import { FaSearch } from "react-icons/fa";
+import { FaListAlt } from "react-icons/fa";
+import { VscSignOut } from "react-icons/vsc";
+import { TiThMenu } from "react-icons/ti";
 
 const Navbar = () => {
     const { actions } = useContext(Context);
@@ -14,6 +23,11 @@ const Navbar = () => {
     const name = localStorage.getItem('name') || '';
 
     const isActive = (path) => location.pathname === path ? 'nav-link active' : 'nav-link';
+    const [dropdownVisible, setDropdownVisible] = useState(false);
+
+    const toggleDropdown = () => {
+      setDropdownVisible(!dropdownVisible);
+    };
 
     // UseEffect para chequear el rol admin al cargar el componente
     useEffect(() => {
@@ -43,68 +57,118 @@ const Navbar = () => {
     };
 
     return (
-        <nav className="container-fluid navbar navbar-expand-lg bg-body-danger">
-            <div className="container-fluid d-flex align-items-center">
-                <div className="logo_and_title">
-                    <img className="logo" src={logo3} alt="logo petroclub" onClick={handleShowRegister} />
-                    <h4 className="title_navbar">CNC Digital</h4>
+        <>
+        {token && (
+            <nav
+                className="navbar row"
+                style={{
+                    position: "fixed",
+                    top: 0,
+                    width: "100%",
+                    zIndex: 100,
+                    height: "100px",
+                    borderRadius: "0 0 50px 50px",
+                    backgroundColor: "transparent",
+                }}
+            >
+                <div
+                    className="logoContainer col-3"
+                    style={{ display: "flex", alignItems: "center", gap: "1rem" }}
+                >
+                    <img
+                        src={logo3}
+                        alt="Logo"
+                        className="logo"
+                        style={{ width: "70px", height: "70px", borderRadius: "50%" }}
+                    />
+                        <h2 className='userName'>{name}</h2>
                 </div>
+
                 {token && (
-                    <div className="welcome-message d-none d-lg-block">
-                        Bienvenido, {name}
-                    </div>
-                )}
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
-                    aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-                <div className="collapse navbar-collapse" id="navbarNavDropdown">
-                    <ul className="navbar-nav nav-underline nav-tabs ms-auto">
-                        {token && (
-                            <li className="nav-item">
-                                <Link className={isActive('/createcustomer')} to="/createcustomer">Nuevo Registro</Link>
-                            </li>
-                        )}
-                        {token && (
-                            <li className="nav-item dropdown">
-                                <div className="nav-link dropdown-toggle perfil" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Perfil
-                                </div>
-                                <ul className="dropdown-menu dropdown-menu-end">
-                                    <li>
-                                        <div className="dropdown-item mano" onClick={() => navigate("/ayuda")}>
-                                            Ayuda
+                    <form
+                        className="container-fluid justify-content-end p-3 col-9"
+                        style={{ display: "flex", gap: "1rem", alignItems: "center" }}
+                    >
+                        <button
+                            className="socialContainerNav"
+                            style={{ border: "none" }}
+                            type="button"
+                            onClick={() => navigate("/")}
+                        >
+                            <FaHome className="iconNav" style={{ fontSize: "2em" }} />
+                        </button>
+                        <button
+                            className="socialContainerNav"
+                            style={{ border: "none" }}
+                            type="button"
+                            onClick={() => navigate("/ayuda")}
+                        >
+                            <BiSolidHelpCircle className="iconNav" style={{ fontSize: "2em" }} />
+                        </button>
+                        <button
+                            className="socialContainerNav"
+                            style={{ border: "none" }}
+                            type="button"
+                            onClick={handlerLogOut}
+                        >
+                            <VscSignOut className="iconNav" style={{ fontSize: "2em" }} />
+                        </button>
+
+                        <div className="dropdown">
+                            <a
+                                className="socialContainerNav"
+                                href="#"
+                                role="button"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                                style={{ textDecoration: "none", color: "white" }}
+                            >
+                                <TiThMenu className="iconNav" style={{ fontSize: "2em" }} />
+                            </a>
+                            <ul
+                                className="dropdown-menu"
+                                style={{
+                                    border: "none",
+                                    boxShadow: "none",
+                                    backgroundColor: "transparent",
+                                }}
+                            >
+                                <div
+                                    className="card"
+                                    style={{ border: "none", backgroundColor: "transparent" }}
+                                >
+                                    {token && (
+                                        <div className="socialContainer containerOne" onClick={() => navigate("/createcustomer")}>
+                                            <svg className="socialSvg instagramSvg" viewBox="0 0 16 16" >
+                                                <FaPlus />
+                                            </svg>
                                         </div>
-                                    </li>
-                                    <li>
-                                        <div className="dropdown-item mano" onClick={() => navigate("/registros")}>
-                                            Registros
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div className="dropdown-item mano" onClick={() => navigate("/busca-socio")}>
-                                            Busca Socio
-                                        </div>
-                                    </li>
-                                    {isAdmin && (
-                                        <li>
-                                            <div className="dropdown-item mano" onClick={() => navigate("/admin")}>
-                                                Panel de control
-                                            </div>
-                                        </li>
                                     )}
-                                    <li>
-                                        <div className="dropdown-item mano" onClick={handlerLogOut}>
-                                            Salir
+                                    <div href="#" className="socialContainer containerTwo" onClick={() => navigate("/registros")}>
+                                        <svg className="socialSvg twitterSvg" viewBox="0 0 16 16" >
+                                            <FaListAlt />
+                                        </svg>
+                                    </div>
+
+                                    <div href="#" className="socialContainer containerThree" onClick={() => navigate("/busca-socio")}>
+                                        <svg className="socialSvg linkdinSvg" viewBox="0 0 16 16" >
+                                            <FaSearch />
+                                        </svg>
+                                    </div>
+                                    {isAdmin && (
+                                        <div href="#" className="socialContainer containerFour" onClick={() => navigate("/admin")}>
+                                            <svg className="socialSvg whatsappSvg" viewBox="0 0 16 16" >
+                                            </svg>
                                         </div>
-                                    </li>
-                                </ul>
-                            </li>
-                        )}
-                    </ul>
-                </div>
-            </div>
-        </nav>
+                                    )}
+                                </div>
+                            </ul>
+                        </div>
+                    </form>
+                )}
+            </nav>
+               )}
+        </>
     );
 };
 
