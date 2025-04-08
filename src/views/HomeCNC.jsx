@@ -4,7 +4,7 @@ import './HomeCNC.css';
 import { FaUser, FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import gifLoading from '../img/loader-9342.gif';
-import BackgroundVideo from "../img/CNClogin.mp4";
+import BackgroundVideo from "../img/CNClogin.gif";
 
 const HomeCNC = () => {
   const navigate = useNavigate();

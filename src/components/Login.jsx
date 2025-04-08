@@ -4,7 +4,7 @@ import './Login.css';
 import { FaUser, FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import gifLoading from '../img/Loading_2.gif';
-import BackgroundVideo from "../img/CNClogin.mp4";
+import BackgroundVideo from "../img/CNClogin.gif";
 
 
 const Login = () => {
