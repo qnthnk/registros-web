@@ -60,4 +60,15 @@
     padding: 8px;
     border-radius: 4px;
   }
-  
+  .search-button {
+    position: relative;
+    overflow: hidden;
+    height: 3rem;
+    padding: 0 2rem;
+    border-radius: 1.5rem;
+    background: #e6b01a;
+    background-size: 400%;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }

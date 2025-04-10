@@ -3,7 +3,7 @@
   width: 80%;
   margin-top: 3vh;
   max-width: 300px;
-  background-color: rgba(120, 238, 10, 0.139); /* Fondo semitransparente para resaltar sobre el #404040 */
+  background-color: rgba(251, 251, 251, 0.501); /* Fondo semitransparente para resaltar sobre el #404040 */
   border: 2px solid rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(20px);
   color: #fff;
@@ -16,7 +16,7 @@
 .wrapper h1 {
   font-size: 32px;
   text-align: center;
-  color: #fff; /* Texto blanco para buen contraste */
+  color: #000000; /* Texto blanco para buen contraste */
 }
 
 /* Caja de inputs */
@@ -31,7 +31,7 @@
 .input-box input {
   width: 100%;
   height: 100%;
-  background: rgba(231, 229, 229, 0.65);
+  background: rgba(50, 49, 49, 0.65);
   border: 2px solid rgba(255, 255, 255, 0.2);
   outline: none;
   border-radius: 40px;
@@ -72,7 +72,7 @@
   justify-content: space-between;
   font-size: 14.5px;
   margin: -15px 0 15px;
-  color: #fff;
+  color: #000000;
 }
 
 .remember-forgot label input {
@@ -180,4 +180,21 @@ box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 .itemBox:nth-child(2),
 .itemBox:nth-child(3) {
   flex-grow: 1;
+}
+.title{
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #000000;
+}
+.dm-serif-text-regular {
+  font-family: "DM Serif Text", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.dm-serif-text-regular-italic {
+  font-family: "DM Serif Text", serif;
+  font-weight: 400;
+  font-style: italic;
 }

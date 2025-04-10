@@ -4,7 +4,7 @@ import './Login.css';
 import { FaUser, FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import gifLoading from '../img/Loading_2.gif';
-import BackgroundVideo from "../img/CNClogin.gif";
+import BackgroundGIF from "../img/CNClogin.gif";
 
 
 const Login = () => {
@@ -80,7 +80,7 @@ const Login = () => {
   return (
     <>
       <div className="background-video-container">
-        <img src={BackgroundVideo} alt="Background Video" className="background-video" />
+        <img src={BackgroundGIF} alt="Background Video" className="background-video" />
       </div>
       <div className="contentVideo">
         <div className='wrapper d-flex justify-content-center align-items-center'>
@@ -91,7 +91,7 @@ const Login = () => {
             }}
             className="text-center"
           >
-            <h1>CNC Digital</h1>
+            <h1 className='title dm-serif-text-regular' style={{color:"black"}}>CNC Digital</h1>
             <div className='input-box tex'>
               <input
                 type='email'
