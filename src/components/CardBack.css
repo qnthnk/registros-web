@@ -28,3 +28,39 @@
         margin: 5px auto;
     }
 }
+
+.cardHolderEntidad {
+    position: absolute;
+    color: black;
+    top: 235px;
+    left: 210px;
+    width: 180px;
+    height: 100%;
+    font-weight: lighter;
+    text-align: center;
+    font-size:10px;
+    font-family: 'Helvetica', sans-serif;
+    font-style: italic;
+  }
+  .cardHolderLider {
+    position: absolute;
+    color: rgb(192, 0, 0);
+    top: 213px;
+    left: 210px;
+    width: 200px;
+    height: 100%;
+    font-weight: lighter;
+    text-align: center;
+    font-size:10px;
+    font-family: 'Helvetica', sans-serif;
+    font-style: italic;
+  }
+  .cardHolderFirma{
+    position: absolute;
+    color: black;
+    top: 78px;
+    left: 21px;
+    width: 114px;
+    height: 143px;
+  }
+  

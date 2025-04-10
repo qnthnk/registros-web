@@ -1,7 +1,6 @@
 import React from 'react';
-import './CardFront.css';
+import './CardBack.css';
 import tope from './../img/Blanco.png'
-
 const Lideres = [
   { entidad: "Aguascalientes", lider: "C. Carlos Estrada Valdez", firma: "AGS" },
   { entidad: "Baja California", lider: "C. Mario Soto Ibarra", firma: "BC" },
@@ -39,18 +38,26 @@ const Lideres = [
 ];
 
 const CardBack = () => {
-  const userData = "Aguascalientes"|| {};
-  const { lider = "A.Paterno" } = userData;
-
-  const matchedEntity = Lideres.find(entity => entity.lider === lider);
+ const name = localStorage.getItem('name') || '';
+const matchedEntity = Lideres.find(entidad => entidad.entidad === name);
+let signature = matchedEntity ? matchedEntity.firma : tope;
+console.log("Nombre de la entidad:", name);
+console.log("Entidad encontrada:", matchedEntity);
+console.log("Firma:", signature);
+console.log("Nombre de la firma:", signature);
 
   return (
     <>
       <div className="">
         <p className="cardHolderEntidad">{matchedEntity ? matchedEntity.entidad : "Entidad no encontrada"}</p>
-        <p className="cardHolderLider">{matchedEntity ? matchedEntity.lider : "Entidad no encontrada"}</p>
-        <img src="/workspaces/registros-web/src/img/firmas/${matchedEntity ? matchedEntity.firma}" className="cardHolderFirma"/>
+        <p className="cardHolderLider">{matchedEntity ? matchedEntity.lider : "Líder no encontrado"}</p>
 
+        <img 
+        // hay que resolver lo de la firma
+          src={signature ? `./../img/firmas/${signature}.png` : tope}
+          alt="Firma" 
+          className="cardHolderFirma"
+        />
       </div>
     </>
   );
