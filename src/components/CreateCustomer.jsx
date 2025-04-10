@@ -7,6 +7,7 @@ import './CreateCustomer.css';
 import './CardFlip.css';
 import tope from './../img/Blanco.png';
 import Swal from 'sweetalert2'
+import edompiosmex from './../edompiosmex.json';
 
 const initialCustomerData = {
   name: '',
@@ -22,7 +23,7 @@ const initialCustomerData = {
   colonia: '',
   postal_code: '',
   localidad: '',
-  entidad_dir: '',
+  entidad_dir: localStorage.getItem('name') || '',
   municipio_dir: '',
   email: '',
   cell_num: '',
@@ -305,106 +306,116 @@ const CreateCustomer = () => {
                 }}
                 required
                 ref={firstInputRef}
-              />
-              <small className="curp-info">{curpMessage}</small>
-            </div>
-            <div className="form-group">
-              <label>Nombre:</label>
-              <input type="text" name="name" value={customerData.name} onChange={handleChange} required />
-            </div>
-            <div className="form-group">
-              <label>Apellido Paterno:</label>
-              <input type="text" name="lastname_f" value={customerData.lastname_f} onChange={handleChange} />
-            </div>
-            <div className="form-group">
-              <label>Apellido Materno:</label>
-              <input type="text" name="lastname_m" value={customerData.lastname_m} onChange={handleChange} />
-            </div>
-            <div className="form-group">
-              <label>Clave de Elector:</label>
-              <input type="text" name="cve" value={customerData.cve} onChange={handleChange} />
-            </div>
-            <div className="form-group">
-              <label>Estructura:</label>
-              <select name="org" value={customerData.org} onChange={handleChange}>
+                />
+                <small className="curp-info">{curpMessage}</small>
+              </div>
+              <div className="form-group">
+                <label>Nombre:</label>
+                <input type="text" name="name" value={customerData.name} onChange={handleChange} required />
+              </div>
+              <div className="form-group">
+                <label>Apellido Paterno:</label>
+                <input type="text" name="lastname_f" value={customerData.lastname_f} onChange={handleChange} />
+              </div>
+              <div className="form-group">
+                <label>Apellido Materno:</label>
+                <input type="text" name="lastname_m" value={customerData.lastname_m} onChange={handleChange} />
+              </div>
+              <div className="form-group">
+                <label>Clave de Elector:</label>
+                <input type="text" name="cve" value={customerData.cve} onChange={handleChange} />
+              </div>
+              <div className="form-group">
+                <label>Estructura:</label>
+                <select name="org" value={customerData.org} onChange={handleChange}>
                 <option>Seleccione una opción</option>
-                <option value="Comite Ejecutivo Nacional">Comite Ejecutivo Nacional</option>
-                <option value="Confederacion Nacional Agronomica">Confederacion Nacional Agronomica</option>
+                <option value="Comite Ejecutivo Nacional">Comité Ejecutivo Nacional</option>
+                <option value="Confederacion Nacional Agronomica">Confederación Nacional Agronómica</option>
                 <option value="SAF">SAF</option>
                 <option value="Conmujer">Conmujer</option>
                 <option value="Vanguardia Juvenil Agrarista">Vanguardia Juvenil Agrarista</option>
-                <option value="Ramas de produccion">Ramas de produccion</option>
+                <option value="Ramas de produccion">Ramas de producción</option>
                 <option value="Comite Ejecutivo Estatal">Comité Ejecutivo Estatal</option>
                 <option value="Comite Municipales Campesinos">Comités Municipales Campesinos</option>
                 <option value="Comite de Base Campesino">Comité de Base Campesino</option>
                 <option value="Miembro Activo">Miembro Activo</option>
-              </select>
+                </select>
+                <hr />
+              </div>
+              <h3>Dirección</h3>
+              <div className="form-group">
+                <label>Calle:</label>
+                <input type="text" name="address_street" value={customerData.address_street} onChange={handleChange} />
+              </div>
+              <div className="form-group">
+                <label>Número:</label>
+                <input type="text" name="address_number" value={customerData.address_number} onChange={handleChange} />
+              </div>
+              <div className="form-group">
+                <label>Colonia:</label>
+                <input type="text" name="colonia" value={customerData.colonia} onChange={handleChange} />
+              </div>
+              <div className="form-group">
+                <label>Código Postal:</label>
+                <input type="text" name="postal_code" value={customerData.postal_code} onChange={handleChange} />
+              </div>
+              <div className="form-group">
+                <label>Localidad:</label>
+                <input type="text" name="localidad" value={customerData.localidad} onChange={handleChange} />
+              </div>
+              <div className="form-group">
+                <label>Entidad:</label>
+                <h4>{localStorage.getItem('name')}</h4>
+              </div>
+              <div className="form-group">
+                <label>Municipio:</label>
+                <select
+                name="municipio_dir"
+                value={customerData.municipio_dir}
+                onChange={handleChange}
+                >
+                <option value="">Seleccione un municipio</option>
+                {edompiosmex[localStorage.getItem('name')]?.map((municipio, index) => (
+                  <option key={index} value={municipio}>
+                  {municipio}
+                  </option>
+                ))}
+                </select>
+              </div>
               <hr />
-            </div>
-            <h3>Dirección</h3>
-            <div className="form-group">
-              <label>Calle:</label>
-              <input type="text" name="address_street" value={customerData.address_street} onChange={handleChange} />
-            </div>
-            <div className="form-group">
-              <label>Número:</label>
-              <input type="text" name="address_number" value={customerData.address_number} onChange={handleChange} />
-            </div>
-            <div className="form-group">
-              <label>Colonia:</label>
-              <input type="text" name="colonia" value={customerData.colonia} onChange={handleChange} />
-            </div>
-            <div className="form-group">
-              <label>Código Postal:</label>
-              <input type="text" name="postal_code" value={customerData.postal_code} onChange={handleChange} />
-            </div>
-            <div className="form-group">
-              <label>Localidad:</label>
-              <input type="text" name="localidad" value={customerData.localidad} onChange={handleChange} />
-            </div>
-            <div className="form-group">
-              <label>Entidad:</label>
-              <input type="text" name="entidad_dir" value={customerData.entidad_dir} onChange={handleChange} />
-
-            </div>
-            <div className="form-group">
-              <label>Municipio:</label>
-              <input type="text" name="municipio_dir" value={customerData.municipio_dir} onChange={handleChange} />
-            </div>
-            <hr />
-            <h3>Datos de contacto</h3>
-            <div className="form-group">
-              <label>Email:</label>
-              <input type="email" name="email" value={customerData.email} onChange={handleChange} />
-            </div>
-            <div className="form-group">
-              <label>Celular:</label>
-              <input type="text" name="cell_num" value={customerData.cell_num} onChange={handleChange} />
-            </div>
-            <div className="form-group">
-              <label>Teléfono fijo:</label>
-              <input type="text" name="tel_num" value={customerData.tel_num} onChange={handleChange} />
-            </div>
-            <div className="form-group">
-              <label>Instagram:</label>
-              <input type="text" name="instagram" value={customerData.instagram} onChange={handleChange} />
-            </div>
-            <div className="form-group">
-              <label>Facebook:</label>
-              <input type="text" name="facebook" value={customerData.facebook} onChange={handleChange} />
-            </div>
-            <div className="form-group file-input">
-              <label>Foto de Credencial:</label>
-              <input  type="file" onChange={(e) => uploadImageToDriveHandler(e, 'url_image_self_photo', setLoadingSelfPhoto)} />
-              {loadingSelfPhoto && <span>Cargando imagen...</span>}
-              {localImage && (
+              <h3>Datos de contacto</h3>
+              <div className="form-group">
+                <label>Email:</label>
+                <input type="email" name="email" value={customerData.email} onChange={handleChange} />
+              </div>
+              <div className="form-group">
+                <label>Celular:</label>
+                <input type="text" name="cell_num" value={customerData.cell_num} onChange={handleChange} />
+              </div>
+              <div className="form-group">
+                <label>Teléfono fijo:</label>
+                <input type="text" name="tel_num" value={customerData.tel_num} onChange={handleChange} />
+              </div>
+              <div className="form-group">
+                <label>Instagram:</label>
+                <input type="text" name="instagram" value={customerData.instagram} onChange={handleChange} />
+              </div>
+              <div className="form-group">
+                <label>Facebook:</label>
+                <input type="text" name="facebook" value={customerData.facebook} onChange={handleChange} />
+              </div>
+              <div className="form-group file-input">
+                <label>Foto de Credencial:</label>
+                <input  type="file" onChange={(e) => uploadImageToDriveHandler(e, 'url_image_self_photo', setLoadingSelfPhoto)} />
+                {loadingSelfPhoto && <span>Cargando imagen...</span>}
+                {localImage && (
                 <img src={localImage} alt="Self" className="preview-image" />
-              )}
+                )}
+              </div>
+              </form>
             </div>
-          </form>
-        </div>
 
-        {/* Área 3: Controls (checkbox + botones) */}
+            {/* Área 3: Controls (checkbox + botones) */}
         <div className="grid-controls">
           <div className="toggle-gr</button>oup">
             <label htmlFor="clearToggle">Borrar campos al terminar de crear/actualizar?:</label>

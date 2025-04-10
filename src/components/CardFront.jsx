@@ -25,7 +25,7 @@ const CardFront = ({ data, localImage }) => {
         <p className="cardHolderN">{data.name || "Nombre"}</p>
         <p className="cardHolderO">{data.org || "Estructura"}</p>
         <p className="cardHolderC">{data.curp || "CURP"}</p>
-        <p className="cardHolderEnt">{data.entidad_dir || "Entidad"}</p>
+        <p className="cardHolderEnt">{localStorage.getItem('name') || ''}</p>
         <p className="cardHolderMun">{data.municipio_dir || "Municipio"}</p>
         <p className="cardHolderVig"></p>
       </div>

@@ -95,12 +95,13 @@ const Login = () => {
             <div className='input-box tex'>
               <input
                 type='email'
-                placeholder='Entidad'
+                placeholder='correo electrónico'
                 id='email'
                 value={email}
                 autoComplete='email'
                 onChange={(e) => handlerSetEmail(e.target.value)}
                 required
+                style={{color:"black"}}
               />
               <FaUser className='icon' />
             </div>
@@ -113,6 +114,7 @@ const Login = () => {
                 autoComplete='current-password'
                 onChange={(e) => handlerSetPass(e.target.value)}
                 required
+                style={{color:"black"}}
               />
               <span className="icon password-toggle" onClick={toggleShowPassword}>
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
@@ -139,7 +141,7 @@ const Login = () => {
                 <img
                   src={gifLoading}
                   alt='gif de carga'
-                  style={{ width: '50%', height: '140%' }}
+                  style={{ width: '100%', height: '100%' }}
                 />
               ) : (
                 <h5>Ingresar</h5>
