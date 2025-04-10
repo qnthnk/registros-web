@@ -216,7 +216,6 @@
   .body {
     font-family: 'Poppins', sans-serif;
     min-height: 100vh;
-    background: url('../img/backCNCblack.png') no-repeat center center;
     background-size: cover;
     margin: 0;
     -webkit-font-smoothing: antialiased;

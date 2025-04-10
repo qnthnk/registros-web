@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Context } from '../js/store/appContext';
 import './ClientList.css';
 import GenerateCardModal from './GenerateCardModal';
+import tope from './../img/Blanco.png';
 
 const ClientList = () => {
   const { store, actions } = useContext(Context);
@@ -84,7 +85,9 @@ const ClientList = () => {
   );
 
   return (
-    <div className="client-list-container">
+    <>
+    <img src={tope} style={{width:"100%", height:"90px"}} alt="tope" className="tope" />
+    <div className="grid-form p-5">
       <h2>Lista de registros</h2>
       <h6>(últimos 50 creados)</h6>
 
@@ -97,6 +100,7 @@ const ClientList = () => {
         />
       )}
     </div>
+    </>
   );
 };
 

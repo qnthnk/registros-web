@@ -68,8 +68,7 @@ const Navbar = () => {
                     width: "100%",
                     zIndex: 100,
                     height: "100px",
-                    borderRadius: "0 0 50px 50px",
-                    backgroundColor: "transparent",
+                    backgroundColor: "white",
                 }}
             >
                 <div
@@ -80,9 +79,9 @@ const Navbar = () => {
                         src={logo3}
                         alt="Logo"
                         className="logo"
-                        style={{ width: "70px", height: "70px", borderRadius: "50%" }}
+                        style={{ width: "70px", height: "70px", borderRadius: "50%", boxShadow: "0 0 10px rgb(0, 0, 0)" }}
                     />
-                        <h2 className='userName'>{name}</h2>
+                        <h2 className='title dm-serif-text-regular' style={{color:"black"}}>{name}</h2>
                 </div>
 
                 {token && (

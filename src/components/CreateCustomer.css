@@ -88,8 +88,9 @@
     padding: 0.5rem;
     border: 1px solid #000000;
     border-radius: 4px;
-    background-color: #e7e7e7;
+    background-color: #ffffff;
     color: #000000;
+    box-sizing: border-box
   }
   
   .file-input input {
@@ -161,20 +162,10 @@
   }
 
   
-  .grid-form:hover {
-    border: 1px solid black;
-    transform: scale(1.05);
-  }
-  
-  .grid-form:active {
-    transform: scale(0.95) rotateZ(1.7deg);
-  }
-  
   /* Ajustes globales (body, etc.) */
   .body {
     font-family: 'Poppins', sans-serif;
     min-height: 100vh;
-    background: url('../img/backCNCblack.png') no-repeat center center;
     background-size: cover;
     margin: 0;
     -webkit-font-smoothing: antialiased;
@@ -249,7 +240,6 @@
 }
 
 .transition {
-  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
   transition-duration: 500ms;
   background-color: rgb(41, 116, 9);
   border-radius: 9999px;
@@ -268,4 +258,138 @@
 
 .buttonCreate:active {
   transform: scale(0.97);
+}
+.cardHolderLNF {
+  position: absolute;
+  color: black;
+  top: 85.5px;
+  left: 150px;
+  width: 100%;
+  text-transform: uppercase;
+  letter-spacing: -0.7px;
+  height: 100%;
+  font-size:12px
+}
+.cardHolderLNM {
+  position: absolute;
+  color: black;
+  top: 100.5px;
+  left: 150px;
+  text-transform: uppercase;
+  width: 100%;
+  letter-spacing: -0.7px;
+  height: 100%;
+  font-size:12px
+}
+.cardHolderN {
+  position: absolute;
+  color: black;
+  top: 115.5px;
+  text-transform: uppercase;
+  left: 150px;
+  width: 100%;
+  letter-spacing: -0.7px;
+  height: 100%;
+  font-size:12px
+}
+.cardHolderO {
+  position: absolute;
+  color: black;
+  top: 155.5px;
+  text-transform: uppercase;
+  left: 150px;
+  letter-spacing: -0.7px;
+line-height: 1.1;
+  word-wrap: break-word;
+  width: 130px;
+  height: 100%;
+  font-size:12px
+}
+.cardHolderC {
+  position: absolute;
+  color: black;
+  text-transform: uppercase;
+  top: 210.5px;
+  left: 150px;
+  letter-spacing: -0.7px;
+  width: 100%;
+  height: 100%;
+  font-size:12px
+}
+.cardHolderEnt {
+  position: absolute;
+  color: black;
+  top: 85.5px;
+  left: 310px;
+  letter-spacing: -0.7px;
+  width: 100%;
+  text-transform: uppercase;
+  height: 100%;
+  font-size:12px
+}
+.cardHolderMun {
+  position: absolute;
+  color: black;
+  top: 155.5px;
+  left: 310px;
+  width: 100%;
+  line-height: 1.1;
+  word-wrap: break-word;
+  width: 95px;
+  letter-spacing: -0.7px;
+  height: 100%;
+  text-transform: uppercase;
+  font-size:12px
+}
+.cardHolderPicture {
+  position: absolute;
+  color: black;
+  top: 78px;
+  left: 21px;
+  line-height: 1.1;
+  word-wrap: break-word;
+  width: 114px;
+  height: 143px;
+  letter-spacing: -0.7px;
+  text-transform: uppercase;
+  font-size:12px
+}
+.cardHolderEntidad {
+  position: absolute;
+  color: black;
+  top: 235px;
+  left: 260px;
+  width: 100%;
+  height: 100%;
+  font-weight: lighter;
+  
+  font-size:10px;
+  font-family: 'Helvetica', sans-serif;
+  font-style: italic;
+}
+.cardHolderLider {
+  position: absolute;
+  color: rgb(192, 0, 0);
+  top: 213px;
+  left: 260px;
+  width: 100%;
+  height: 100%;
+  font-weight: lighter;
+  
+  font-size:10px;
+  font-family: 'Helvetica', sans-serif;
+  font-style: italic;
+}
+.cardHolderFirma{
+  position: absolute;
+  color: black;
+  top: 78px;
+  left: 21px;
+  line-height: 1.1;
+  word-wrap: break-word;
+  width: 114px;
+  height: 143px;
+  letter-spacing: -0.7px;
+  text-transform: uppercase;
+  font-size:12px
 }

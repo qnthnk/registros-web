@@ -2,8 +2,11 @@ import React, { useState, useEffect, useContext, useRef } from 'react';
 import { Context } from '../js/store/appContext';
 import { useNavigate } from 'react-router-dom';
 import CardFront from './CardFront';
+import CardBack from './CardBack';
 import './CreateCustomer.css';
 import './CardFlip.css';
+import tope from './../img/Blanco.png';
+import Swal from 'sweetalert2'
 
 const initialCustomerData = {
   name: '',
@@ -155,7 +158,11 @@ const CreateCustomer = () => {
       }
     } catch (error) {
       console.error('Error uploading image to Drive:', error);
-      alert("Error al subir la imagen.");
+      Swal.fire({
+        title: "Error al cargar imagen.",
+        icon: "error",
+        draggable: true
+      });
     } finally {
       setLoading(false);
     }
@@ -181,18 +188,29 @@ const CreateCustomer = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (customerData.curp && customerData.curp.length !== 18) {
-      alert("El campo CURP debe tener 18 caracteres.");
+      Swal.fire({
+        title: "El CURP debe tener 18 dígitos.",
+        icon: "warning",
+        draggable: true
+      });
       return;
     }
     const { exists, deudor } = await verifyCurp();
-    if (exists && !deudor) {
-      alert("Usuario pago. No permite actualizaciones.");
+    if (exists && !deudor) 
+      {Swal.fire({
+        title: "El registro no se puede actualizar porque ha sido marcado como pagado.",
+        icon: "warning",
+        draggable: true
+      });
       return;
     }
     try {
       let result = await actions.createCustomer(customerData);
-      if (result) {
-        alert(`Socio ${result} con éxito.`);
+      if (result) {Swal.fire({
+              title: "Registro creado con éxito.",
+              icon: "success",
+              draggable: true
+            });
         if (clearAfterSubmit) {
           resetFields();
         }
@@ -210,9 +228,17 @@ const CreateCustomer = () => {
   };
 
   const handleClearFields = () => {
-    if (window.confirm("¿Estás seguro de que deseas limpiar todos los campos?")) {
+    Swal.fire({
+      title: "¿Estás seguro de que deseas borrar todos los campos?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Sí, limpiar",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
       resetFields();
-    }
+      }
+    });
   };
 
   const handleToggleClear = () => {
@@ -232,8 +258,12 @@ const CreateCustomer = () => {
   }
 
   return (
+    <>
+        <img src={tope} style={{width:"100%", height:"90px"}} alt="tope" className="tope" />
+        
     <div className="create-customer-container">
-      <h1 style={{ color: "#F2F2F2", fontWeight: "bolder" }}>Alta de registros</h1>
+      <h1 style={{ color: "black", fontWeight: "bolder" }}>Alta de registros</h1>
+      <br />
 
       {/** Contenedor GRID con 3 áreas: card, form, controls */}
       <div className="container-grid">
@@ -247,14 +277,14 @@ const CreateCustomer = () => {
               </div>
             </div>
             <div className="cardNew-back">
-              {/* Poner lo que va en el back */}
+            <CardBack data={customerData} localImage={localImage} />
             </div>
           </div>
         </div>
         {/* Área 2: Form */}
-        <div className="grid-form" ref={formContainerRef}>
-          <form onSubmit={handleSubmit} className="customer-form">
-            <h3>Datos Generales:</h3>
+          <div className="grid-form" ref={formContainerRef}>
+            <form onSubmit={handleSubmit} className="customer-form p-3">
+              <h3>Datos Generales</h3>
             <div className="form-group">
               <label>CURP:</label>
               <input
@@ -262,7 +292,17 @@ const CreateCustomer = () => {
                 name="curp"
                 value={customerData.curp}
                 onChange={handleChange}
-                onBlur={handleCurpBlur}
+                onBlur={(e) => {
+                  if (e.target.value.length !== 18) {
+                    Swal.fire({
+                      title: "El CURP debe tener 18 dígitos.",
+                      icon: "warning",
+                      draggable: true
+                    });
+                  } else {
+                    handleCurpBlur();
+                  }
+                }}
                 required
                 ref={firstInputRef}
               />
@@ -294,14 +334,14 @@ const CreateCustomer = () => {
                 <option value="Conmujer">Conmujer</option>
                 <option value="Vanguardia Juvenil Agrarista">Vanguardia Juvenil Agrarista</option>
                 <option value="Ramas de produccion">Ramas de produccion</option>
-                <option value="Comite Ejecutivo Estatal">Comite Ejecutivo Estatal</option>
-                <option value="Comite Municipales Campesinos">Comite Municipales Campesinos</option>
-                <option value="Comite de Base Campesino">Comite de Base Campesino</option>
+                <option value="Comite Ejecutivo Estatal">Comité Ejecutivo Estatal</option>
+                <option value="Comite Municipales Campesinos">Comités Municipales Campesinos</option>
+                <option value="Comite de Base Campesino">Comité de Base Campesino</option>
                 <option value="Miembro Activo">Miembro Activo</option>
               </select>
               <hr />
-              <h3>Dirección:</h3>
             </div>
+            <h3>Dirección</h3>
             <div className="form-group">
               <label>Calle:</label>
               <input type="text" name="address_street" value={customerData.address_street} onChange={handleChange} />
@@ -332,7 +372,7 @@ const CreateCustomer = () => {
               <input type="text" name="municipio_dir" value={customerData.municipio_dir} onChange={handleChange} />
             </div>
             <hr />
-            <h3>Datos de contacto:</h3>
+            <h3>Datos de contacto</h3>
             <div className="form-group">
               <label>Email:</label>
               <input type="email" name="email" value={customerData.email} onChange={handleChange} />
@@ -355,7 +395,7 @@ const CreateCustomer = () => {
             </div>
             <div className="form-group file-input">
               <label>Foto de Credencial:</label>
-              <input type="file" onChange={(e) => uploadImageToDriveHandler(e, 'url_image_self_photo', setLoadingSelfPhoto)} />
+              <input  type="file" onChange={(e) => uploadImageToDriveHandler(e, 'url_image_self_photo', setLoadingSelfPhoto)} />
               {loadingSelfPhoto && <span>Cargando imagen...</span>}
               {localImage && (
                 <img src={localImage} alt="Self" className="preview-image" />
@@ -366,7 +406,7 @@ const CreateCustomer = () => {
 
         {/* Área 3: Controls (checkbox + botones) */}
         <div className="grid-controls">
-          <div className="toggle-group">
+          <div className="toggle-gr</button>oup">
             <label htmlFor="clearToggle">Borrar campos al terminar de crear/actualizar?:</label>
             <br />
             <input
@@ -395,6 +435,7 @@ const CreateCustomer = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

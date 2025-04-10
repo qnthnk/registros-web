@@ -1,5 +1,6 @@
 import React from 'react';
 import './Ayuda.css';
+import tope from './../img/Blanco.png';
 
 const faqData = [
   {
@@ -46,7 +47,10 @@ const faqData = [
 
 const Ayuda = () => {
   return (
-    <div className="ayuda-container mb-5">
+        <>
+        <img src={tope} style={{width:"100%", height:"90px"}} alt="tope" className="tope" />
+    
+    <div className="grid-form p-5" style={{height:"100vh"}}>
       <h1>Preguntas Frecuentes</h1>
       <div className="faq-list">
         {faqData.map((faq, index) => (
@@ -57,6 +61,7 @@ const Ayuda = () => {
         ))}
       </div>
     </div>
+    </>
   );
 };
 

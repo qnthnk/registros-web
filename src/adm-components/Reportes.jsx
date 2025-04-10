@@ -1,6 +1,8 @@
 import React, { useState, useContext } from 'react';
 import { Context } from '../js/store/appContext';
 import './Reportes.css';
+import tope from './../img/Blanco.png';
+import Swal from 'sweetalert2'
 
 const Reportes = () => {
   const { store, actions } = useContext(Context);
@@ -9,13 +11,21 @@ const Reportes = () => {
   // Maneja la búsqueda del Customer por CURP.
   const handleSearch = async () => {
     if (!curpInput.trim()) {
-      alert("Ingrese un CURP");
+      Swal.fire({
+        title: "Ingrese un CURP de 18 dígitos",
+        icon: "warning",
+        draggable: true
+      });
       return;
     }
     // El action searchCustomerByCurp debe extraer admin y user_id desde localStorage y enviar el payload.
     const result = await actions.searchCustomerByCurp(curpInput);
     if (!result) {
-      alert("No se encontró registro con ese CURP para el usuario actual");
+      Swal.fire({
+        title: "No se encontró registro",
+        icon: "error",
+        draggable: true
+      });
     }
   };
 
@@ -34,16 +44,46 @@ const Reportes = () => {
   };
 
   return (
-    <div className="reportes-container">
-      <h2>Buscar Customer por CURP</h2>
+    <>
+    <img src={tope} style={{width:"100%", height:"90px"}} alt="tope" className="tope" />
+    
+    <div className="grid-form p-5" style={{height:"60vh"}}>
+      <h2>Buscar registro por CURP</h2>
       <div className="search-bar">
         <input
           type="text"
           placeholder="Ingrese CURP"
           value={curpInput}
           onChange={(e) => setCurpInput(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              if (curpInput.length !== 18) {
+                Swal.fire({
+                  title: "El CURP debe tener 18 dígitos",
+                  icon: "warning",
+                  draggable: true
+                });
+                return;
+              }
+              handleSearch();
+            }
+          }}
         />
-        <button onClick={handleSearch}>Buscar</button>
+        <button className='search-button'
+          onClick={() => {
+            if (curpInput.length !== 18) {
+              Swal.fire({
+                title: "El CURP debe tener 18 dígitos",
+                icon: "warning",
+                draggable: true
+              });
+              return;
+            }
+            handleSearch();
+          }}
+        >
+          Buscar
+        </button>
       </div>
 
       {store.customer_finded && (
@@ -70,6 +110,7 @@ const Reportes = () => {
         </div>
       )}
     </div>
+    </>
   );
 };
 
