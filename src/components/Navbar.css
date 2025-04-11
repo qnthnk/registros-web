@@ -1,142 +1,77 @@
-.card {
-  width:10px; /* Se ajusta al contenido */
-  height: 10%; /* Se ajusta al contenido */
-  display: flex;
-  flex-direction: row; /* Alinea los elementos horizontalmente (YA ESTABA) */
-  align-items: center; /* Alinea los elementos verticalmente al centro */
-  justify-content: flex-start; /* Alinea los elementos al inicio del contenedor */
-  padding: 25px; /* Reducido el padding para simplificar */
-  gap: 20px; /* Espacio entre los elementos */
-  border: none;
+/* Navbar base */
+.custom-navbar {
+  background-color: transparent;
+  height: 12vh;
 }
 
-/* Para todos los contenedores sociales */
+.container-fluid {
+  padding: 0 1rem;
+}
+
+/* Logo y título */
+.navbar-brand {
+  display: flex;
+  align-items: center;
+}
+.navbar-logo {
+  width: 10vh;
+  height: 10vh;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgb(0, 0, 0);
+}
+.navbar-title {
+  margin-left: 0.5rem;
+  color: black;
+  margin-bottom: 0;
+}
+
+/* Quitar animación del collapse para evitar "saltos" */
+.collapse {
+  transition: none !important;
+}
+
+/* Ul principal del nav */
+.myNav-ul {
+  /* Para pantallas grandes (>=768px), hacemos fila a la derecha */
+  display: flex;
+  flex-direction: row;
+  margin-left: auto; /* "empuja" los ítems a la derecha */
+  gap: 1rem;
+}
+
+/* Botones circulares (los íconos) */
 .socialContainerNav {
   width: 52px;
   height: 52px;
   border-radius: 50%;
-  background-color:rgb(187, 42, 41);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   transition: transform 0.3s, box-shadow 0.3s;
-  box-shadow: inset -4px -4px 8px rgba(255, 255, 255, 0.6), inset 4px 4px 8px rgba(0, 0, 0, 0.2), 
-              0 4px 6px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 
+    inset -4px -4px 8px rgba(255, 255, 255, 0.6),
+    inset 4px 4px 8px rgba(0, 0, 0, 0.2),
+    0 4px 6px rgba(0, 0, 0, 0.2),
+    0 1px 3px rgba(0, 0, 0, 0.1);
 }
-
 .socialContainerNav:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3), 0 4px 6px rgba(0, 0, 0, 0.2);
-}
-
-.socialContainerNav:active {
-  transform: translateY(0);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-.socialContainerNav:hover {
-  background-color: rgb(215, 222, 19);
-  transition-duration: .3s;
+  box-shadow: 
+    0 10px 15px rgba(0, 0, 0, 0.3),
+    0 4px 6px rgba(0, 0, 0, 0.2);
+  background-color: rgb(233, 35, 5);
 }
 .socialContainerNav:active {
   transform: scale(1.5);
-  transition-duration: .3s;
 }
 
-.socialContainer {
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  background-color: rgb(44, 44, 44);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  transition-duration: 1s;
-  box-shadow: inset -4px -4px 8px rgba(255, 255, 255, 0.6), inset 4px 4px 8px rgba(0, 0, 0, 0.2), 
-              0 4px 6px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.1);
-
-}
-
-/* Instagram */
-.containerOne:hover {
-  background-color: #14aa23;
-  transition-duration: 1s;
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3), 0 4px 6px rgba(0, 0, 0, 0.2);
-
-}
-
-/* Facebook */
-.containerTwo:hover {
-  background-color: #b99a5b;
-  transition-duration: 1s;
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3), 0 4px 6px rgba(0, 0, 0, 0.2);
-
-}
-
-/* LinkedIn */
-.containerThree:hover {
-  background-color: #ac0daf;
-  transition-duration: 1s;
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3), 0 4px 6px rgba(0, 0, 0, 0.2);
-
-}
-
-/* WhatsApp */
-.containerFour:hover {
-  background-color: #25d366;
-  transition-duration: 1s;
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3), 0 4px 6px rgba(0, 0, 0, 0.2);
-
-}
-
-.socialContainer:active {
-  transform: scale(0.9);
-  transition-duration: 1s;
-}
-
-.socialSvg {
-  width: 17px;
-}
-
-.socialSvg path {
-  fill: rgb(255, 255, 255);
-}
-
-.iconNav {
-  width: 24px;
-}
-
-.iconNav path {
-  fill: rgb(255, 255, 255);
-}
-
-.socialContainer:hover .socialSvg {
-  animation: slide-in-top .5s both;
-}
-
-@keyframes slide-in-top {
-  0% {
-    transform: translateY(-50px);
-    opacity: 0;
+/* Ajustes para móviles (<768px) */
+@media (max-width: 767.98px) {
+  /* Cuando se colapsa, vamos a mostrarlo en columna,
+     pero alineado a la derecha si querés */
+  .myNav-ul {
+    flex-direction: column;
+    align-items: flex-end; /* se pegue a la derecha */
   }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-.logoFont{
-  font-family: "Megrim", system-ui;
-  font-weight: 400;
-  font-style: normal;
-}
-.userName{
-  font-family: "Roboto", system-ui;
-  font-weight: 400;
-  font-style: normal;
-  color: rgb(255, 255, 255);
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }

@@ -28,7 +28,7 @@ const GetList = () => {
             </>
           ) : (
             <>
-              Descargar Excel Total <i className="fas fa-arrow-down"></i>
+              Descargar Excel de usuarios pagos <i className="fas fa-arrow-down"></i>
             </>
           )}
         </button>

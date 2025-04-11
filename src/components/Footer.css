@@ -1,13 +1,15 @@
 .footer {
     text-align: center;
-    padding: 10px 0;
+    padding: 5px 0;
     background: linear-gradient(to bottom, rgba(62, 87, 100, 0), rgba(62, 87, 100, 1)); /* Transparencia total arriba */
     color: white;
     font-size: 11px;
     position: fixed;
     width: 100%;
+    height: 12vh;
     bottom: 0;
     z-index: 1000;
+    margin-top: 1vh;
   }
   
 .footer:hover {
@@ -16,8 +18,12 @@
     cursor: pointer;
     /* Agrega un puntero interactivo */
 }
-.logoFont{
+.logoFont {
+  color: black;
+  text-decoration: none;
   font-family: "Megrim", system-ui;
   font-weight: 400;
   font-style: normal;
+  margin-bottom: 0;
+  font-size: 2rem; /* Ajustá este valor a lo que te guste */
 }

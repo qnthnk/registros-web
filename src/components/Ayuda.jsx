@@ -50,8 +50,8 @@ const Ayuda = () => {
         <>
         <img src={tope} style={{width:"100%", height:"90px"}} alt="tope" className="tope" />
     
-    <div className="grid-form p-5" style={{height:"100vh"}}>
-      <h1>Preguntas Frecuentes</h1>
+    <div className="grid-form p-5" style={{height:"65vh"}}>
+      <h1 className='mb-4'>Preguntas Frecuentes</h1>
       <div className="faq-list">
         {faqData.map((faq, index) => (
           <details key={index} className="faq-item">

@@ -5,7 +5,6 @@ import CardFront from './CardFront';
 import CardBack from './CardBack';
 import './CreateCustomer.css';
 import './CardFlip.css';
-import tope from './../img/Blanco.png';
 import Swal from 'sweetalert2'
 import edompiosmex from './../edompiosmex.json';
 
@@ -197,8 +196,8 @@ const CreateCustomer = () => {
       return;
     }
     const { exists, deudor } = await verifyCurp();
-    if (exists && !deudor) 
-      {Swal.fire({
+    if (exists && !deudor) {
+      Swal.fire({
         title: "El registro no se puede actualizar porque ha sido marcado como pagado.",
         icon: "warning",
         draggable: true
@@ -207,11 +206,12 @@ const CreateCustomer = () => {
     }
     try {
       let result = await actions.createCustomer(customerData);
-      if (result) {Swal.fire({
-              title: "Registro creado con éxito.",
-              icon: "success",
-              draggable: true
-            });
+      if (result) {
+        Swal.fire({
+          title: "Registro creado con éxito.",
+          icon: "success",
+          draggable: true
+        });
         if (clearAfterSubmit) {
           resetFields();
         }
@@ -237,7 +237,7 @@ const CreateCustomer = () => {
       cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
-      resetFields();
+        resetFields();
       }
     });
   };
@@ -260,52 +260,53 @@ const CreateCustomer = () => {
 
   return (
     <>
-        <img src={tope} style={{width:"100%", height:"90px"}} alt="tope" className="tope" />
-        
-    <div className="create-customer-container">
-      <h1 style={{ color: "black", fontWeight: "bolder" }}>Alta de registros</h1>
-      <br />
+      {/* <img src={tope} style={{width:"100%", height:"90px"}} alt="tope" className="tope" /> */}
 
-      {/** Contenedor GRID con 3 áreas: card, form, controls */}
-      <div className="container-grid">
-        {/* Área 1: Card */}
+      <div className="create-customer-container">
+        {/* <h1 style={{ color: "black", fontWeight: "bolder", display: "flex", justifyContent: "center", alignItems: "center", marginTop: "6vh", marginBottom: "4vh" }}>Alta de registros</h1> */}
 
-        <div className="cardNew">
-          <div className="cardNew-inner">
-            <div className="cardNew-front">
-              <div className="grid-card">
-                <CardFront data={customerData} localImage={localImage} />
+
+        {/** Contenedor GRID con 3 áreas: card, form, controls */}
+        <div className="container-grid" style={{ marginTop: "9vh", marginBottom: "4vh" }}>
+          {/* Área 1: Card */}
+
+          <div className="cardNew">
+            <div className="cardNew-inner">
+              <div className="cardNew-front">
+                <div className="grid-card">
+                  <CardFront data={customerData} localImage={localImage} />
+                </div>
+              </div>
+              <div className="cardNew-back">
+                <CardBack data={customerData} localImage={localImage} />
               </div>
             </div>
-            <div className="cardNew-back">
-            <CardBack data={customerData} localImage={localImage} />
-            </div>
           </div>
-        </div>
-        {/* Área 2: Form */}
+          {/* Área 2: Form */}
           <div className="grid-form" ref={formContainerRef}>
             <form onSubmit={handleSubmit} className="customer-form p-3">
-              <h3>Datos Generales</h3>
-            <div className="form-group">
-              <label>CURP:</label>
-              <input
-                type="text"
-                name="curp"
-                value={customerData.curp}
-                onChange={handleChange}
-                onBlur={(e) => {
-                  if (e.target.value.length !== 18) {
-                    Swal.fire({
-                      title: "El CURP debe tener 18 dígitos.",
-                      icon: "warning",
-                      draggable: true
-                    });
-                  } else {
-                    handleCurpBlur();
-                  }
-                }}
-                required
-                ref={firstInputRef}
+              <h3>Alta de registros</h3>
+              <h6>Datos Generales</h6>
+              <div className="form-group">
+                <label>CURP:</label>
+                <input
+                  type="text"
+                  name="curp"
+                  value={customerData.curp}
+                  onChange={handleChange}
+                  onBlur={(e) => {
+                    if (e.target.value.length !== 18) {
+                      Swal.fire({
+                        title: "El CURP debe tener 18 dígitos.",
+                        icon: "warning",
+                        draggable: true
+                      });
+                    } else {
+                      handleCurpBlur();
+                    }
+                  }}
+                  required
+                  ref={firstInputRef}
                 />
                 <small className="curp-info">{curpMessage}</small>
               </div>
@@ -328,17 +329,17 @@ const CreateCustomer = () => {
               <div className="form-group">
                 <label>Estructura:</label>
                 <select name="org" value={customerData.org} onChange={handleChange}>
-                <option>Seleccione una opción</option>
-                <option value="Comite Ejecutivo Nacional">Comité Ejecutivo Nacional</option>
-                <option value="Confederacion Nacional Agronomica">Confederación Nacional Agronómica</option>
-                <option value="SAF">SAF</option>
-                <option value="Conmujer">Conmujer</option>
-                <option value="Vanguardia Juvenil Agrarista">Vanguardia Juvenil Agrarista</option>
-                <option value="Ramas de produccion">Ramas de producción</option>
-                <option value="Comite Ejecutivo Estatal">Comité Ejecutivo Estatal</option>
-                <option value="Comite Municipales Campesinos">Comités Municipales Campesinos</option>
-                <option value="Comite de Base Campesino">Comité de Base Campesino</option>
-                <option value="Miembro Activo">Miembro Activo</option>
+                  <option>Seleccione una opción</option>
+                  <option value="Comite Ejecutivo Nacional">Comité Ejecutivo Nacional</option>
+                  <option value="Confederacion Nacional Agronomica">Confederación Nacional Agronómica</option>
+                  <option value="SAF">SAF</option>
+                  <option value="Conmujer">Conmujer</option>
+                  <option value="Vanguardia Juvenil Agrarista">Vanguardia Juvenil Agrarista</option>
+                  <option value="Ramas de produccion">Ramas de producción</option>
+                  <option value="Comite Ejecutivo Estatal">Comité Ejecutivo Estatal</option>
+                  <option value="Comite Municipales Campesinos">Comités Municipales Campesinos</option>
+                  <option value="Comite de Base Campesino">Comité de Base Campesino</option>
+                  <option value="Miembro Activo">Miembro Activo</option>
                 </select>
                 <hr />
               </div>
@@ -370,16 +371,16 @@ const CreateCustomer = () => {
               <div className="form-group">
                 <label>Municipio:</label>
                 <select
-                name="municipio_dir"
-                value={customerData.municipio_dir}
-                onChange={handleChange}
+                  name="municipio_dir"
+                  value={customerData.municipio_dir}
+                  onChange={handleChange}
                 >
-                <option value="">Seleccione un municipio</option>
-                {edompiosmex[localStorage.getItem('name')]?.map((municipio, index) => (
-                  <option key={index} value={municipio}>
-                  {municipio}
-                  </option>
-                ))}
+                  <option value="">Seleccione un municipio</option>
+                  {edompiosmex[localStorage.getItem('name')]?.map((municipio, index) => (
+                    <option key={index} value={municipio}>
+                      {municipio}
+                    </option>
+                  ))}
                 </select>
               </div>
               <hr />
@@ -406,46 +407,46 @@ const CreateCustomer = () => {
               </div>
               <div className="form-group file-input">
                 <label>Foto de Credencial:</label>
-                <input  type="file" onChange={(e) => uploadImageToDriveHandler(e, 'url_image_self_photo', setLoadingSelfPhoto)} />
+                <input type="file" onChange={(e) => uploadImageToDriveHandler(e, 'url_image_self_photo', setLoadingSelfPhoto)} />
                 {loadingSelfPhoto && <span>Cargando imagen...</span>}
                 {localImage && (
-                <img src={localImage} alt="Self" className="preview-image" />
+                  <img src={localImage} alt="Self" className="preview-image" />
                 )}
               </div>
-              </form>
-            </div>
-
-            {/* Área 3: Controls (checkbox + botones) */}
-        <div className="grid-controls">
-          <div className="toggle-gr</button>oup">
-            <label htmlFor="clearToggle">Borrar campos al terminar de crear/actualizar?:</label>
-            <br />
-            <input
-              type="checkbox"
-              id="clearToggle"
-              checked={clearAfterSubmit}
-              onChange={handleToggleClear}
-            />
-            <span>{clearAfterSubmit ? "Activado" : "Marca para activar el borrado automático."}</span>
+            </form>
           </div>
-          <div className="button-group mb-3">
-            {(!updateMode || (updateMode && customerDeudor)) && (
-              <button type="submit" onClick={handleSubmit} className="buttonCreate">
-                <span className="transition"></span>
-  <span className="gradient"></span>
-  <span className="label">{updateMode ? "Actualizar datos" : "Guardar registro"}</span>
-                
+
+          {/* Área 3: Controls (checkbox + botones) */}
+          <div className="grid-controls">
+            <div className="toggle-gr</button>oup">
+              <label htmlFor="clearToggle">Borrar campos al terminar de crear/actualizar?:</label>
+              <br />
+              <input
+                type="checkbox"
+                id="clearToggle"
+                checked={clearAfterSubmit}
+                onChange={handleToggleClear}
+              />
+              <span>{clearAfterSubmit ? "Activado" : "Marca para activar el borrado automático."}</span>
+            </div>
+            <div className="button-group mb-3">
+              {(!updateMode || (updateMode && customerDeudor)) && (
+                <button type="submit" onClick={handleSubmit} className="buttonCreate">
+                  <span className="transition"></span>
+                  <span className="gradient"></span>
+                  <span className="label">{updateMode ? "Actualizar datos" : "Guardar registro"}</span>
+
+                </button>
+              )}
+              <button type="button" className="buttonClean" onClick={handleClearFields}>
+                <span className="buttonClean-content">
+                  Limpiar formulario
+                </span>
               </button>
-            )}
-            <button type="button" className="buttonClean" onClick={handleClearFields}>
-              <span className="buttonClean-content">
-                Limpiar formulario
-              </span>
-            </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
     </>
   );
 };
