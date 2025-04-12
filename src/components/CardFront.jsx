@@ -9,13 +9,13 @@ const CardFront = ({ data, localImage }) => {
       {data.url_image_self_photo ? (
         <img
           className="cardHolderPicture"
-          src={localImage || tope}
+          src={localImage}
           alt="Foto"
         />
       ) : (
         <img
           className="cardHolderPicture"
-          src="/path/to/default/image.jpg"
+          src={tope}
           alt="Default Foto"
         />
       )}

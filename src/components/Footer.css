@@ -12,12 +12,6 @@
     margin-top: 1vh;
   }
   
-.footer:hover {
-    color: #f00000;
-    /* Cambia el color al pasar el mouse */
-    cursor: pointer;
-    /* Agrega un puntero interactivo */
-}
 .logoFont {
   color: black;
   text-decoration: none;
@@ -26,4 +20,8 @@
   font-style: normal;
   margin-bottom: 0;
   font-size: 2rem; /* Ajustá este valor a lo que te guste */
+}
+.logoFont:hover {
+  color: white;
+  text-decoration: none;
 }
