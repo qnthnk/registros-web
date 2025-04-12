@@ -52,12 +52,12 @@ console.log("Nombre de la firma:", signature);
         <p className="cardHolderEntidad">{matchedEntity ? matchedEntity.entidad : "Entidad no encontrada"}</p>
         <p className="cardHolderLider">{matchedEntity ? matchedEntity.lider : "Líder no encontrado"}</p>
 
-        <img 
+        {/* <img 
         // hay que resolver lo de la firma
           src={signature ? `./../img/firmas/${signature}.png` : tope}
           alt="Firma" 
           className="cardHolderFirma"
-        />
+        /> */}
       </div>
     </>
   );

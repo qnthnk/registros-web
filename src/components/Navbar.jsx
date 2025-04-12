@@ -91,14 +91,8 @@ const Navbar = () => {
     <nav className="custom-navbar navbar navbar-expand-md fixed-top">
       <div className="container-fluid">
         {/* Logo y Título */}
-        <a
-          className="navbar-brand d-flex align-items-center"
-          href="#!"
-          onClick={() => navigate("/")}
-        >
           <img src={logo3} alt="Logo" className="navbar-logo" />
           <h2 className="navbar-title">{name}</h2>
-        </a>
 
         {/* Botón hamburguesa: sin data-bs-toggle, controlado manualmente */}
         <button
@@ -109,6 +103,7 @@ const Navbar = () => {
           aria-expanded="false"
           aria-label="Toggle navigation"
           style={{ border: "none", background: "transparent" }}
+          border="none"
         >
           <TiThMenu style={{ fontSize: "2em", color: "black" }} />
         </button>
@@ -129,22 +124,10 @@ const Navbar = () => {
                 <FaHome style={{ fontSize: "1.5em" }} />
               </button>
             </li>
+            
             <li className="nav-item">
               <button
-                className="socialContainerNav"
-                onClick={() => navigate("/ayuda")}
-                style={{ cursor: "pointer" }}
-                data-bs-toggle="tooltip"
-                data-bs-trigger="hover"
-                data-bs-placement="left"
-                title="Ayuda"
-              >
-                <BiSolidHelpCircle style={{ fontSize: "1.5em" }} />
-              </button>
-            </li>
-            <li className="nav-item">
-              <button
-                className="socialContainerNav"
+                className="socialContainerNav "
                 onClick={() => navigate("/createcustomer")}
                 style={{ cursor: "pointer" }}
                 data-bs-toggle="tooltip"
@@ -170,7 +153,7 @@ const Navbar = () => {
             </li>
             <li className="nav-item">
               <button
-                className="socialContainerNav"
+                className="socialContainerNav "
                 onClick={() => navigate("/busca-socio")}
                 style={{ cursor: "pointer" }}
                 data-bs-toggle="tooltip"
@@ -179,6 +162,19 @@ const Navbar = () => {
                 title="Buscar Socio"
               >
                 <FaSearch style={{ fontSize: "1.5em" }} />
+              </button>
+            </li>
+            <li className="nav-item">
+              <button
+                className="socialContainerNav "
+                onClick={() => navigate("/ayuda")}
+                style={{ cursor: "pointer" }}
+                data-bs-toggle="tooltip"
+                data-bs-trigger="hover"
+                data-bs-placement="left"
+                title="Ayuda"
+              >
+                <BiSolidHelpCircle style={{ fontSize: "1.5em" }} />
               </button>
             </li>
             {isAdmin && (
