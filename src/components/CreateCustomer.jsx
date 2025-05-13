@@ -285,8 +285,7 @@ const CreateCustomer = () => {
           {/* Área 2: Form */}
           <div className="grid-form" ref={formContainerRef}>
             <form onSubmit={handleSubmit} className="customer-form p-3">
-              <h3>Alta de registros</h3>
-              <h6>Datos Generales</h6>
+              <h1>Alta de registros</h1>
               <div className="form-group">
                 <label>CURP:</label>
                 <input
@@ -418,8 +417,8 @@ const CreateCustomer = () => {
 
           {/* Área 3: Controls (checkbox + botones) */}
           <div className="grid-controls">
-            <div className="toggle-gr</button>oup">
-              <label htmlFor="clearToggle">Borrar campos al terminar de crear/actualizar?:</label>
+            <div className="toggle-group">
+              <label htmlFor="clearToggle" style={{color:"rgb(12, 12, 12)", fontSize:"larger"}}>Borrar campos al terminar</label>
               <br />
               <input
                 type="checkbox"

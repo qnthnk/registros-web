@@ -80,17 +80,25 @@
   
   .form-group label {
     margin-bottom: 0.3rem;
+    font-size: xx-large;
     font-weight: bold;
   }
   
   .form-group input,
   .form-group select {
-    padding: 0.5rem;
-    border: 1px solid #000000;
-    border-radius: 4px;
-    background-color: #ffffff;
-    color: #000000;
-    box-sizing: border-box
+    padding: 1rem 1.2rem;
+	margin: 1rem;
+	border-radius: 2rem;
+	display: block;
+	width: 90%;
+	border: none;
+	box-shadow: inset 6px 6px 8px rgba(97, 97, 97, 0.075),
+	  6px 6px 6px rgba(255, 255, 255, 0.781);
+	outline: none;
+	background-color: 'inherit';
+	color: rgb(36, 34, 34);
+	font-size: inherit;
+	font-weight: bold;
   }
   
   .file-input input {
@@ -147,7 +155,7 @@
   
   /* Ajustes para el scroll interno del form */
   .grid-form {
-    height: 380px;
+    height: 600px;
     overflow-y: auto;
     background-color: rgba(217, 217, 217, 0.58);
     padding: 10px;
@@ -158,6 +166,7 @@
     border-radius: 17px;
     text-align: center;
     transition: all 0.5s;
+    width: 85%;
     
 
     
@@ -356,3 +365,156 @@ line-height: 1.1;
   text-transform: uppercase;
   font-size:12px
 }
+/* From Uiverse.io by sameer2malik */ 
+.containerLI {
+	height: 100%;
+	width: 100%;
+  }
+  
+  .hero {
+	padding: 60px 20px;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+  }
+  
+  .form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	font-size: 1rem;
+	
+  }
+  
+  .input {
+	padding: 1rem 1.2rem;
+	margin: 1rem;
+	border-radius: 2rem;
+	display: block;
+	width: 100%;
+	border: none;
+	box-shadow: inset 6px 6px 8px rgba(97, 97, 97, 0.075),
+	  6px 6px 6px rgba(255, 255, 255, 0.781);
+	outline: none;
+	background-color: inherit;
+	color: rgb(36, 34, 34);
+	font-size: inherit;
+	font-weight: bold;
+  }
+  
+  .submit , .btn {
+	margin-top: 20px;
+	font-weight: bold;
+	box-shadow: -3px -3px 5px white, 3px 3px 5px rgba(209, 209, 209, 0.705);
+	color: rgb(236, 11, 11);
+	cursor: pointer;
+  }
+  
+  .btn {
+	text-align: center;
+	color: black;
+  }
+  
+  .logo {
+	font-size: 3rem;
+	color: black;
+	font-weight: 600;
+	margin: 30px;
+  }
+  
+  ::placeholder {
+	color: rgb(161, 161, 161);
+  }
+  
+  .forgotten {
+	text-align: center;
+	font-size: .8rem;
+	width: 80%;
+	color: gray;
+	margin: 15px 0;
+  }
+  
+  a {
+	color: inherit;
+	font-weight: bold;
+	text-decoration: none;
+  }
+  
+  .or {
+	position: relative;
+	font-weight: bold;
+	color: rgb(112, 112, 112);
+  }
+  
+  .or::before , .or::after {
+	position: absolute;
+	content: '';
+	width: 700%;
+	height: 1px;
+	top: 50%;
+	margin: 0 6px;
+	background-color: rgba(0, 0, 0, 0.479);
+  }
+  
+  .or::before {
+	right: 100%;
+  }
+  
+  .or::after {
+  }
+  
+  .signup {
+	color: gray;
+	margin-top: 15px;
+	font-size: 1rem;
+  }
+
+  /* From Uiverse.io by mobinkakei */ 
+.btnLG {
+	width: 140px;
+	height: 50px;
+	background: linear-gradient(to top, #1d54e0, #12376e, #23487f);
+	color: #fff;
+	border-radius: 50px;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	position: relative;
+	box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+	overflow: hidden;
+  }
+  
+  .btnLG span {
+	font-size: 12px;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	transition: top 0.5s;
+  }
+  
+  .btnLG-text-one {
+	position: absolute;
+	width: 100%;
+	top: 50%;
+	left: 0;
+	transform: translateY(-50%);
+  }
+  
+  .btnLG-text-two {
+	position: absolute;
+	width: 100%;
+	top: 150%;
+	left: 0;
+	transform: translateY(-50%);
+  }
+  
+  .btnLG:hover .btnLG-text-one {
+	top: -100%;
+  }
+  
+  .btnLG:hover .btnLG-text-two {
+	top: 50%;
+  }
+  

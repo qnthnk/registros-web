@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Context } from '../js/store/appContext';
 import { useNavigate } from 'react-router-dom';
-import './Navbar.css'; // Importa el CSS personalizado
+import './Navbar.css';
 import logo3 from '../img/LOGOCNC.png';
 
 // React Icons
@@ -11,7 +11,7 @@ import { VscSignOut } from 'react-icons/vsc';
 import { TiThMenu } from 'react-icons/ti';
 import { RiAdminFill } from 'react-icons/ri';
 
-// Importá Tooltip y Collapse de bootstrap
+// Bootstrap
 import { Tooltip, Collapse } from 'bootstrap';
 
 const Navbar = () => {
@@ -33,7 +33,6 @@ const Navbar = () => {
     }
   }, [token, actions]);
 
-  // Función para inicializar los tooltips
   const initTooltips = () => {
     const tooltipTriggerList = Array.from(
       document.querySelectorAll('[data-bs-toggle="tooltip"]')
@@ -47,14 +46,11 @@ const Navbar = () => {
     });
   };
 
-  // Inicializar tooltips al montar
   useEffect(() => {
     initTooltips();
   }, []);
 
-  // Handler para el toggler (botón hamburguesa)
   const handleToggle = () => {
-    // Desecha tooltips activos
     const tooltipTriggerList = Array.from(
       document.querySelectorAll('[data-bs-toggle="tooltip"]')
     );
@@ -63,7 +59,6 @@ const Navbar = () => {
       if (instance) instance.dispose();
     });
 
-    // Controlar el collapse manualmente
     const collapseEl = document.getElementById('navbarCollapseContent');
     let collapseInstance = Collapse.getInstance(collapseEl);
     if (!collapseInstance) {
@@ -74,10 +69,19 @@ const Navbar = () => {
     } else {
       collapseInstance.show();
     }
-    // Re-activar tooltips un poco después de togglear
+
     setTimeout(() => {
       initTooltips();
     }, 300);
+  };
+
+  // 👉 Función para cerrar el menú colapsable
+  const closeNavbarMenu = () => {
+    const collapseEl = document.getElementById('navbarCollapseContent');
+    const collapseInstance = Collapse.getInstance(collapseEl);
+    if (collapseInstance && collapseEl.classList.contains('show')) {
+      collapseInstance.hide();
+    }
   };
 
   const handlerLogOut = () => {
@@ -91,10 +95,10 @@ const Navbar = () => {
     <nav className="custom-navbar navbar navbar-expand-md fixed-top">
       <div className="container-fluid">
         {/* Logo y Título */}
-          <img src={logo3} alt="Logo" className="navbar-logo" />
-          <h2 className="navbar-title">{name}</h2>
+        <img src={logo3} alt="Logo" className="navbar-logo" />
+        <h2 className="navbar-title">{name}</h2>
 
-        {/* Botón hamburguesa: sin data-bs-toggle, controlado manualmente */}
+        {/* Botón hamburguesa */}
         <button
           className="navbar-toggler"
           type="button"
@@ -103,7 +107,6 @@ const Navbar = () => {
           aria-expanded="false"
           aria-label="Toggle navigation"
           style={{ border: "none", background: "transparent" }}
-          border="none"
         >
           <TiThMenu style={{ fontSize: "2em", color: "black" }} />
         </button>
@@ -114,8 +117,10 @@ const Navbar = () => {
             <li className="nav-item">
               <button
                 className="socialContainerNav"
-                onClick={() => navigate("/")}
-                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  navigate("/");
+                  closeNavbarMenu();
+                }}
                 data-bs-toggle="tooltip"
                 data-bs-trigger="hover"
                 data-bs-placement="left"
@@ -124,12 +129,14 @@ const Navbar = () => {
                 <FaHome style={{ fontSize: "1.5em" }} />
               </button>
             </li>
-            
+
             <li className="nav-item">
               <button
-                className="socialContainerNav "
-                onClick={() => navigate("/createcustomer")}
-                style={{ cursor: "pointer" }}
+                className="socialContainerNav"
+                onClick={() => {
+                  navigate("/createcustomer");
+                  closeNavbarMenu();
+                }}
                 data-bs-toggle="tooltip"
                 data-bs-trigger="hover"
                 data-bs-placement="left"
@@ -138,11 +145,14 @@ const Navbar = () => {
                 <FaPlus style={{ fontSize: "1.5em" }} />
               </button>
             </li>
+
             <li className="nav-item">
               <button
                 className="socialContainerNav"
-                onClick={() => navigate("/registros")}
-                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  navigate("/registros");
+                  closeNavbarMenu();
+                }}
                 data-bs-toggle="tooltip"
                 data-bs-trigger="hover"
                 data-bs-placement="left"
@@ -151,11 +161,14 @@ const Navbar = () => {
                 <FaListAlt style={{ fontSize: "1.5em" }} />
               </button>
             </li>
+
             <li className="nav-item">
               <button
-                className="socialContainerNav "
-                onClick={() => navigate("/busca-socio")}
-                style={{ cursor: "pointer" }}
+                className="socialContainerNav"
+                onClick={() => {
+                  navigate("/busca-socio");
+                  closeNavbarMenu();
+                }}
                 data-bs-toggle="tooltip"
                 data-bs-trigger="hover"
                 data-bs-placement="left"
@@ -164,11 +177,14 @@ const Navbar = () => {
                 <FaSearch style={{ fontSize: "1.5em" }} />
               </button>
             </li>
+
             <li className="nav-item">
               <button
-                className="socialContainerNav "
-                onClick={() => navigate("/ayuda")}
-                style={{ cursor: "pointer" }}
+                className="socialContainerNav"
+                onClick={() => {
+                  navigate("/ayuda");
+                  closeNavbarMenu();
+                }}
                 data-bs-toggle="tooltip"
                 data-bs-trigger="hover"
                 data-bs-placement="left"
@@ -177,28 +193,32 @@ const Navbar = () => {
                 <BiSolidHelpCircle style={{ fontSize: "1.5em" }} />
               </button>
             </li>
+
             {isAdmin && (
               <li className="nav-item">
                 <button
                   className="socialContainerNav"
-                  onClick={() => navigate("/admin")}
-                  style={{ cursor: "pointer" }}
+                  onClick={() => {
+                    navigate("/admin");
+                    closeNavbarMenu();
+                  }}
                   data-bs-toggle="tooltip"
                   data-bs-trigger="hover"
                   data-bs-placement="left"
-                  data-bs-boundary="window"
-                  data-bs-container="body"
                   title="Admin"
                 >
                   <RiAdminFill style={{ fontSize: "1.5em" }} />
                 </button>
               </li>
             )}
+
             <li className="nav-item">
               <button
                 className="socialContainerNav"
-                onClick={handlerLogOut}
-                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  handlerLogOut();
+                  closeNavbarMenu();
+                }}
                 data-bs-toggle="tooltip"
                 data-bs-trigger="hover"
                 data-bs-placement="left"

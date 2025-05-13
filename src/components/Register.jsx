@@ -68,7 +68,8 @@ const Register = () => {
   };
 
   return (
-    <div className='wrapper' >
+    <div className='ContainerRMC' >
+        <div className='containerH'>
       <form onSubmit={handleSubmit}>
         <h1>Regístrate</h1>
         <div className="input-box">
@@ -106,6 +107,7 @@ const Register = () => {
           <label className="clickLogueate" onClick={() => navigate('/')}>Ya tenés cuenta? Logueate acá</label>
         </div>
       </form>
+      </div>
     </div>
   );
 }
