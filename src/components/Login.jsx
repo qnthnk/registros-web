@@ -117,7 +117,7 @@ const Login = () => {
                     <option value="terminaluser@example.com">user</option>
                     <option value="responsable@example.com">Admin</option>
                     <option value="Nacional">Nacional</option>
-                    <option value="Aguascalientes">Aguascalientes</option>
+                    <option value="AGUASCALIENTES">Aguascalientes</option>
                     <option value="Baja California">Baja California</option>
                     <option value="Baja California Sur">Baja California Sur</option>
                     <option value="Campeche">Campeche</option>
