@@ -97,6 +97,13 @@ const Login = () => {
               >
                 <img src={logo3} alt="Logo" className="navbar-logo" />
                 <div className="row">
+                {/* <input
+                    id="entidad"
+                    value={email}
+                    onChange={(e) => handlerSetEmail(e.target.value)}
+                    required
+                    className="input"
+                  /> */}
                   <select
                     id="entidad"
                     value={email}
@@ -108,6 +115,7 @@ const Login = () => {
                       Seleccione un estado
                     </option>
                     <option value="terminaluser@example.com">user</option>
+                    <option value="responsable@example.com">Admin</option>
                     <option value="Nacional">Nacional</option>
                     <option value="Aguascalientes">Aguascalientes</option>
                     <option value="Baja California">Baja California</option>
