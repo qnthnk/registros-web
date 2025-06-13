@@ -6,7 +6,7 @@ import CardBack from './CardBack';
 import './CreateCustomer.css';
 import './CardFlip.css';
 import Swal from 'sweetalert2'
-import edompiosmex from './../edompiosmex.json';
+import edompiosmex from './../../src/components/estadosympios.json';
 
 const initialCustomerData = {
   name: '',
