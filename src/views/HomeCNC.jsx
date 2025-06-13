@@ -14,6 +14,15 @@ const cuponeraStyle = {
 
 const HomeCNC = () => {
 
+  const handleDescarga = () => {
+    const link = document.createElement('a');
+    link.href = Cuponera;
+    link.download = 'cuponera.jpg';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
 
   return (
     <>
@@ -24,6 +33,12 @@ const HomeCNC = () => {
         <div className="containerLI" style={{ overflow: "hidden" }}>
           <h3 className="titleCNC">Cupones del mes</h3>
         <img src={Cuponera} alt="Cuponera" style={cuponeraStyle} />
+        <button 
+            onClick={handleDescarga} 
+            className='btn btn-success'
+          >
+            Descargar cuponera
+          </button>
         </div>
         </div>
 
